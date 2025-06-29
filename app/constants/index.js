@@ -1,17 +1,17 @@
 // index.js
-export const servicesData = [
+export const skillsData = [
   {
     title: "FullStack Development",
     description:
-      "Your business deserves a fast, secure, and future-proof digital foundation. I develop custom web apps with clean architecture, optimized databases, and seamless integrations—ensuring reliability at every layer.",
+      "I develop custom web apps with clean Design, Architecture, Optimized Databases, and Seamless integrations—ensuring reliability at every layer.",
     items: [
+      {
+        title: "Frontend Excellence",
+        description: "(React, Vue, TypeScript, Vanilla JS, Interactive UI/UX)",
+      },
       {
         title: "Backend Engineering",
         description: "(REST/GraphQL APIs, Microservices, Auth Systems)",
-      },
-      {
-        title: "Frontend Excellence",
-        description: "(React, Vue, TypeScript, Interactive UI/UX)",
       },
       {
         title: "Database Design",
@@ -22,7 +22,7 @@ export const servicesData = [
   {
     title: "DevOps & Cloud Solutions",
     description:
-      "Deploying software shouldn't be a gamble. I automate infrastructure, enforce security, and leverage cloud platforms (AWS/Azure) to keep your app running smoothly—24/7, at any scale.",
+      "I automate infrastructure, enforce security, and leverage cloud platforms (AWS/Azure) to keep your softwares running smoothly—24/7, at any scale.",
     items: [
       {
         title: "CI/CD Pipelines",
@@ -41,7 +41,7 @@ export const servicesData = [
   {
     title: "Security & Optimization",
     description:
-      "Slow or hacked apps destroy trust. I harden security (XSS/SQLI protection, OAuth) and optimize bottlenecks so your app stays fast, safe, and scalable as you grow.",
+      "I harden security (XSS/SQLI protection, OAuth) and optimize bottlenecks so your app stays fast, safe, and scalable as you grow.",
     items: [
       {
         title: "Code Audits",
@@ -80,11 +80,12 @@ export const servicesData = [
 export const projects = [
   {
     id: 1,
-    name: "GetGenie AI",
+    name: "GetGenie AI - Content Generator",
     description:
-      "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
-    href: "",
+      "WordPress Gutenberg based AI Plugin. Perfect for generating SEO optimized content for your websites and Blogs. ",
+    href: "https://medium.com/@emrn.hossn/getgenie-ai-7c809cd78fc3",
     image: "/assets/projects/get_genie1.gif",
+    bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "React" },
       { id: 2, name: "Next.js" },
@@ -95,26 +96,27 @@ export const projects = [
   },
   {
     id: 2,
-    name: "FujiFilm Diosynth",
+    name: "FujiFilm Diosynth - A Dashboard",
     description:
-      "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
-    href: "",
+      "A Data intensive Dashboard for FujiFilm Biotech Laboratories. A multi-tiered and interactive web app redesigned.",
+    href: "https://medium.com/@emrn.hossn/getgenie-ai-7c809cd78fc3",
     image: "/assets/projects/project1.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
-      { id: 1, name: "React" },
-      { id: 2, name: "Next.js" },
-      { id: 3, name: "Stripe API" },
-      { id: 4, name: "Tailwind CSS" },
+      { id: 1, name: "Angular" },
+      { id: 2, name: "Tailwind CSS" },
+      { id: 3, name: "MongoDB" },
+      { id: 4, name: "oAuth, JWT" },
     ],
   },
   {
     id: 3,
-    name: "InsideMaps Capture",
+    name: "InsideMaps Capture - iOS App",
     description:
-      "An e-commerce platform for Apple products and accessories with deals and category filtering.",
-    href: "",
+      "An iOS app to turn your images of your homes into interactive 3D tours. Ideal for Real estate appraisers",
+    href: "https://medium.com/@emrn.hossn/insidemaps-capture-50fdd5c0a862",
     image: "/assets/projects/Hero-Image-1.png",
+    bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
       { id: 1, name: "Blazor" },
       { id: 2, name: "ASP.NET Core" },
@@ -124,11 +126,11 @@ export const projects = [
   },
   {
     id: 4,
-    name: "MatchTrack",
-    description:
-      "A multi-category online shop featuring electronics, home appliances, and gaming gear with special offers.",
-    href: "",
+    name: "MatchTrack - Mobile App",
+    description: "React Native.",
+    href: "https://medium.com/@emrn.hossn/matchtrack-564d2ddb91a1",
     image: "/assets/projects/project3.png",
+    bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
       { id: 1, name: "Vue.js" },
       { id: 2, name: "Laravel" },
@@ -138,11 +140,12 @@ export const projects = [
   },
   {
     id: 5,
-    name: "The Office Outlet",
+    name: "The Office Outlet - Web App",
     description:
       "A curated collection of designer home decor items, including furniture and artisan vases.",
-    href: "",
+    href: "https://clearlybestemran.substack.com/p/office-outlet",
     image: "/assets/projects/office1.gif",
+    bgImage: "/assets/backgrounds/table.jpg",
     frameworks: [
       { id: 1, name: "Angular" },
       { id: 2, name: "Firebase" },
@@ -152,10 +155,10 @@ export const projects = [
   },
   {
     id: 6,
-    name: "InsideMaps Website Redesign",
+    name: "InsideMaps Website - UX Redesign",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
-    href: "",
+    href: "https://clearlybestemran.substack.com/p/corporate-website-redesign",
     image: "/assets/projects/redesign1.webp",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [

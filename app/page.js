@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import ServiceSummary from "./sections/ServiceSummary";
-import Services from "./sections/Services";
+import Skills from "./sections/Skills";
 import ReactLenis from "lenis/react";
 import About from "./sections/About";
 import Works from "./sections/Works";
@@ -22,7 +22,7 @@ const Page = () => {
   }, [progress]);
 
   return (
-    <ReactLenis root className="relative w-screen min-h-screen overflow-x-auto">
+    <ReactLenis root className="relative w-screen min-h-screen overflow-hidden">
       {!isReady && (
         <div className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 font-light">
           <p className="mb-4 text-xl tracking-widest animate-pulse">
@@ -44,9 +44,9 @@ const Page = () => {
         <Navbar />
         <Hero />
         <ServiceSummary />
-        <Services />
-        <About />
         <Works />
+        <Skills />
+        <About />
         <ContactSummary />
         <Contact />
       </div>
