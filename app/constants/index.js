@@ -80,12 +80,11 @@ export const servicesData = [
 export const projects = [
   {
     id: 1,
-    name: "Mobile Accessories E-commerce",
+    name: "GetGenie AI",
     description:
       "An online store specializing in phone accessories including cases, chargers, cables, and power banks with MagSafe compatibility.",
     href: "",
-    image: "/assets/projects/mobile-accessories-store.jpg",
-    bgImage: "/assets/backgrounds/blanket.jpg",
+    image: "/assets/projects/get_genie1.gif",
     frameworks: [
       { id: 1, name: "React" },
       { id: 2, name: "Next.js" },
@@ -96,11 +95,11 @@ export const projects = [
   },
   {
     id: 2,
-    name: "Plant Shop E-commerce",
+    name: "FujiFilm Diosynth",
     description:
       "An online store specializing in rare and decorative plants with a clean, user-friendly interface.",
     href: "",
-    image: "/assets/projects/plant-shop.jpg",
+    image: "/assets/projects/project1.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
       { id: 1, name: "React" },
@@ -111,12 +110,11 @@ export const projects = [
   },
   {
     id: 3,
-    name: "Apple Tech Marketplace",
+    name: "InsideMaps Capture",
     description:
       "An e-commerce platform for Apple products and accessories with deals and category filtering.",
     href: "",
-    image: "/assets/projects/apple-tech-store.jpg",
-    bgImage: "/assets/backgrounds/map.jpg",
+    image: "/assets/projects/Hero-Image-1.png",
     frameworks: [
       { id: 1, name: "Blazor" },
       { id: 2, name: "ASP.NET Core" },
@@ -126,12 +124,11 @@ export const projects = [
   },
   {
     id: 4,
-    name: "Electronics & Gadgets Store",
+    name: "MatchTrack",
     description:
       "A multi-category online shop featuring electronics, home appliances, and gaming gear with special offers.",
     href: "",
-    image: "/assets/projects/electronics-store.jpg",
-    bgImage: "/assets/backgrounds/poster.jpg",
+    image: "/assets/projects/project3.png",
     frameworks: [
       { id: 1, name: "Vue.js" },
       { id: 2, name: "Laravel" },
@@ -141,12 +138,11 @@ export const projects = [
   },
   {
     id: 5,
-    name: "Home Decor Marketplace",
+    name: "The Office Outlet",
     description:
       "A curated collection of designer home decor items, including furniture and artisan vases.",
     href: "",
-    image: "/assets/projects/home-decor-store.jpg",
-    bgImage: "/assets/backgrounds/table.jpg",
+    image: "/assets/projects/office1.gif",
     frameworks: [
       { id: 1, name: "Angular" },
       { id: 2, name: "Firebase" },
@@ -156,11 +152,11 @@ export const projects = [
   },
   {
     id: 6,
-    name: "Digital Game Store",
+    name: "InsideMaps Website Redesign",
     description:
       "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
     href: "",
-    image: "/assets/projects/game-store.jpg",
+    image: "/assets/projects/redesign1.webp",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
       { id: 1, name: "Svelte" },
