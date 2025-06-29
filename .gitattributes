@@ -5,3 +5,4 @@ public/**/*.webp filter=lfs diff=lfs merge=lfs -text
 public/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 public/**/*.otf filter=lfs diff=lfs merge=lfs -text
 public/**/*.ttf filter=lfs diff=lfs merge=lfs -text
+public/models/Planet.glb filter=lfs diff=lfs merge=lfs -text
