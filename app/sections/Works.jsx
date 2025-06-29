@@ -114,9 +114,8 @@ const Works = () => {
         onMouseMove={handleMouseMove}
       >
         {projects.map((project, index) => (
-          <a href={project.href}>
+          <a href={project.href} key={project.id}>
             <div
-              key={project.id}
               id="project"
               className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
               onMouseEnter={() => handleMouseEnter(index)}
@@ -131,7 +130,7 @@ const Works = () => {
               />
 
               {/* title */}
-              <div className="flex justify-between px-10 text-black transition-all duration-500 md:group-hover:px-12 md:group-hover:text-white">
+              <div className="flex justify-between px-10 text-black transition-all duration-200 md:group-hover:px-12 md:group-hover:text-white">
                 <h2 className="lg:text-[32px] text-[26px] leading-none">
                   {project.name}
                 </h2>

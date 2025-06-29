@@ -102,15 +102,16 @@ const Navbar = () => {
         className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2"
       >
         <div className="flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-8xl">
-          {["home", "services", "about", "work", "contact"].map(
+          {["home", "work", "about", "work", "contact"].map(
             (section, index) => (
               <div key={index} ref={(el) => (linksRef.current[index] = el)}>
                 <Link
-                  className="transition-all duration-300 cursor-pointer hover:text-white"
+                  className="transition-all duration-300 cursor-pointer hover:text-lime-300"
                   to={`${section}`}
                   smooth
                   offset={0}
                   duration={2000}
+                  onClick={toggleMenu}
                 >
                   {section}
                 </Link>
@@ -124,9 +125,12 @@ const Navbar = () => {
         >
           <div className="font-light">
             <p className="tracking-wider text-white/50">E-mail</p>
-            <p className="text-xl tracking-widest lowercase text-pretty">
-              JohnDoe@gmail.com
-            </p>
+            <a href="mailto:emrn.hossn@gmail.com">
+              {" "}
+              <p className="text-xl tracking-widest lowercase text-pretty hover:text-lime-300">
+                emrn.hossn@gmail.com
+              </p>
+            </a>
           </div>
           <div className="font-light">
             <p className="tracking-wider text-white/50">Social Media</p>
@@ -135,7 +139,7 @@ const Navbar = () => {
                 <a
                   key={index}
                   href={social.href}
-                  className="text-sm leading-loose tracking-widest uppercase hover:text-white transition-colors duration-300"
+                  className="text-sm leading-loose tracking-widest uppercase hover:text-lime-300 transition-colors duration-300"
                 >
                   {"{ "}
                   {social.name}

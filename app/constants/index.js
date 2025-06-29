@@ -118,10 +118,10 @@ export const projects = [
     image: "/assets/projects/Hero-Image-1.png",
     bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
-      { id: 1, name: "Blazor" },
-      { id: 2, name: "ASP.NET Core" },
-      { id: 3, name: "SQL Server" },
-      { id: 4, name: "Bootstrap" },
+      { id: 1, name: "SwiftUI" },
+      { id: 2, name: "Core Data" },
+      { id: 3, name: "ARkit" },
+      { id: 4, name: "Core ML" },
     ],
   },
   {
@@ -132,10 +132,10 @@ export const projects = [
     image: "/assets/projects/project3.png",
     bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
-      { id: 1, name: "Vue.js" },
-      { id: 2, name: "Laravel" },
-      { id: 3, name: "MySQL" },
-      { id: 4, name: "SCSS" },
+      { id: 1, name: "React Native" },
+      { id: 2, name: "Tailwind CSS" },
+      { id: 3, name: "Firebase" },
+      { id: 4, name: "SQLite" },
     ],
   },
   {
@@ -170,11 +170,11 @@ export const projects = [
   },
 ];
 export const socials = [
-  { name: "Instagram", href: "https://www.instagram.com/ali.sanatidev/reels/" },
+  { name: "Instagram", href: "https://www.instagram.com/designwithemran/" },
+
   {
-    name: "Youtube",
-    href: "https://www.youtube.com/channel/UCZhtUWTtk3bGJiMPN9T4HWA",
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/emran-hossain-80ab17190/",
   },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/ali-sanati/" },
-  { name: "GitHub", href: "https://github.com/Ali-Sanati" },
+  { name: "GitHub", href: "https://github.com/git-emran" },
 ];

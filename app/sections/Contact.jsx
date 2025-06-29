@@ -8,11 +8,11 @@ const Contact = () => {
   const text = `Got a question, how or project Idea?
     WE’D love to hear from you and discus further!`;
   const items = [
-    "just imagin, I code",
-    "just imagin, I code",
-    "just imagin, I code",
-    "just imagin, I code",
-    "just imagin, I code",
+    "imagine, I build",
+    "imagine, I build",
+    "imagine, I build",
+    "imagine, I build",
+    "imagine, I build",
   ];
   useGSAP(() => {
     gsap.from(".social-link", {
@@ -45,15 +45,20 @@ const Contact = () => {
             <div className="social-link">
               <h2>E-mail</h2>
               <div className="w-full h-px my-2 bg-white/30" />
-              <p className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl">
-                JohnDoe@gmail.com
-              </p>
+              <a href="mailto:emrn.hossn@gmail.com">
+                <p className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl text-white hover:text-lime-300">
+                  emrn.hossn@gmail.com
+                </p>
+              </a>
             </div>
             <div className="social-link">
               <h2>Phone</h2>
               <div className="w-full h-px my-2 bg-white/30" />
               <p className="text-xl lowercase md:text-2xl lg:text-3xl">
-                +33 7 12 12 32 12
+                +1 763 703 9513
+              </p>
+              <p className="text-xl lowercase md:text-2xl lg:text-3xl">
+                +880 188 632 4116
               </p>
             </div>
             <div className="social-link">
@@ -64,7 +69,7 @@ const Contact = () => {
                   <a
                     key={index}
                     href={social.href}
-                    className="text-xs leading-loose tracking-wides uppercase md:text-sm hover:text-white/80 transition-colors duration-200"
+                    className="text-xs leading-loose tracking-wides uppercase md:text-sm hover:text-lime-300 transition-colors duration-200"
                   >
                     {"{ "}
                     {social.name}
