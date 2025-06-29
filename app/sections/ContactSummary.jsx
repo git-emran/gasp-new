@@ -18,6 +18,7 @@ const ContactSummary = () => {
     "let's connect",
     "let's connect",
     "let's connect",
+    "let's connect",
   ];
 
   useGSAP(() => {
