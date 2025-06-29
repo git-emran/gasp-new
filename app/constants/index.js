@@ -1,7 +1,7 @@
 // index.js
 export const skillsData = [
   {
-    title: "FullStack Development",
+    title: "FullStack Design &  Development",
     description:
       "I develop custom web apps with clean Design, Architecture, Optimized Databases, and Seamless integrations—ensuring reliability at every layer.",
     items: [
