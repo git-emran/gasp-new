@@ -114,7 +114,7 @@ const Works = () => {
         onMouseMove={handleMouseMove}
       >
         {projects.map((project, index) => (
-          <a href={project.href} key={project.id}>
+          <a href={project.href} key={project.id} target="_blank">
             <div
               id="project"
               className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
