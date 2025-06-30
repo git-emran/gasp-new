@@ -168,6 +168,21 @@ export const projects = [
       { id: 4, name: "Chakra UI" },
     ],
   },
+  {
+    id: 7,
+    name: "SnapCast - Screen Recording and Video Sharing Platform ",
+    description:
+      "A platform designed and developed by me(Emran). Its an open-source FullStack web app. This is like Loom but with less complicated UI",
+    href: "https://snap-cast-one.vercel.app/sign-in",
+    image: "/assets/projects/snapcast.gif",
+    bgImage: "/assets/backgrounds/blanket.jpg",
+    frameworks: [
+      { id: 1, name: "React" },
+      { id: 2, name: "Next" },
+      { id: 3, name: "Drizzle ORM & Bunny CDN STREAM" },
+      { id: 4, name: "BetterAuth" },
+    ],
+  },
 ];
 export const socials = [
   { name: "Instagram", href: "https://www.instagram.com/designwithemran/" },
