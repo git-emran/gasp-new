@@ -12,7 +12,6 @@ const Contact = () => {
     "imagine, I build",
     "imagine, I build",
     "imagine, I build",
-    "imagine, I build",
   ];
   useGSAP(() => {
     gsap.from(".social-link", {

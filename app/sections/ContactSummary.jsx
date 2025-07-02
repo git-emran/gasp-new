@@ -5,15 +5,8 @@ import gsap from "gsap";
 
 const ContactSummary = () => {
   const containerRef = useRef(null);
-  const items = [
-    "Innovation",
-    "Precision",
-    "Trust",
-    "Collaboration",
-    "Excellence",
-  ];
+  const items = ["Innovation", "Precision", "Trust", "Collaboration"];
   const items2 = [
-    "let's connect",
     "let's connect",
     "let's connect",
     "let's connect",
@@ -36,7 +29,7 @@ const ContactSummary = () => {
   return (
     <section
       ref={containerRef}
-      className="flex flex-col items-center justify-between min-h-screen gap-12 mt-16"
+      className="flex flex-col items-center justify-between min-h-screen gap-12 my-16"
     >
       <Marquee items={items} />
       <div className="overflow-hidden font-light text-center contact-text-responsive">
