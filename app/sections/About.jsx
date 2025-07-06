@@ -5,13 +5,11 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 const About = () => {
-  const text = `Passionate about clean architecture
-    I build scalable, high-performance solutions
-    from prototype to production`;
-  const aboutText = `Obsessed with building fast, intuitive apps—from pixel-perfect UIs to bulletproof serverless backends. Every line of code is a promise: quality that users feel.
-  When I’m not shipping:
-⚡️ Open-sourcing my latest experiment (or hacking on yours)
-🎥 Teaching designers & devs on ADPList—because rising tides lift all ships
+  const text = `I am passionate about clean architecture built to scale resulting in high-performance solutions from prototype to production`;
+  const aboutText = `I build fast, intuitive apps from pixel-perfect interfaces to serverless backends built to scale. Every line of code is a promise: performance, precision and user-first thinking.
+  When I’m not shipping production grade solutions:
+⚡️ Open-sourcing my latest experiment (or riffing on yours)
+🎥 Teaching UX & Dev fundamentals on ADPList - rising tide lift all ships
 🧗 Rock climbing (problem-solving with real stakes)
 🎸 Strumming chords while CI pipelines pass (multitasking at its finest)`;
   const imgRef = useRef(null);
