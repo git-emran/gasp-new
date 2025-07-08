@@ -42,8 +42,8 @@ const ContactSummary = () => {
       <div className="overflow-hidden font-light text-center contact-text-responsive">
         <p>
           “Together, Let’s build <br />
-          <span className="font-normal">Software</span> that looks stunning, feels{" "}
-          <span className="italic">Intuitive</span> <br />
+          <span className="font-normal">Software</span> that looks stunning,{" "}
+          <span className="italic">feels Intuitive</span> <br />
           and performs <span className="text-gold">flawlessly</span> “
         </p>
       </div>
