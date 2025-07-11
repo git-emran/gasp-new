@@ -15,7 +15,7 @@ const Hero = () => {
         textColor={"text-black"}
       />
       <figure
-        className="absolute inset-0 -z-50"
+        className="absolute inset-0 -z-40"
         style={{ width: "100vw", height: "100vh" }}
       >
         <Canvas
@@ -24,7 +24,7 @@ const Hero = () => {
         >
           <ambientLight intensity={0.5} />
           <Float speed={0.5}>
-            <Planet scale={isMobile ? 0.7 : 1} />
+            <Planet scale={isMobile ? 0.7 : 0.8} />
           </Float>
           <Environment resolution={256}>
             <group rotation={[-Math.PI / 3, 4, 1]}>
