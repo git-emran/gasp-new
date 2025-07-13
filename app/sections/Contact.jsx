@@ -6,7 +6,7 @@ import gsap from "gsap";
 
 const Contact = () => {
   const text = `Got a question, how or project Idea?
-    I’D love to hear from you and discus further!`;
+    I’D love to hear from you and discuss further!`;
   const items = [
     "imagine, I build",
     "imagine, I build",
