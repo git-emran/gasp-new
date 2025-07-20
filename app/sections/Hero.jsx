@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber";
+import { Planet } from "../components/Planet";
 import { Environment, Float, Lightformer } from "@react-three/drei";
 import { useMediaQuery } from "react-responsive";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
@@ -22,7 +23,7 @@ const Hero = () => {
           camera={{ position: [0, 0, -10], fov: 17.5, near: 1, far: 20 }}
         >
           <ambientLight intensity={0.5} />
-
+          <Float speed={0.5}></Float>
           <Environment resolution={256}>
             <group rotation={[-Math.PI / 3, 4, 1]}>
               <Lightformer
