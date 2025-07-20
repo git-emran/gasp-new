@@ -1,7 +1,7 @@
 // index.js
 export const skillsData = [
   {
-    title: "FullStack Design &  Development",
+    title: "Design & Fullstack Development",
     description:
       "I develop custom web apps with clean Design, Architecture, Optimized Databases, and Seamless integrations—ensuring reliability at every layer.",
     items: [
@@ -22,7 +22,7 @@ export const skillsData = [
   {
     title: "DevOps & Cloud Solutions",
     description:
-      "I automate infrastructure, enforce security, and leverage cloud platforms (AWS/Azure) to keep your softwares running smoothly—24/7, at any scale.",
+      "I can automate infrastructure, enforce security, and leverage cloud platforms (AWS/Azure) to keep your softwares running smoothly—24/7, at any scale.",
     items: [
       {
         title: "CI/CD Pipelines",
@@ -80,7 +80,7 @@ export const skillsData = [
 export const projects = [
   {
     id: 1,
-    name: "GetGenie AI - Content Generator",
+    name: "GetGenie - AI Content Manager",
     description:
       "WordPress Gutenberg based AI Plugin. Perfect for generating SEO optimized content for your websites and Blogs. ",
     href: "https://medium.com/@emrn.hossn/getgenie-ai-7c809cd78fc3",
@@ -127,7 +127,7 @@ export const projects = [
   {
     id: 4,
     name: "MatchTrack - Mobile App",
-    description: "React Native.",
+    description: "React Native mobile application for Tennis Coaches.",
     href: "https://medium.com/@emrn.hossn/matchtrack-564d2ddb91a1",
     image: "/assets/projects/project3.png",
     bgImage: "/assets/backgrounds/poster.jpg",
@@ -142,7 +142,7 @@ export const projects = [
     id: 5,
     name: "The Office Outlet - Web App",
     description:
-      "A curated collection of designer home decor items, including furniture and artisan vases.",
+      "A web app to decorate and buy your next workstation ",
     href: "https://clearlybestemran.substack.com/p/office-outlet",
     image: "/assets/projects/office1.gif",
     bgImage: "/assets/backgrounds/table.jpg",
@@ -157,7 +157,7 @@ export const projects = [
     id: 6,
     name: "InsideMaps Website - UX Redesign",
     description:
-      "A gaming platform featuring discounted titles, top sellers, and genre-based browsing.",
+      "An experience redesign of a Legacy website",
     href: "https://clearlybestemran.substack.com/p/corporate-website-redesign",
     image: "/assets/projects/redesign1.webp",
     bgImage: "/assets/backgrounds/curtains.jpg",
@@ -170,7 +170,7 @@ export const projects = [
   },
   {
     id: 7,
-    name: "SnapCast - Screen Recording and Video Sharing Platform ",
+    name: "SnapCast Screen Recorder - Web App ",
     description:
       "A platform designed and developed by me(Emran). Its an open-source FullStack web app. This is like Loom but with less complicated UI",
     href: "https://snap-cast-one.vercel.app/sign-in",
@@ -179,8 +179,9 @@ export const projects = [
     frameworks: [
       { id: 1, name: "React" },
       { id: 2, name: "Next" },
-      { id: 3, name: "Drizzle ORM & Bunny CDN STREAM" },
-      { id: 4, name: "BetterAuth" },
+      { id: 3, name: "Drizzle" },
+      { id: 4, name: "Bunny CDN" },
+      { id: 5, name: "BetterAuth" },
     ],
   },
 ];
