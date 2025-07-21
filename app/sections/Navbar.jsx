@@ -14,17 +14,20 @@ const Navbar = () => {
   const iconTl = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [showBurger, setShowBurger] = useState(true);
-  useGSAP(() => {
-    gsap.set(navRef.current, { xPercent: 100 });
-    gsap.set([linksRef.current, contactRef.current], {
-      autoAlpha: 0,
-      x: -20,
-    });
+  const [isReady, setIsReady] = useState(false); // Control wrapper visibility
 
+  useGSAP(() => {
+    // Set initial state to hide navbar and contents
+    gsap.set(navRef.current, { xPercent: 100, autoAlpha: 0 });
+    gsap.set(linksRef.current, { autoAlpha: 0, x: -20 });
+    gsap.set(contactRef.current, { autoAlpha: 0, x: -20 });
+
+    // Timeline for nav animation
     tl.current = gsap
       .timeline({ paused: true })
       .to(navRef.current, {
         xPercent: 0,
+        autoAlpha: 1,
         duration: 1,
         ease: "power3.out",
       })
@@ -50,6 +53,7 @@ const Navbar = () => {
         "<+0.2"
       );
 
+    // Timeline for burger icon
     iconTl.current = gsap
       .timeline({ paused: true })
       .to(topLineRef.current, {
@@ -68,20 +72,19 @@ const Navbar = () => {
         },
         "<"
       );
+
+    // Signal that GSAP is ready
+    setIsReady(true);
   }, []);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       setShowBurger(currentScrollY <= lastScrollY || currentScrollY < 10);
-
       lastScrollY = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -95,61 +98,67 @@ const Navbar = () => {
     }
     setIsOpen(!isOpen);
   };
+
   return (
     <>
-      <nav
-        ref={navRef}
-        className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2"
-      >
-        <div className="flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-8xl">
-          {["home", "works", "skills", "about", "contact"].map(
-            (section, index) => (
-              <div key={index} ref={(el) => (linksRef.current[index] = el)}>
-                <Link
-                  className="transition-all duration-300 cursor-pointer hover:text-lime-300"
-                  to={`${section}`}
-                  smooth
-                  offset={0}
-                  duration={2000}
-                  onClick={toggleMenu}
-                >
-                  {section}
-                </Link>
-              </div>
-            )
-          )}
-        </div>
-        <div
-          ref={contactRef}
-          className="flex flex-col flex-wrap justify-between gap-8 md:flex-row"
+      <div className={isReady ? "block" : "hidden"}>
+        <nav
+          ref={navRef}
+          className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2"
         >
-          <div className="font-light">
-            <p className="tracking-wider text-white/50">E-mail</p>
-            <a href="mailto:emrn.hossn@gmail.com">
-              {" "}
-              <p className="text-xl tracking-widest lowercase text-pretty hover:text-lime-300">
-                emrn.hossn@gmail.com
-              </p>
-            </a>
-          </div>
-          <div className="font-light">
-            <p className="tracking-wider text-white/50">Social Media</p>
-            <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
-              {socials.map((social, index) => (
-                <a
+          <div className="flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-8xl">
+            {["home", "works", "skills", "about", "contact"].map(
+              (section, index) => (
+                <div
                   key={index}
-                  href={social.href}
-                  className="text-sm leading-loose tracking-widest uppercase hover:text-lime-300 transition-colors duration-300"
+                  ref={(el) => (linksRef.current[index] = el)}
+                  className="opacity-0 -translate-x-5"
                 >
-                  {"{ "}
-                  {social.name}
-                  {" }"}
-                </a>
-              ))}
+                  <Link
+                    className="transition-all duration-300 cursor-pointer hover:text-lime-300"
+                    to={section}
+                    smooth
+                    offset={0}
+                    duration={2000}
+                    onClick={toggleMenu}
+                  >
+                    {section}
+                  </Link>
+                </div>
+              )
+            )}
+          </div>
+          <div
+            ref={contactRef}
+            className="flex flex-col flex-wrap justify-between gap-8 md:flex-row opacity-0 -translate-x-5"
+          >
+            <div className="font-light">
+              <p className="tracking-wider text-white/50">E-mail</p>
+              <a href="mailto:emrn.hossn@gmail.com">
+                <p className="text-xl tracking-widest lowercase text-pretty hover:text-lime-300">
+                  emrn.hossn@gmail.com
+                </p>
+              </a>
+            </div>
+            <div className="font-light">
+              <p className="tracking-wider text-white/50">Social Media</p>
+              <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
+                {socials.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    className="text-sm leading-loose tracking-widest uppercase hover:text-lime-300 transition-colors duration-300"
+                  >
+                    {"{ "}
+                    {social.name}
+                    {" }"}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
       <div
         className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-14 h-14 md:w-20 md:h-20 top-4 right-10"
         onClick={toggleMenu}
