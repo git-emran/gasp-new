@@ -10,6 +10,7 @@ import Works from "./sections/Works";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { useProgress } from "@react-three/drei";
+import Testimonials from "./components/Testimonials";
 
 const Page = () => {
   const { progress } = useProgress();
@@ -24,6 +25,7 @@ const Page = () => {
         <Works />
         <Skills />
         <About />
+        <Testimonials />
         <ContactSummary />
         <Contact />
       </div>

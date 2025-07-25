@@ -1,4 +1,5 @@
 // index.js
+
 export const skillsData = [
   {
     title: "Design & Fullstack Development",
@@ -141,8 +142,7 @@ export const projects = [
   {
     id: 5,
     name: "The Office Outlet - Web App",
-    description:
-      "A web app to decorate and buy your next workstation ",
+    description: "A web app to decorate and buy your next workstation ",
     href: "https://clearlybestemran.substack.com/p/office-outlet",
     image: "/assets/projects/office1.gif",
     bgImage: "/assets/backgrounds/table.jpg",
@@ -156,8 +156,7 @@ export const projects = [
   {
     id: 6,
     name: "InsideMaps Website - UX Redesign",
-    description:
-      "An experience redesign of a Legacy website",
+    description: "An experience redesign of a Legacy website",
     href: "https://clearlybestemran.substack.com/p/corporate-website-redesign",
     image: "/assets/projects/redesign1.webp",
     bgImage: "/assets/backgrounds/curtains.jpg",
@@ -193,4 +192,42 @@ export const socials = [
     href: "https://www.linkedin.com/in/emran-hossain-80ab17190/",
   },
   { name: "GitHub", href: "https://github.com/git-emran" },
+];
+
+export const testimonials = [
+  {
+    quote:
+      "MarketTime is a fast-paced company with ever-changing priorities, and Emran did an excellent job of juggling the demands provided to him by multiple Agile teams. His ability to adapt quickly while maintaining a high standard of work is truly impressive. Emran's leadership skills shine through in the way he inspires his team, always ready to step in and support wherever needed.",
+    name: "Todd Litzman",
+    designation: "CEO, MarketTime",
+    src: "/images/todd.jpeg",
+  },
+  {
+    quote:
+      "He had a knack for making our platform look great and work even better. Emran could take tricky concepts and turn them into designs that just clicked. He was super easy to work with and always ready to tackle problems. His mix of creativity and know-how really made a difference. We were lucky to have Emran on the team!",
+    name: "Anders Tidemand",
+    designation: "CEO, Tiblo Digital (Digital Mind)",
+    src: "/images/anders.jpeg",
+  },
+  {
+    quote:
+      "Working with Emran was truly a pleasure. Emran displayed the ability to ask questions that not many others could. Solving customers pain points and making the best experience for them is truly Emrans passion and you can see that in his work output and in discussions with customers. He is truly an exceptional Design thinker and a Developer.",
+    name: "Richard Wohnsiedler",
+    designation: "Operations Director at CloudScale",
+    src: "/images/rich.jpeg",
+  },
+  {
+    quote:
+      "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
+    name: "James Kim",
+    designation: "Engineering Lead at DataPro",
+    src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    quote:
+      "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
+    name: "Lisa Thompson",
+    designation: "VP of Technology at FutureNet",
+    src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
