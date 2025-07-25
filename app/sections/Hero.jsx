@@ -5,8 +5,8 @@ const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
   const text = `Expert in Enterprise Design / Development`;
   return (
-    <section id="home" className="flex flex-col justify-between min-h-screen">
-      <div className="flex mt-[10rem] justify-center">
+    <section id="home" className="flex flex-col justify-end min-h-screen">
+      <div className="flex px-10 justify-start">
         <HeroText />
       </div>
       <AnimatedHeaderSection
