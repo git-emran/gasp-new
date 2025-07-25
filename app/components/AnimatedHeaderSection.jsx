@@ -71,7 +71,7 @@ const AnimatedHeaderSection = ({
         </div>
       </div>
     </div>
-  );
+  );1
 };
 
 export default AnimatedHeaderSection;
