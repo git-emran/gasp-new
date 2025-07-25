@@ -213,21 +213,14 @@ export const testimonials = [
     quote:
       "Working with Emran was truly a pleasure. Emran displayed the ability to ask questions that not many others could. Solving customers pain points and making the best experience for them is truly Emrans passion and you can see that in his work output and in discussions with customers. He is truly an exceptional Design thinker and a Developer.",
     name: "Richard Wohnsiedler",
-    designation: "Operations Director at CloudScale",
+    designation: "Product Owner, ISN",
     src: "/images/rich.jpeg",
   },
   {
     quote:
-      "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-    name: "James Kim",
-    designation: "Engineering Lead at DataPro",
-    src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    quote:
-      "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
-    name: "Lisa Thompson",
-    designation: "VP of Technology at FutureNet",
-    src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "He's an expert in blending killer design with serious coding chops. He didn’t just make our platform look good, he built functionality that ran like a dream. Emran could dive into the code, fix bugs, and optimize systems like a pro. He was awesome to work with, always ready to troubleshoot or tweak things on the fly. He has a creative edge.",
+    name: "Anders Blomqvist",
+    designation: "CTO, Tiblo Digital (Digital Mind)",
+    src: "/images/anders2.jpeg",
   },
 ];

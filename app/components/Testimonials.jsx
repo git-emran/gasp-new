@@ -3,12 +3,13 @@ import { AnimatedTestimonials } from "./ui/animated-testimonials";
 import { testimonials } from "../constants";
 
 const Testimonials = () => {
-    const text = ""
+  const text =
+    "Winning comes from using each other's strengths and covering each other's weaknesses.";
   return (
     <section id="testimonials" className="flex flex-col min-h-screen pb-10">
       <AnimatedHeaderSection
         title={"Testimonials"}
-        subTitle={"Some words from my teammates"}
+        subTitle={"Kind words from my colleagues"}
         text={text}
         textColor={"text-black"}
         withScrollTrigger={true}
