@@ -17,7 +17,7 @@ const Page = () => {
   const [isReady, setIsReady] = useState(false);
 
   return (
-    <ReactLenis root className="relative w-screen min-h-screen overflow-hidden">
+    <ReactLenis root className="relative min-h-screen overflow-hidden">
       <div>
         <Navbar />
         <Hero />

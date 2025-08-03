@@ -32,7 +32,7 @@ export const AnimatedTestimonials = ({ testimonials, autoplay = false }) => {
   return (
     <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
-        <div>
+        <div className=" relative overflow-hidden">
           <div className="relative h-80 w-full">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
@@ -64,7 +64,7 @@ export const AnimatedTestimonials = ({ testimonials, autoplay = false }) => {
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom"
+                  className="absolute overflow-hidden inset-0 origin-bottom"
                 >
                   <img
                     src={testimonial.src}
@@ -98,6 +98,7 @@ export const AnimatedTestimonials = ({ testimonials, autoplay = false }) => {
               duration: 0.2,
               ease: "easeInOut",
             }}
+            className="relative overflow-hidden"
           >
             <h3 className="text-2xl font-bold text-black">
               {testimonials[active].name}

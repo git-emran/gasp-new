@@ -6,7 +6,7 @@ const Testimonials = () => {
   const text =
     "Winning comes from using each other's strengths and covering each other's weaknesses.";
   return (
-    <section id="praises" className="flex flex-col min-h-screen pb-10">
+    <section id="praises" className="flex-col justify-between min-h-screen pb-10">
       <AnimatedHeaderSection
         title={"Testimonials"}
         subTitle={"Kind words from my colleagues"}
