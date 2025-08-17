@@ -100,7 +100,7 @@ export const projects = [
     name: "FujiFilm Diosynth - A Dashboard",
     description:
       "A Data intensive Dashboard for FujiFilm Biotech Laboratories. A multi-tiered and interactive web app redesigned.",
-    href: "https://medium.com/@emrn.hossn/getgenie-ai-7c809cd78fc3",
+    href: "https://medium.com/@emrn.hossn/complex-dashboard-for-fujifilm-3b3b6f91c6a4",
     image: "/assets/projects/project1.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
