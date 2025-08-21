@@ -18,8 +18,8 @@ const AnimatedHeaderSection = ({
     const tl = gsap.timeline({
       scrollTrigger: withScrollTrigger
         ? {
-            trigger: contextRef.current,
-          }
+          trigger: contextRef.current,
+        }
         : undefined,
     });
     tl.from(contextRef.current, {
@@ -71,7 +71,7 @@ const AnimatedHeaderSection = ({
         </div>
       </div>
     </div>
-  );1
+  );
 };
 
 export default AnimatedHeaderSection;
