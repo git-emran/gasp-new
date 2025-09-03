@@ -4,8 +4,8 @@
 @font-face {
   font-family: "Amiamie";
   src:
-    url("/fonts/amiamie/otf/Amiamie-Regular.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-Regular.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-Regular.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -15,8 +15,8 @@
 @font-face {
   font-family: "Amiamie";
   src:
-    url("/fonts/amiamie/otf/Amiamie-Italic.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-Italic.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-Italic.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -26,8 +26,8 @@
 @font-face {
   font-family: "Amiamie";
   src:
-    url("/fonts/amiamie/otf/Amiamie-Light.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-Light.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-Light.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -37,8 +37,8 @@
 @font-face {
   font-family: "Amiamie";
   src:
-    url("/fonts/amiamie/otf/Amiamie-LightItalic.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-LightItalic.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-LightItalic.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -48,8 +48,8 @@
 @font-face {
   font-family: "Amiamie";
   src:
-    url("/fonts/amiamie/otf/Amiamie-Black.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-Black.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-Black.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -59,19 +59,19 @@
 @font-face {
   font-family: "Amiamie";
   src:
-    url("/fonts/amiamie/otf/Amiamie-BlackItalic.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-BlackItalic.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-BlackItalic.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-BlackItalic.ttf") format("truetype");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
 
-/* Amiamie-Round Variants */
+/* Amiamie-Round Variants (if needed separately) */
 @font-face {
   font-family: "Amiamie-Round";
   src:
-    url("/fonts/amiamie/otf/Amiamie-RegularRound.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-RegularRound.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-RegularRound.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-RegularRound.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -80,8 +80,8 @@
 @font-face {
   font-family: "Amiamie-Round";
   src:
-    url("/fonts/amiamie/otf/Amiamie-BlackRound.otf") format("opentype"),
-    url("/fonts/amiamie/ttf/Amiamie-BlackRound.ttf") format("truetype");
+    url("/fonts/otf/Amiamie-BlackRound.otf") format("opentype"),
+    url("/fonts/ttf/Amiamie-BlackRound.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -96,7 +96,6 @@
   font-style: italic;
   font-display: swap;
 }
-
 @theme {
   --color-primary: #e5e5e0;
   --color-DarkLava: #393632;
@@ -104,8 +103,8 @@
   --color-gold: #cfa355;
   --font-amiamie: "Amiamie", sans-serif;
   --font-amiamie-round: "Amiamie-Round", sans-serif;
-  --animate-marquee: marquee 40s infinite linear;
 
+  --animate-marquee: marquee 40s infinite linear;
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -116,56 +115,12 @@
   }
 }
 
-/* Reset and base styles */
-* {
-  box-sizing: border-box;
-}
-
-html {
-  /* Prevent horizontal scrolling */
-  overflow-x: hidden;
-  /* Better text rendering on mobile */
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
 body {
   background: #e5e5e0;
   color: black;
   scroll-behavior: smooth;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
+  overflow-x: hidden;
   font-family: var(--font-amiamie);
-  /* Prevent font size inflation on mobile */
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  /* Better font smoothing */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Ensure minimum touch target size */
-  touch-action: manipulation;
-  /* Prevent content shifts during loading */
-  width: 100vw;
-  max-width: 100vw;
-  position: relative;
-}
-
-/* Mobile-specific improvements */
-@media (max-width: 768px) {
-  body {
-    /* Prevent zoom on form focus */
-    font-size: 16px;
-  }
-
-  /* Ensure no elements cause horizontal scroll */
-  * {
-    max-width: 100vw;
-  }
-
-  /* Better touch scrolling */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
 }
 
 @utility clip-path {
@@ -186,15 +141,4 @@ body {
 
 @utility contact-text-responsive {
   @apply text-[42px] sm:text-[52px] md:text-[62px] lg:text-[100px];
-}
-
-@theme inline {
-  --animate-scroll: scroll var(--animation-duration, 40s)
-    var(--animation-direction, forwards) linear;
-
-  @keyframes scroll {
-    to {
-      transform: translate(calc(-50% - 0.5rem));
-    }
-  }
 }
