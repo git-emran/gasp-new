@@ -120,7 +120,7 @@ body {
   color: black;
   scroll-behavior: smooth;
   overflow-x: hidden !important;
-  overflow-y: hidden !important ;
+  overflow-y: auto !important ;
   font-family: var(--font-amiamie);
 }
 
