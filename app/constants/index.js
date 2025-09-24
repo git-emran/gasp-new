@@ -88,7 +88,7 @@ export const projects = [
     image: "/assets/projects/get_genie1.gif",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
-      { id: 1, name: "React" },
+      { id: 1, name: "Web-app" },
       { id: 2, name: "Next.js" },
       { id: 3, name: "Node.js" },
       { id: 4, name: "MongoDB" },
@@ -104,7 +104,7 @@ export const projects = [
     image: "/assets/projects/project1.png",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
-      { id: 1, name: "Angular" },
+      { id: 1, name: "Dashboard" },
       { id: 2, name: "Tailwind CSS" },
       { id: 3, name: "MongoDB" },
       { id: 4, name: "oAuth, JWT" },
@@ -120,7 +120,7 @@ export const projects = [
     bgImage: "/assets/backgrounds/map.jpg",
     frameworks: [
       { id: 1, name: "SwiftUI" },
-      { id: 2, name: "Core Data" },
+      { id: 2, name: "iOS-app" },
       { id: 3, name: "ARkit" },
       { id: 4, name: "Core ML" },
     ],
@@ -133,7 +133,7 @@ export const projects = [
     image: "/assets/projects/project3.png",
     bgImage: "/assets/backgrounds/poster.jpg",
     frameworks: [
-      { id: 1, name: "React Native" },
+      { id: 1, name: "Mobile-App" },
       { id: 2, name: "Tailwind CSS" },
       { id: 3, name: "Firebase" },
       { id: 4, name: "SQLite" },
@@ -141,13 +141,13 @@ export const projects = [
   },
   {
     id: 5,
-    name: "The Office Outlet - Web App",
+    name: "The Office Outlet - E-Commerce",
     description: "A web app to decorate and buy your next workstation ",
     href: "https://clearlybestemran.substack.com/p/office-outlet",
     image: "/assets/projects/office1.gif",
     bgImage: "/assets/backgrounds/table.jpg",
     frameworks: [
-      { id: 1, name: "Angular" },
+      { id: 1, name: "Web-app" },
       { id: 2, name: "Firebase" },
       { id: 3, name: "GraphQL" },
       { id: 4, name: "Material UI" },
@@ -161,7 +161,7 @@ export const projects = [
     image: "/assets/projects/redesign1.webp",
     bgImage: "/assets/backgrounds/curtains.jpg",
     frameworks: [
-      { id: 1, name: "Svelte" },
+      { id: 1, name: "Website" },
       { id: 2, name: "Node.js" },
       { id: 3, name: "MongoDB" },
       { id: 4, name: "Chakra UI" },
@@ -169,18 +169,18 @@ export const projects = [
   },
   {
     id: 7,
-    name: "SnapCast Screen Recorder - Web App ",
+    name: "Writer - Markdown Text Editor with Vim Motions ",
     description:
-      "A platform designed and developed by me(Emran). Its an open-source FullStack web app. This is like Loom but with less complicated UI",
-    href: "https://snap-cast-one.vercel.app/sign-in",
-    image: "/assets/projects/snapcast.gif",
+      "A Markdown text editor that is powered by vim mitions, has built-in LSP for 10+ languages including Rust, Go, C++ and Java",
+    href: "https://github.com/git-emran/simple-notes",
+    image: "/assets/projects/emran_project_writer.gif",
     bgImage: "/assets/backgrounds/blanket.jpg",
     frameworks: [
       { id: 1, name: "React" },
-      { id: 2, name: "Next" },
-      { id: 3, name: "Drizzle" },
-      { id: 4, name: "Bunny CDN" },
-      { id: 5, name: "BetterAuth" },
+      { id: 2, name: "desktop-app" },
+      { id: 3, name: "Electron" },
+      { id: 4, name: "Codemirror6" },
+      { id: 5, name: "Typescript" },
     ],
   },
 ];
