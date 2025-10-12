@@ -97,7 +97,7 @@ export const projects = [
   },
   {
     id: 2,
-    name: "FujiFilm Diosynth - A Dashboard",
+    name: "FujiFilm Diosynth - An Experiment Data Dashboard",
     description:
       "A Data intensive Dashboard for FujiFilm Biotech Laboratories. A multi-tiered and interactive web app redesigned.",
     href: "https://medium.com/@emrn.hossn/complex-dashboard-for-fujifilm-3b3b6f91c6a4",
@@ -112,7 +112,7 @@ export const projects = [
   },
   {
     id: 3,
-    name: "InsideMaps Capture - iOS App",
+    name: "InsideMaps Capture - Image capture & processing App",
     description:
       "An iOS app to turn your images of your homes into interactive 3D tours. Ideal for Real estate appraisers",
     href: "https://medium.com/@emrn.hossn/insidemaps-capture-50fdd5c0a862",
@@ -127,7 +127,7 @@ export const projects = [
   },
   {
     id: 4,
-    name: "MatchTrack - Mobile App",
+    name: "MatchTrack - Team management App",
     description: "React Native mobile application for Tennis Coaches.",
     href: "https://medium.com/@emrn.hossn/matchtrack-564d2ddb91a1",
     image: "/assets/projects/project3.png",
