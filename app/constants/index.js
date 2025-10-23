@@ -97,7 +97,7 @@ export const projects = [
   },
   {
     id: 2,
-    name: "FujiFilm Diosynth - An Experiment Data Dashboard",
+    name: "FujiFilm Diosynth - Laboratory Dashboard",
     description:
       "A Data intensive Dashboard for FujiFilm Biotech Laboratories. A multi-tiered and interactive web app redesigned.",
     href: "https://medium.com/@emrn.hossn/complex-dashboard-for-fujifilm-3b3b6f91c6a4",
