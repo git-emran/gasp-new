@@ -197,17 +197,17 @@ export const socials = [
 export const testimonials = [
   {
     quote:
-      "MarketTime is a fast-paced company with ever-changing priorities, and Emran did an excellent job of juggling the demands provided to him by multiple Agile teams. His ability to adapt quickly while maintaining a high standard of work is truly impressive. Emran's leadership skills shine through in the way he inspires his team, always ready to step in and support wherever needed.",
-    name: "Todd Litzman",
-    designation: "CEO, MarketTime",
-    src: "/images/todd.jpeg",
-  },
-  {
-    quote:
       "He had a knack for making our platform look great and work even better. Emran could take tricky concepts and turn them into designs that just clicked. He was super easy to work with and always ready to tackle problems. His mix of creativity and know-how really made a difference. We were lucky to have Emran on the team!",
     name: "Anders Tidemand",
     designation: "CEO, Tiblo Digital (Digital Mind)",
     src: "/images/anders.jpeg",
+  },
+  {
+    quote:
+      "MarketTime is a fast-paced company with ever-changing priorities, and Emran did an excellent job of juggling the demands provided to him by multiple Agile teams. His ability to adapt quickly while maintaining a high standard of work is truly impressive. Emran's leadership skills shine through in the way he inspires his team, always ready to step in and support wherever needed.",
+    name: "Todd Litzman",
+    designation: "CEO, MarketTime",
+    src: "/images/todd.jpeg",
   },
   {
     quote:
