@@ -14,7 +14,7 @@ const Hero = () => {
 
       <div className="px-10 pt-6 justify-start">
         <Text as="div" className="text-gray-600 text-sm max-w-[30rem]">
-          👨🏻‍💻 Building my own  <Link className="font-bold text-gray-700 underline" href="https://github.com/git-emran/simple-notes">Markdown</Link>{" "}Text Editor that uses Vim motion
+          👨🏻‍💻 Building my own  <Link className="font-bold text-gray-700 underline" href="https://github.com/git-emran/simple-notes">Markdown</Link>{" "}Text Editor with Vim motion
         </Text>
 
       </div>
