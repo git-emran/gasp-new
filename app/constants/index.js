@@ -185,13 +185,14 @@ export const projects = [
   },
 ];
 export const socials = [
-  { name: "Instagram", href: "https://www.instagram.com/designwithemran/" },
+  { name: "Insta", href: "https://www.instagram.com/designwithemran/" },
 
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/emran-hossain-80ab17190/",
   },
   { name: "GitHub", href: "https://github.com/git-emran" },
+  { name: "My Blog", href: "https://my-blog-omega-ashy.vercel.app/" },
 ];
 
 export const testimonials = [
