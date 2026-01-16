@@ -44,9 +44,9 @@ const Contact = () => {
             <div className="social-link">
               <h2>E-mail</h2>
               <div className="w-full h-px my-2 bg-white/30" />
-              <a href="mailto:emrn.hossn@gmail.com">
+              <a href="mailto:clearlybestemran@gmail.com">
                 <p className="text-xl tracking-wider lowercase md:text-2xl lg:text-3xl text-white hover:text-lime-300">
-                  emrn.hossn@gmail.com
+                  clearlybestemran@gmail.com
                 </p>
               </a>
             </div>
