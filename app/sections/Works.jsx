@@ -4,6 +4,7 @@ import { projects } from "../constants";
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 
 const Works = () => {
   const overlayRefs = useRef([]);
@@ -112,7 +113,7 @@ const Works = () => {
         onMouseMove={handleMouseMove}
       >
         {projects.map((project, index) => (
-          <a href={project.href} key={project.id} target="_blank">
+          <Link href={project.href} key={project.id} target="_blank">
             <div
               id="project"
               className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
@@ -164,7 +165,7 @@ const Works = () => {
                 />
               </div>
             </div>
-          </a>
+          </Link>
         ))}
         {/* desktop Flaoting preview image */}
         <div
