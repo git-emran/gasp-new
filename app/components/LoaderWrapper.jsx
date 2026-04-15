@@ -1,23 +1,26 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import LoadingScreen from "./LoadingScreen";
 
 export default function LoaderWrapper({ children }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const [isLoading, setIsLoading] = useState(isHomePage);
 
   // Prevent scrolling during loading
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading && isHomePage) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-  }, [isLoading]);
+  }, [isLoading, isHomePage]);
 
   return (
     <>
-      {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
-      <div className={isLoading ? "invisible" : "visible"}>
+      {isLoading && isHomePage && <LoadingScreen onFinish={() => setIsLoading(false)} />}
+      <div className={isLoading && isHomePage ? "invisible" : "visible"}>
         {children}
       </div>
     </>
