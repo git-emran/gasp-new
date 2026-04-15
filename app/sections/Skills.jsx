@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { skillsData } from "../constants";
 import { useMediaQuery } from "react-responsive";
@@ -9,7 +9,12 @@ const Skills = () => {
     with killer UX to drive growth 
     not headaches.`;
   const serviceRefs = useRef([]);
+  const [mounted, setMounted] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: "48rem" }); //768px
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   useGSAP(() => {
     serviceRefs.current.forEach((el) => {
       if (!el) return;
@@ -40,7 +45,7 @@ const Skills = () => {
           key={index}
           className="sticky px-10 pt-6 pb-12 text-white bg-black border-t-2 border-white/30"
           style={
-            isDesktop
+            mounted && isDesktop
               ? {
                 top: `calc(10vh + ${index * 5}em)`,
                 marginBottom: `${(skillsData.length - index - 1) * 5}rem`,
