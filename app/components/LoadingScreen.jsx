@@ -9,7 +9,7 @@ const bootSequence = [
   { text: "CPU: Next.js v15.0 @ 4.20 GHz", delay: 0.3, color: "text-[#8b8b73]" },
   { text: "Memory Test: 16384KB OK", delay: 0.5, color: "text-[#cfa355]" },
   { text: "Detecting Portfolio Assets...", delay: 0.4, color: "text-[#8b8b73]" },
-  { text: "Initializing Lenis Scroll... OK", delay: 0.3, color: "text-[#cfa355]" },
+  { text: "Initializing Cool looking Scroll... OK", delay: 0.3, color: "text-[#cfa355]" },
   { text: "GSAP Motion Engine... READY", delay: 0.2, color: "text-[#cfa355]" },
   { text: " ", delay: 0.1 },
   { text: "Booting Emran's Portfolio...", delay: 0.6, color: "text-[#e5e5e0]" },
@@ -54,8 +54,10 @@ const LoadingScreen = ({ onFinish }) => {
 
     addLine();
 
+
     // Blinking cursor animation
     const cursorAnim = gsap.to(cursorRef.current, {
+
       opacity: 0,
       duration: 0.5,
       repeat: -1,

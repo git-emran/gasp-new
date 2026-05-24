@@ -52,6 +52,7 @@ const ServiceSummary = () => {
       >
         <p>LLMs</p>
         <div className="w-10 h-1 md:w-32 bg-gold" />
+        <p>Agents</p>
         <div className="w-10 h-1 md:w-32 bg-gold" />
         <p>RAG</p>
       </div>
