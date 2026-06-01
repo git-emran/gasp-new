@@ -50,7 +50,7 @@ const About = () => {
           ref={imgRef}
           src="images/man.png"
           alt="man"
-          className="w-md rounded-3xl"
+          className="w-full max-w-md rounded-3xl"
         />
         <AnimatedTextLines text={aboutText} className={"w-full"} />
       </div>

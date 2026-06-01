@@ -152,7 +152,7 @@ const Works = () => {
                 ))}
               </div>
               {/* mobile preview image */}
-              <div className="relative flex items-center justify-center px-10 md:hidden h-[400px]">
+              <div className="relative flex items-center justify-center px-10 md:hidden h-[400px] overflow-hidden">
                 <img
                   src={project.bgImage}
                   alt={`${project.name}-bg-image`}
@@ -161,7 +161,7 @@ const Works = () => {
                 <img
                   src={project.image}
                   alt={`${project.name}-image`}
-                  className="absolute bg-center px-14 rounded-xl"
+                  className="absolute max-w-[80%] max-h-[80%] object-contain rounded-xl"
                 />
               </div>
             </div>
