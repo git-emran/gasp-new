@@ -7,6 +7,21 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+
+  if (project) {
+    return {
+      title: project.name,
+    };
+  }
+
+  return {
+    title: "Project Not Found",
+  };
+}
+
 export default async function Page({ params }) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);

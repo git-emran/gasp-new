@@ -13,8 +13,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CaseStudyClient = ({ project }) => {
   const containerRef = useRef(null);
-  const heroRef = useRef(null);
-  const contentRefs = useRef([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
   if (!project) {
