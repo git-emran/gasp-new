@@ -19,7 +19,7 @@ export default function VideoPlayer() {
           <div className="flex items-center gap-2">
             <IconCircleFilled className={`w-2 h-2 ${isPlaying ? "text-[#cfa355] animate-pulse" : "text-emerald-600 animate-pulse"}`} />
             <span className="tracking-widest uppercase font-bold text-[#393632]">
-              {isPlaying ? "STREAM: ONLINE" : "Portfolio: Emran.H : Design Technologist"}
+              {isPlaying ? "STREAM: ONLINE" : "design reel"}
             </span>
           </div>
         </div>
