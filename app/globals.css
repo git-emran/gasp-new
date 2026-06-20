@@ -113,6 +113,16 @@
       transform: translateX(calc(-100% - var(--gap)));
     }
   }
+
+  --animate-scan: scan 6s infinite linear;
+  @keyframes scan {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(50%);
+    }
+  }
 }
 
 body {

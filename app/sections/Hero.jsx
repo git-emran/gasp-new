@@ -4,6 +4,8 @@ import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
 import { HeroText } from "../components/HeroText";
 import { Link, Text } from "@radix-ui/themes";
 import MatrixRain from "../components/MatrixRain";
+import VideoPlayer from "../components/VideoPlayer";
+
 const Hero = () => {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 853 });
@@ -21,6 +23,12 @@ const Hero = () => {
       <div className="absolute inset-x-0 top-0">
         <MatrixRain height={matrixHeight} density={matrixDensity} />
       </div>
+
+      {/* Modern High-Tech Video Player */}
+      <div className="relative z-10 w-full mb-4 sm:mb-8 mt-24">
+        <VideoPlayer />
+      </div>
+
       <AnimatedHeaderSection
         subTitle={"Design • Engineering"}
         title={"Emran Hossain"}
