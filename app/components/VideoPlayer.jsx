@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { IconPlayerPlay, IconX, IconCircleFilled } from "@tabler/icons-react";
 
 export default function VideoPlayer() {
@@ -31,7 +31,6 @@ export default function VideoPlayer() {
               <iframe
                 src={embedUrl}
                 title="YouTube Video Player"
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 className="w-full h-full"
