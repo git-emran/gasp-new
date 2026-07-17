@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
-import { HeroText } from "../components/HeroText";
-import { Link, Text } from "@radix-ui/themes";
 import MatrixRain from "../components/MatrixRain";
 import VideoPlayer from "../components/VideoPlayer";
 
