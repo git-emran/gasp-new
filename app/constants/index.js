@@ -4,7 +4,7 @@ export const skillsData = [
   {
     title: "Design & Fullstack Development",
     description:
-      "From AI content platforms to laboratory dashboards, I design and build the full stack — React/Next.js front-ends, Go/Node services, and schema design that holds up under real production load.",
+      "From AI content platforms to laboratory dashboards, I design and build the full stack React/Next.js front-ends, Go/Node services, and schema design that holds up under real production load.",
     items: [
       {
         title: "Frontend Excellence",
@@ -23,7 +23,7 @@ export const skillsData = [
   {
     title: "DevOps & Cloud Solutions",
     description:
-      "I automate the boring parts of shipping — CI/CD, deployments, and monitoring — on AWS/Azure, so releases stop being an event.",
+      "I automate the boring parts of shipping CI/CD, deployments, and monitoring — on AWS/Azure, so releases stop being an event.",
     items: [
       {
         title: "CI/CD Pipelines",
@@ -61,7 +61,7 @@ export const skillsData = [
   {
     title: "Web & Mobile Apps",
     description:
-      "A clunky interface can sink even the best ideas. I craft responsive, pixel perfect web and mobile apps (React Native/Flutter) that users love—bridging design and functionality seamlessly.",
+      "A clunky interface can sink even the best ideas. I craft responsive, pixel perfect web and mobile apps (React Native/Flutter) that users love bridging design and functionality seamlessly.",
     items: [
       {
         title: "Cross-Platform Apps",
