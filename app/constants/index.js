@@ -4,7 +4,7 @@ export const skillsData = [
   {
     title: "Design & Fullstack Development",
     description:
-      "I develop custom web apps with clean Design, Architecture, Optimized Databases, and Seamless integrations—ensuring reliability at every layer.",
+      "From AI content platforms to laboratory dashboards, I design and build the full stack — React/Next.js front-ends, Go/Node services, and schema design that holds up under real production load.",
     items: [
       {
         title: "Frontend Excellence",
@@ -23,7 +23,7 @@ export const skillsData = [
   {
     title: "DevOps & Cloud Solutions",
     description:
-      "I can automate infrastructure, enforce security, and leverage cloud platforms (AWS/Azure) to keep your softwares running smoothly—24/7, at any scale.",
+      "I automate the boring parts of shipping — CI/CD, deployments, and monitoring — on AWS/Azure, so releases stop being an event.",
     items: [
       {
         title: "CI/CD Pipelines",
@@ -42,7 +42,7 @@ export const skillsData = [
   {
     title: "Security & Optimization",
     description:
-      "I harden security (XSS/SQLI protection, OAuth) and optimize bottlenecks so your app stays fast, safe, and scalable as you grow.",
+      "I harden auth flows (OAuth, JWT) and close off XSS/SQLI gaps before they're a headline. Then I go after the slow queries and bloated bundles nobody else wants to touch.",
     items: [
       {
         title: "Code Audits",

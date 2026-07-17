@@ -14,7 +14,7 @@ const Hero = () => {
     setMounted(true);
   }, []);
 
-  const text = `Expert in Enterprise Design - Development`;
+  const text = `Expert in Enterprise Design & Development`;
   const matrixHeight = mounted && isMobile ? "55vh" : "85vh";
   const matrixDensity = mounted && isMobile ? 0.5 : 1;
 

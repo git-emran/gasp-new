@@ -6,7 +6,8 @@ import gsap from "gsap";
 
 const About = () => {
   const text = `I am passionate about clean architecture built to scale resulting in high-performance solutions from prototype to production`;
-  const aboutText = `I build fast, intuitive apps from pixel-perfect interfaces to serverless backends built to scale. Every line of code is a promise: performance, precision and user-first thinking.
+  const aboutText = `I build fast, intuitive apps — from pixel-perfect interfaces to backends that scale. Seven years across B2B SaaS, AI/ML products, and developer tooling taught me the same lesson every time: the best code is the kind users never have to think about.
+
   When I’m not shipping production grade solutions:
 ⚡️ Open-sourcing my latest experiment (or riffing on yours)
 🎥 Teaching UX & Dev fundamentals on ADPList - rising tide lift all ships
