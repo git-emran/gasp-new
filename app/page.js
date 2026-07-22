@@ -6,6 +6,7 @@ import Skills from "./sections/Skills";
 import ReactLenis from "lenis/react";
 import About from "./sections/About";
 import Works from "./sections/Works";
+import InteractionDesign from "./sections/InteractionDesign";
 import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import Testimonials from "./components/Testimonials";
@@ -18,6 +19,7 @@ const Page = () => {
         <Hero />
         <ServiceSummary />
         <Works />
+        <InteractionDesign />
         <Skills />
         <About />
         <Testimonials />

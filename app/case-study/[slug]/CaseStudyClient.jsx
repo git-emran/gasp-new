@@ -86,7 +86,7 @@ const CaseStudyClient = ({ project }) => {
         
         {/* Back Button */}
         <div className="fixed top-24 left-8 z-[60] mix-blend-difference hidden md:block">
-          <Link href="/#works" className="flex items-center gap-2 group text-[10px] uppercase tracking-[0.3em] text-white">
+          <Link href="/#works" className="flex items-center gap-2 group text-xs uppercase tracking-[0.3em] text-white font-medium">
              <Icon icon="lucide:arrow-left" className="size-4" />
              <span className="relative overflow-hidden h-4">
                 <span className="block transition-transform duration-500 group-hover:-translate-y-full">Back</span>

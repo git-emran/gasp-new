@@ -565,3 +565,60 @@ export const testimonials = [
     src: "/images/anders2.jpeg",
   },
 ];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INTERACTION DESIGNS
+// ─────────────────────────────────────────────────────────────────────────────
+// To add a new interaction:
+//   1. Find the category you want (or add a new one).
+//   2. Append a { title, image } object to that category's array.
+//   3. Tabs and carousel update automatically — no code changes needed elsewhere.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const interactionDesignsByCategory = {
+  "Restaurant": [
+    { title: "Profile Section",    image: "/assets/projects/restaurant1.gif" },
+    { title: "Review Address",    image: "/assets/projects/restaurant2.gif" },
+    { title: "Confirm Order",    image: "/assets/projects/restaurant3.gif" },
+    // { title: "Food Order Flow", image: "/assets/projects/your-new.gif" },
+  ],
+
+  "Books": [
+    { title: "Search Animation",  image: "/assets/projects/book2.gif" },
+    { title: "Library App",       image: "/assets/projects/book1.gif" },
+    { title: "Highlight text",       image: "/assets/projects/book3.gif" },
+    // { title: "Reading Progress", image: "/assets/projects/your-new.gif" },
+  ],
+
+  "Calendar": [
+    { title: "Match Tracking",    image: "/assets/projects/calendar1.gif" },
+    // { title: "Live Score Feed", image: "/assets/projects/your-new.gif" },
+  ],
+
+  "Health & Fitness": [
+    { title: "Item Selection",       image: "/assets/projects/fitness1.gif" },
+    // { title: "Parallax Effect", image: "/assets/projects/your-new.gif" },
+  ],
+
+};
+
+// Auto-flatten — do not edit below this line
+export const interactionDesigns = Object.entries(interactionDesignsByCategory).flatMap(
+  ([category, items]) =>
+    items.map((item, i) => ({
+      id: `${category}-${i}`,
+      category,
+      title: item.title,
+      image: item.image,
+    }))
+);
+
+// One card per category — used by the homepage carousel
+export const interactionDesignsCarousel = Object.entries(interactionDesignsByCategory).map(
+  ([category, items]) => ({
+    id: `${category}-carousel`,
+    category,
+    title: items[0].title,
+    image: items[0].image,
+  })
+);

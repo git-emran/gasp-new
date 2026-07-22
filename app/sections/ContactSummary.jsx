@@ -50,7 +50,7 @@ const ContactSummary = () => {
       <Marquee
         items={items2}
         reverse={true}
-        className="text-black bg-transparent border-y-2"
+        className="text-white bg-black border-y-2 border-white/10"
         iconClassName="stroke-gold stroke-2 text-primary"
         icon="material-symbols-light:square"
       />

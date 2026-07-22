@@ -31,9 +31,9 @@ const AnimatedHeaderSection = ({
       headerRef.current,
       {
         opacity: 0,
-        y: "200",
-        duration: 1,
-        ease: "circ.out",
+        y: 150, // Starts from bottom and animates upward
+        duration: 1.8, // Slower animation
+        ease: "power3.out", // Smooth deceleration
       },
       "<+0.2"
     );
@@ -50,7 +50,7 @@ const AnimatedHeaderSection = ({
           >
             {subTitle}
           </p>
-          <div className="px-10">
+          <div className="px-10 -mb-6 md:-mb-10">
             <h1
               className={`flex flex-col gap-12 uppercase banner-text-responsive sm:gap-16 md:block ${textColor}`}
             >
@@ -62,7 +62,7 @@ const AnimatedHeaderSection = ({
         </div>
       </div>
       <div className={`relative px-10 ${textColor}`}>
-        <div className="absolute inset-x-0 border-t-2" />
+        <div className="absolute inset-x-0 top-0 border-t-2 border-current opacity-20" />
         <div className="py-12 sm:py-16 text-end">
           <AnimatedTextLines
             text={text}

@@ -31,7 +31,7 @@ const Skills = () => {
     });
   }, []);
   return (
-    <section id="skills" className="min-h-screen mt-10 bg-black rounded-t-4xl">
+    <section id="skills" className="min-h-screen my-12 bg-black text-white rounded-t-4xl rounded-b-4xl">
       <AnimatedHeaderSection
         subTitle={"Behind the scene, Beyond the screen"}
         title={"Skills"}
