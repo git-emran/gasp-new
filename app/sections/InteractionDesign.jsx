@@ -214,7 +214,7 @@ const InteractionDesign = () => {
                   Interactive UI micro-animation concept.
                 </p>
                 <Link
-                  href="/interactions"
+                  href="/interaction-archive"
                   onClick={() => setActiveItem(null)}
                   className="px-6 py-3 text-xs font-bold uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black rounded-full hover:opacity-90 transition-opacity"
                 >
