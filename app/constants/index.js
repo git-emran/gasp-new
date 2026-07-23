@@ -601,6 +601,13 @@ const interactionDesignsByCategory = {
     { title: "Track Your Run",       image: "/assets/projects/fitness3.gif" },
   ],
 
+
+  "Maps": [
+    { title: "Item Selection",       image: "/assets/projects/maps1.gif" },
+    { title: "Splash Screen",       image: "/assets/projects/maps2.gif" },
+    { title: "Track Your Run",       image: "/assets/projects/maps3.gif" },
+  ],
+
   "Website": [
     { title: "Hover Interaction",       image: "/assets/projects/website1.gif" },
   ],

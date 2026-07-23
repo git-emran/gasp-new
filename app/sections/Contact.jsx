@@ -33,7 +33,7 @@ const Contact = () => {
     >
       <div>
         <AnimatedHeaderSection
-          subTitle={"You Dream It, I Code it"}
+          subTitle={"You Dream It, I Build it"}
           title={"Contact"}
           text={text}
           textColor={"text-white"}

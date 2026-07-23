@@ -120,38 +120,43 @@ const InteractionsPage = () => {
         {/* Masonry Grid */}
         <section className="py-24 px-6 md:px-12 lg:px-24">
           <div className="max-w-7xl mx-auto">
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-              {filteredItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="reveal-card opacity-0 relative break-inside-avoid overflow-hidden border rounded-[2rem] border-black/5 dark:border-white/10 group cursor-zoom-in transition-all duration-500 bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/[0.05] dark:hover:bg-white/5 hover:-translate-y-1"
-                  onClick={() => setSelectedImage(item.image)}
-                  style={{ 
-                    contain: "layout",
-                    transform: "translate3d(0, 0, 0)",
-                    backfaceVisibility: "hidden"
-                  }}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-auto object-cover"
-                    loading="eager"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 flex flex-col justify-end p-8 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:opacity-100">
-                    <p className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">{item.category}</p>
-                    <h3 className="mt-2 text-2xl font-bold text-white">{item.title}</h3>
+            {/* min-height prevents the section from collapsing on tab switch */}
+            <div className="min-h-[60vh]">
+              <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                {filteredItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="reveal-card break-inside-avoid overflow-hidden border rounded-[2rem] border-black/5 dark:border-white/10 group cursor-zoom-in transition-[transform,box-shadow] duration-500 bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/[0.05] dark:hover:bg-white/5 hover:-translate-y-1"
+                    onClick={() => setSelectedImage(item.image)}
+                    style={{
+                      transform: "translate3d(0, 0, 0)",
+                      backfaceVisibility: "hidden",
+                    }}
+                  >
+                    {/* aspect-ratio wrapper prevents reflow while the image loads */}
+                    <div className="relative" style={{ aspectRatio: item.aspectRatio || "4/3" }}>
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loading="eager"
+                        decoding="async"
+                      />
+                      <div className="absolute inset-0 flex flex-col justify-end p-8 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:opacity-100">
+                        <p className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">{item.category}</p>
+                        <h3 className="mt-2 text-2xl font-bold text-white">{item.title}</h3>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            
-            {filteredItems.length === 0 && (
-              <div className="py-20 text-center text-black/50 dark:text-white/50">
-                No interactions found for this category.
+                ))}
               </div>
-            )}
+
+              {filteredItems.length === 0 && (
+                <div className="py-20 text-center text-black/50 dark:text-white/50">
+                  No interactions found for this category.
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
