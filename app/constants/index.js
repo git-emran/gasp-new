@@ -590,11 +590,15 @@ const interactionDesignsByCategory = {
   ],
 
   "Calendar": [
-    { title: "Match Tracking",    image: "/assets/projects/calendar1.gif" },
+    { title: "Date selection",    image: "/assets/projects/calendar1.gif" },
+    { title: "Weather Card Information",    image: "/assets/projects/calendar2.gif" },
+    { title: "Custom FAB Interaction",    image: "/assets/projects/calendar3.gif" },
   ],
 
   "Health & Fitness": [
     { title: "Item Selection",       image: "/assets/projects/fitness1.gif" },
+    { title: "Splash Screen",       image: "/assets/projects/fitness2.gif" },
+    { title: "Track Your Run",       image: "/assets/projects/fitness3.gif" },
   ],
 
   "Website": [
