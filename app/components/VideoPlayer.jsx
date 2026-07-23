@@ -70,13 +70,13 @@ export default function VideoPlayer() {
                   <IconPlayerPlay className="w-8 h-8 sm:w-10 sm:h-10 fill-current translate-x-[2px]" />
                 </div>
                 <div className="text-center">
-                  <p className="font-mono text-xs tracking-[0.25em] text-[#393632] uppercase font-bold">
-                    [ VIEW REEL ]
+                  <p className="font-mono text-lg tracking-[0.25em] text-[#393632] uppercase font-bold">
+                    [PLAY ME]
                   </p>
                 </div>
               </div>
 
-              <div className="absolute bottom-4 right-6 font-mono text-[9px] text-black/40 hidden sm:block animate-pulse">
+              <div className="absolute bottom-4 right-6 font-mono text-[15px] text-black/40 hidden sm:block animate-pulse">
                 <span>CLICK TO INITIALIZE</span>
               </div>
             </div>
