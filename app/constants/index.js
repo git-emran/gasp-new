@@ -603,9 +603,9 @@ const interactionDesignsByCategory = {
 
 
   "Maps": [
-    { title: "Item Selection",       image: "/assets/projects/maps1.gif" },
-    { title: "Splash Screen",       image: "/assets/projects/maps2.gif" },
-    { title: "Track Your Run",       image: "/assets/projects/maps3.gif" },
+    { title: "Prototype Animation",       image: "/assets/projects/maps1.gif" },
+    { title: "Finding Location",       image: "/assets/projects/maps2.gif" },
+    { title: "Map Rotates",       image: "/assets/projects/maps3.gif" },
   ],
 
   "Website": [
