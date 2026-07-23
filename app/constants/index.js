@@ -587,17 +587,28 @@ const interactionDesignsByCategory = {
     { title: "Search Animation",  image: "/assets/projects/book2.gif" },
     { title: "Library App",       image: "/assets/projects/book1.gif" },
     { title: "Highlight text",       image: "/assets/projects/book3.gif" },
-    // { title: "Reading Progress", image: "/assets/projects/your-new.gif" },
   ],
 
   "Calendar": [
     { title: "Match Tracking",    image: "/assets/projects/calendar1.gif" },
-    // { title: "Live Score Feed", image: "/assets/projects/your-new.gif" },
   ],
 
   "Health & Fitness": [
     { title: "Item Selection",       image: "/assets/projects/fitness1.gif" },
-    // { title: "Parallax Effect", image: "/assets/projects/your-new.gif" },
+  ],
+
+  "Website": [
+    { title: "Hover Interaction",       image: "/assets/projects/website1.gif" },
+  ],
+
+  "Vision-OS": [
+    { title: "Custom Gestures",       image: "/assets/projects/visionos1.gif" },
+  ],
+
+
+  "iPad-OS": [
+    { title: "Custom Gestures",       image: "/assets/projects/ipados1.gif" },
+    { title: "Custom Dock Animation",       image: "/assets/projects/ipados2.gif" },
   ],
 
 };
