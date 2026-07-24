@@ -4,7 +4,6 @@ import { interactionDesigns } from "../constants";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import ReactLenis from "lenis/react";
-import Navbar from "../sections/Navbar";
 import Contact from "../sections/Contact";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -149,8 +148,6 @@ const InteractionsPage = () => {
         ref={containerRef}
         className="bg-[#e5e5e0] dark:bg-[#0a0a0a] text-black dark:text-white min-h-screen selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black font-light transition-colors duration-500"
       >
-        <Navbar />
-
         {/* Back Button */}
         <div className="fixed top-24 left-8 z-[60] mix-blend-difference hidden md:block">
           <Link

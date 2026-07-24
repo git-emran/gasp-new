@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import Navbar from "../../sections/Navbar";
+import CaseStudyNavigation from "../../components/CaseStudyNavigation";
 import Contact from "../../sections/Contact";
 import { Icon } from "@iconify/react";
 import gsap from "gsap";
@@ -81,10 +81,13 @@ const CaseStudyClient = ({ project }) => {
 
   return (
     <ReactLenis root>
-      <main ref={containerRef} className="bg-[#e5e5e0] dark:bg-[#0a0a0a] text-black dark:text-white min-h-screen selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black font-light transition-colors duration-500">
-        <Navbar />
-        
-        {/* Back Button */}
+      <main
+        ref={containerRef}
+        className="bg-[#e5e5e0] dark:bg-[#0a0a0a] text-black dark:text-white min-h-screen selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black font-light transition-colors duration-500"
+      >
+        <CaseStudyNavigation currentSlug={project.slug} />
+
+        {/* Back to works button */}
         <div className="fixed top-24 left-8 z-[60] mix-blend-difference hidden md:block">
           <Link href="/#works" className="flex items-center gap-2 group text-xs uppercase tracking-[0.3em] text-white font-medium">
              <Icon icon="lucide:arrow-left" className="size-4" />

@@ -30,6 +30,7 @@ const Navbar = () => {
 
   // State
   const [contactOpen,    setContactOpen]    = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled,       setScrolled]       = useState(false);
   const [activeSection,  setActiveSection]  = useState("home");
 
@@ -71,18 +72,22 @@ const Navbar = () => {
     return () => observer.disconnect();
   }, [isHome]);
 
-  // ── Close dropdown on outside click ─────────────────────────────────────────
+  // ── Close dropdowns on outside click ─────────────────────────────────────────
   useEffect(() => {
-    if (!contactOpen) return;
+    if (!contactOpen && !mobileMenuOpen) return;
     const onPointerDown = (e) => {
-      const outside =
+      const outsideContact =
         dropdownRef.current   && !dropdownRef.current.contains(e.target) &&
         contactBtnRef.current && !contactBtnRef.current.contains(e.target);
-      if (outside) setContactOpen(false);
+      if (outsideContact) setContactOpen(false);
+      
+      const outsideMobile = 
+        pillRef.current && !pillRef.current.contains(e.target);
+      if (outsideMobile) setMobileMenuOpen(false);
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, [contactOpen]);
+  }, [contactOpen, mobileMenuOpen]);
 
   // ── Navigation ───────────────────────────────────────────────────────────────
   const handleNavClick = useCallback((section) => {
@@ -108,7 +113,7 @@ const Navbar = () => {
         ref={pillRef}
         aria-label="Main navigation"
         className={`
-          pointer-events-auto
+          relative pointer-events-auto
           flex items-center gap-0.5 px-2 py-1.5 rounded-full
           border border-black/8
           shadow-[0_4px_24px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.06)]
@@ -119,30 +124,41 @@ const Navbar = () => {
         `}
         style={{ backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
       >
-        {/* ── Nav links ───────────────────────────────────────────────────── */}
-        {NAV_LINKS.map((section) => {
-          const isActive = isHome && activeSection === section;
-          return (
-            <button
-              key={section}
-              onClick={() => handleNavClick(section)}
-              className={`
-                px-4 py-1.5 rounded-full
-                text-[11px] font-semibold uppercase tracking-[0.12em]
-                font-[family-name:var(--font-jetbrains-mono)]
-                transition-all duration-200 ease-out cursor-pointer select-none
-                ${isActive
-                  ? "bg-black text-white shadow-sm"
-                  : "text-black/55 hover:text-black hover:bg-black/6"}
-              `}
-            >
-              {section}
-            </button>
-          );
-        })}
+        {/* ── Mobile Menu Toggle ──────────────────────────────────────────── */}
+        <button
+          className="md:hidden flex items-center justify-center p-2 ml-1 rounded-full text-black hover:bg-black/6 transition-colors"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle mobile menu"
+        >
+          <Icon icon={mobileMenuOpen ? "lucide:x" : "lucide:menu"} className="size-4" />
+        </button>
 
-        {/* ── Divider ─────────────────────────────────────────────────────── */}
-        <span className="w-px h-4 bg-black/12 mx-1 flex-shrink-0" aria-hidden />
+        {/* ── Desktop Nav links ───────────────────────────────────────────── */}
+        <div className="hidden md:flex items-center gap-0.5">
+          {NAV_LINKS.map((section) => {
+            const isActive = isHome && activeSection === section;
+            return (
+              <button
+                key={section}
+                onClick={() => handleNavClick(section)}
+                className={`
+                  px-4 py-1.5 rounded-full
+                  text-[11px] font-semibold uppercase tracking-[0.12em]
+                  font-[family-name:var(--font-jetbrains-mono)]
+                  transition-all duration-200 ease-out cursor-pointer select-none
+                  ${isActive
+                    ? "bg-black text-white shadow-sm"
+                    : "text-black/55 hover:text-black hover:bg-black/6"}
+                `}
+              >
+                {section}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ── Divider (Desktop only) ──────────────────────────────────────── */}
+        <span className="hidden md:block w-px h-4 bg-black/12 mx-1 flex-shrink-0" aria-hidden />
 
         {/* ── Contact trigger ─────────────────────────────────────────────── */}
         <div className="relative">
@@ -258,6 +274,45 @@ const Navbar = () => {
 
             </div>
           </div>
+        </div>
+
+        {/* ── Mobile Dropdown panel ─────────────────────────────────────── */}
+        <div
+          className={`
+            md:hidden
+            absolute top-[calc(100%+10px)] left-0 min-w-[200px]
+            rounded-2xl border border-black/10 bg-white
+            shadow-[0_20px_48px_rgba(0,0,0,0.14),0_2px_8px_rgba(0,0,0,0.06),0_0_0_0.5px_rgba(0,0,0,0.04)]
+            transition-all duration-250 ease-out origin-top-left
+            flex flex-col p-2 gap-1
+            ${mobileMenuOpen
+              ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 scale-[0.96] -translate-y-1 pointer-events-none"}
+          `}
+        >
+          {NAV_LINKS.map((section) => {
+            const isActive = isHome && activeSection === section;
+            return (
+              <button
+                key={section}
+                onClick={() => {
+                  handleNavClick(section);
+                  setMobileMenuOpen(false);
+                }}
+                className={`
+                  px-4 py-3 rounded-xl text-left
+                  text-[11px] font-semibold uppercase tracking-[0.12em]
+                  font-[family-name:var(--font-jetbrains-mono)]
+                  transition-all duration-200 ease-out cursor-pointer select-none
+                  ${isActive
+                    ? "bg-black text-white shadow-sm"
+                    : "text-black/55 hover:text-black hover:bg-black/6"}
+                `}
+              >
+                {section}
+              </button>
+            );
+          })}
         </div>
       </nav>
     </div>
