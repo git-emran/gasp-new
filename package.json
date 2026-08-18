@@ -26,6 +26,7 @@
     "next": "^16.0.10",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-intersection-observer": "^11.0.0",
     "react-responsive": "^10.0.1",
     "react-scroll": "^1.9.3",
     "shadcn": "^4.14.0",

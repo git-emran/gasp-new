@@ -8,51 +8,42 @@ import Contact from "../sections/Contact";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Image from "next/image";
+import { useInView } from "react-intersection-observer";
 
 /**
  * Lazy-loads an image/GIF only when it enters the viewport.
- * Uses a data-src pattern so GIFs don't download or animate until visible.
+ * Uses react-intersection-observer for production-ready, singleton observer performance.
+ * Leverages next/image for optimized rendering.
  */
 const LazyImage = ({ src, alt, className, style }) => {
-  const imgRef = useRef(null);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: "400px", // start loading 400px before entering viewport
+  });
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    const el = imgRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.src = src;
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" } // start loading 200px before entering viewport
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [src]);
-
   return (
-    <>
+    <div ref={ref} className="absolute inset-0 w-full h-full">
       {/* Shimmer placeholder shown until image loads */}
       {!loaded && (
         <div
-          className="absolute inset-0 animate-pulse"
+          className="absolute inset-0 animate-pulse z-0"
           style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.04) 75%)" }}
         />
       )}
-      <img
-        ref={imgRef}
-        alt={alt}
-        className={className}
-        style={style}
-        decoding="async"
-        onLoad={() => setLoaded(true)}
-      />
-    </>
+      {inView && (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={`object-cover z-10 transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
+          style={style}
+          onLoad={() => setLoaded(true)}
+          unoptimized={src.endsWith(".gif")}
+        />
+      )}
+    </div>
   );
 };
 
@@ -246,7 +237,7 @@ const InteractionsPage = () => {
                       <LazyImage
                         src={item.image}
                         alt={item.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="rounded-[2rem]"
                       />
                       <div className="absolute inset-0 flex flex-col justify-end p-8 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:opacity-100">
                         <p className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">
