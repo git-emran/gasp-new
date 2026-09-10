@@ -27,15 +27,16 @@ const Works = () => {
       ease: "power3.out",
     });
 
-    gsap.from("#project", {
-      y: 100,
+    gsap.from(".project-item", {
+      y: 60,
       opacity: 0,
-      delay: 0.5,
-      duration: 1,
-      stagger: 0.3,
-      ease: "back.out",
+      duration: 0.9,
+      stagger: 0.15,
+      ease: "power3.out",
       scrollTrigger: {
-        trigger: "#project",
+        trigger: ".project-item",
+        start: "top 85%",
+        once: true,
       },
     });
   }, []);
@@ -115,8 +116,7 @@ const Works = () => {
         {projects.map((project, index) => (
           <Link href={project.href} key={project.id} target="_blank">
             <div
-              id="project"
-              className="relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
+              className="project-item relative flex flex-col gap-1 py-5 cursor-pointer group md:gap-0"
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave(index)}
             >

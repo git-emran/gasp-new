@@ -18,15 +18,19 @@ const Skills = () => {
   useGSAP(() => {
     serviceRefs.current.forEach((el) => {
       if (!el) return;
+      const innerContent = el.querySelector(".skills-inner-content");
+      if (!innerContent) return;
 
-      gsap.from(el, {
-        y: 200,
+      gsap.from(innerContent, {
+        opacity: 0,
+        y: 50,
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 85%",
+          once: true,
         },
         duration: 1,
-        ease: "circ.out",
+        ease: "power3.out",
       });
     });
   }, []);
@@ -53,7 +57,7 @@ const Skills = () => {
               : { top: 0 }
           }
         >
-          <div className="flex items-center justify-between gap-4 font-light">
+          <div className="skills-inner-content flex items-center justify-between gap-4 font-light">
             <div className="flex flex-col gap-6">
               <h2 className="text-4xl lg:text-5xl">{skills.title}</h2>
               <p className="text-xl leading-relaxed tracking-widest lg:text-2xl text-white/60 text-pretty">

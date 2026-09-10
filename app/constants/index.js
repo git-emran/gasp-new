@@ -624,23 +624,48 @@ const interactionDesignsByCategory = {
 
 };
 
+// Helper to resolve high-performance video & poster paths for smooth 60fps rendering
+const resolveMedia = (imagePath) => {
+  if (!imagePath || typeof imagePath !== "string") {
+    return { video: null, poster: imagePath, image: imagePath };
+  }
+  const isGif = imagePath.endsWith(".gif");
+  const basePath = isGif ? imagePath.replace(/\.gif$/, "") : imagePath;
+  return {
+    image: imagePath,
+    video: isGif ? `${basePath}.mp4` : null,
+    poster: isGif ? `${basePath}_poster.webp` : imagePath,
+  };
+};
+
 // Auto-flatten — do not edit below this line
 export const interactionDesigns = Object.entries(interactionDesignsByCategory).flatMap(
   ([category, items]) =>
-    items.map((item, i) => ({
-      id: `${category}-${i}`,
-      category,
-      title: item.title,
-      image: item.image,
-    }))
+    items.map((item, i) => {
+      const media = resolveMedia(item.image);
+      return {
+        id: `${category}-${i}`,
+        category,
+        title: item.title,
+        image: item.image,
+        video: item.video || media.video,
+        poster: item.poster || media.poster,
+      };
+    })
 );
 
 // One card per category — used by the homepage carousel
 export const interactionDesignsCarousel = Object.entries(interactionDesignsByCategory).map(
-  ([category, items]) => ({
-    id: `${category}-carousel`,
-    category,
-    title: items[0].title,
-    image: items[0].image,
-  })
+  ([category, items]) => {
+    const firstItem = items[0];
+    const media = resolveMedia(firstItem.image);
+    return {
+      id: `${category}-carousel`,
+      category,
+      title: firstItem.title,
+      image: firstItem.image,
+      video: firstItem.video || media.video,
+      poster: firstItem.poster || media.poster,
+    };
+  }
 );

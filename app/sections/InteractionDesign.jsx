@@ -1,9 +1,89 @@
 "use client";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import AnimatedHeaderSection from "../components/AnimatedHeaderSection";
-import { interactionDesigns, interactionDesignsCarousel } from "../constants";
+import { interactionDesignsCarousel } from "../constants";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
+
+/**
+ * Ultra-smooth media component for carousel items.
+ * Uses lightweight WebP poster and hardware-accelerated MP4 video.
+ * Automatically pauses / unloads when out of view to maintain 60/120fps scroll performance.
+ */
+const InteractionCardMedia = ({ item }) => {
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [hasVideoError, setHasVideoError] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+        if (entry.isIntersecting && videoRef.current) {
+          videoRef.current.play().catch(() => {});
+        } else if (!entry.isIntersecting && videoRef.current) {
+          videoRef.current.pause();
+        }
+      },
+      {
+        rootMargin: "200px 100px 200px 100px",
+        threshold: 0.05,
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden bg-neutral-900">
+      {/* Crisp static WebP poster — zero decoding cost */}
+      <img
+        src={item.poster || item.image}
+        alt={item.title}
+        loading="lazy"
+        decoding="async"
+        className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-500 ${
+          videoLoaded ? "opacity-0" : "opacity-100"
+        }`}
+      />
+
+      {/* Hardware GPU-decoded MP4 Video (when in view) */}
+      {item.video && !hasVideoError && isInView && (
+        <video
+          ref={videoRef}
+          src={item.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          onCanPlayThrough={() => setVideoLoaded(true)}
+          onError={() => setHasVideoError(true)}
+          className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-300 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      )}
+
+      {/* Fallback image/GIF if video is unavailable or failed */}
+      {(!item.video || hasVideoError) && isInView && (
+        <img
+          src={item.image}
+          alt={item.title}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 object-cover w-full h-full"
+        />
+      )}
+    </div>
+  );
+};
 
 const InteractionDesign = () => {
   const text = `A collection of interaction designs and micro-animations, focusing on seamless user experiences.`;
@@ -15,13 +95,13 @@ const InteractionDesign = () => {
 
   // Throttle scroll checks via requestAnimationFrame to eliminate main-thread jank
   const checkScrollability = useCallback(() => {
-    if (rafRef.current) return; // already scheduled
+    if (rafRef.current) return;
     rafRef.current = requestAnimationFrame(() => {
       rafRef.current = null;
       if (carouselRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
         setCanScrollLeft(scrollLeft > 2);
-        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 2);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 4);
       }
     });
   }, []);
@@ -29,10 +109,9 @@ const InteractionDesign = () => {
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
-    // passive: true keeps scroll on the compositor thread
     el.addEventListener("scroll", checkScrollability, { passive: true });
     window.addEventListener("resize", checkScrollability, { passive: true });
-    checkScrollability(); // initial check
+    checkScrollability();
     return () => {
       el.removeEventListener("scroll", checkScrollability);
       window.removeEventListener("resize", checkScrollability);
@@ -56,7 +135,9 @@ const InteractionDesign = () => {
       return;
     }
     document.body.style.overflow = "hidden";
-    const handleKeyDown = (e) => { if (e.key === "Escape") setActiveItem(null); };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setActiveItem(null);
+    };
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
@@ -65,8 +146,10 @@ const InteractionDesign = () => {
   }, [activeItem]);
 
   return (
-    /* Remove transition-colors — it forces repaints every scroll frame */
-    <section id="interaction-design" className="flex flex-col py-24 my-12 bg-black text-white rounded-t-4xl rounded-b-4xl">
+    <section
+      id="interaction-design"
+      className="flex flex-col py-24 my-12 bg-black text-white rounded-t-4xl rounded-b-4xl overflow-hidden"
+    >
       <AnimatedHeaderSection
         subTitle={"Micro-interactions & UX"}
         title={"Interaction Design"}
@@ -83,7 +166,6 @@ const InteractionDesign = () => {
           style={{
             scrollbarWidth: "none",
             WebkitOverflowScrolling: "touch",
-            /* Replicates max-w-7xl (80rem = 1280px) mx-auto left alignment, min 1.5rem on small screens */
             paddingLeft: "max(1.5rem, calc((100vw - 80rem) / 2))",
             paddingRight: "max(1.5rem, calc((100vw - 80rem) / 2))",
           }}
@@ -94,39 +176,34 @@ const InteractionDesign = () => {
               onClick={() => setActiveItem(item)}
               className="flex-shrink-0 snap-start cursor-pointer relative w-[75vw] md:w-[380px] lg:w-[420px] aspect-[4/3] rounded-[2rem] overflow-hidden border border-white/10 bg-neutral-900 group"
               style={{
-                /* Promote to own GPU layer — eliminates main-thread repaint on scroll */
                 transform: "translateZ(0)",
                 backfaceVisibility: "hidden",
-                contain: "layout style",
+                contain: "paint layout",
               }}
             >
-              {/* Image — no scale on hover (avoids layer invalidation) */}
-              <img
-                src={item.image}
-                alt={item.title}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 object-cover w-full h-full"
-              />
+              {/* Ultra-smooth hardware-accelerated Media */}
+              <InteractionCardMedia item={item} />
 
-              {/* Static gradient overlay — opacity only on hover (compositor-only) */}
+              {/* Static gradient overlay */}
               <div
-                className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/65 transition-opacity duration-300 group-hover:opacity-70"
-                style={{ willChange: "opacity" }}
+                className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70 transition-opacity duration-300 group-hover:opacity-80 pointer-events-none"
               />
 
               {/* Text */}
-              <div className="absolute top-6 left-6 right-6 z-10">
+              <div className="absolute top-6 left-6 right-6 z-10 pointer-events-none">
                 <span className="text-[10px] md:text-xs font-bold tracking-widest text-white/80 uppercase">
                   {item.category}
                 </span>
-                <h3 className="mt-2 text-xl md:text-2xl font-semibold tracking-tight text-white leading-snug" style={{ textWrap: "balance" }}>
+                <h3
+                  className="mt-2 text-xl md:text-2xl font-semibold tracking-tight text-white leading-snug"
+                  style={{ textWrap: "balance" }}
+                >
                   {item.title}
                 </h3>
               </div>
 
-              {/* Icon hint — no backdrop-blur (extremely expensive per-card) */}
-              <div className="absolute bottom-6 right-6 z-10 bg-white/25 size-10 rounded-full flex items-center justify-center text-white">
+              {/* Icon hint */}
+              <div className="absolute bottom-6 right-6 z-10 bg-white/20 hover:bg-white/30 transition-colors size-10 rounded-full flex items-center justify-center text-white pointer-events-none">
                 <Icon icon="lucide:maximize-2" className="size-5" />
               </div>
             </div>
@@ -145,7 +222,7 @@ const InteractionDesign = () => {
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
             aria-label="Scroll left"
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-white border border-white/10 shadow-sm disabled:opacity-40 disabled:pointer-events-none transition-transform duration-150 hover:scale-105 active:scale-95"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-white border border-white/10 shadow-sm disabled:opacity-40 disabled:pointer-events-none transition-transform duration-150 hover:scale-105 active:scale-95 cursor-pointer"
           >
             <Icon icon="lucide:arrow-left" className="size-6" />
           </button>
@@ -153,7 +230,7 @@ const InteractionDesign = () => {
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
             aria-label="Scroll right"
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-white border border-white/10 shadow-sm disabled:opacity-40 disabled:pointer-events-none transition-transform duration-150 hover:scale-105 active:scale-95"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 text-white border border-white/10 shadow-sm disabled:opacity-40 disabled:pointer-events-none transition-transform duration-150 hover:scale-105 active:scale-95 cursor-pointer"
           >
             <Icon icon="lucide:arrow-right" className="size-6" />
           </button>
@@ -166,9 +243,9 @@ const InteractionDesign = () => {
           className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-medium uppercase tracking-[0.2em] text-black dark:text-black bg-white dark:bg-white rounded-full overflow-hidden shadow-sm transition-all duration-300 hover:shadow-lg hover:pr-12"
         >
           <span>Explore All Interactions</span>
-          <Icon 
-            icon="lucide:arrow-right" 
-            className="w-4 h-4 absolute right-4 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" 
+          <Icon
+            icon="lucide:arrow-right"
+            className="w-4 h-4 absolute right-4 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
           />
         </Link>
       </div>
@@ -185,7 +262,7 @@ const InteractionDesign = () => {
           >
             {/* Close */}
             <button
-              className="absolute top-6 right-6 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-black dark:text-white transition-colors"
+              className="absolute top-6 right-6 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-black dark:text-white transition-colors cursor-pointer"
               onClick={() => setActiveItem(null)}
             >
               <Icon icon="lucide:x" className="size-6" />
@@ -202,11 +279,23 @@ const InteractionDesign = () => {
               </div>
 
               <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-black/5 dark:border-white/10 bg-neutral-100 dark:bg-neutral-800">
-                <img
-                  src={activeItem.image}
-                  alt={activeItem.title}
-                  className="w-full h-full object-contain"
-                />
+                {activeItem.video ? (
+                  <video
+                    src={activeItem.video}
+                    poster={activeItem.poster || activeItem.image}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <img
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    className="w-full h-full object-contain"
+                  />
+                )}
               </div>
 
               <div className="flex justify-between items-center mt-2">

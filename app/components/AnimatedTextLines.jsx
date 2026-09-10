@@ -7,20 +7,25 @@ export const AnimatedTextLines = ({ text, className }) => {
   const containerRef = useRef(null);
   const lineRefs = useRef([]);
   const lines = text.split("\n").filter((line) => line.trim() !== "");
-  useGSAP(() => {
-    if (lineRefs.current.length > 0) {
-      gsap.from(lineRefs.current, {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.3,
-        ease: "back.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-        },
-      });
-    }
-  });
+  useGSAP(
+    () => {
+      if (lineRefs.current.length > 0) {
+        gsap.from(lineRefs.current, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        });
+      }
+    },
+    { scope: containerRef, dependencies: [text] }
+  );
 
   return (
     <div ref={containerRef} className={className}>

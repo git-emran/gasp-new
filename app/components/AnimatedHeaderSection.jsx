@@ -18,26 +18,22 @@ const AnimatedHeaderSection = ({
     const tl = gsap.timeline({
       scrollTrigger: withScrollTrigger
         ? {
-          trigger: contextRef.current,
-        }
+            trigger: contextRef.current,
+            start: "top 85%",
+            once: true,
+          }
         : undefined,
-    });
-    tl.from(contextRef.current, {
-      y: "50vh",
-      duration: 1,
-      ease: "circ.out",
     });
     tl.from(
       headerRef.current,
       {
         opacity: 0,
-        y: 150, // Starts from bottom and animates upward
-        duration: 1.8, // Slower animation
-        ease: "power3.out", // Smooth deceleration
-      },
-      "<+0.2"
+        y: 100,
+        duration: 1.4,
+        ease: "power3.out",
+      }
     );
-  }, []);
+  }, [withScrollTrigger]);
   return (
     <div ref={contextRef}>
       <div style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}>

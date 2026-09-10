@@ -16,31 +16,56 @@ import { useInView } from "react-intersection-observer";
  * Uses react-intersection-observer for production-ready, singleton observer performance.
  * Leverages next/image for optimized rendering.
  */
-const LazyImage = ({ src, alt, className, style }) => {
+const LazyImage = ({ src, poster, video, alt, className, style }) => {
   const { ref, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: "400px", // start loading 400px before entering viewport
+    triggerOnce: false,
+    rootMargin: "200px",
   });
   const [loaded, setLoaded] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (inView) {
+      videoRef.current.play().catch(() => {});
+    } else {
+      videoRef.current.pause();
+    }
+  }, [inView]);
 
   return (
-    <div ref={ref} className="absolute inset-0 w-full h-full">
-      {/* Shimmer placeholder shown until image loads */}
+    <div ref={ref} className="absolute inset-0 w-full h-full overflow-hidden">
+      {/* Shimmer placeholder shown until image/video loads */}
       {!loaded && (
         <div
           className="absolute inset-0 animate-pulse z-0"
           style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.04) 75%)" }}
         />
       )}
-      {inView && (
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className={`object-cover z-10 transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
+
+      {/* Poster */}
+      <img
+        src={poster || src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 object-cover w-full h-full z-10 transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
+        style={style}
+      />
+
+      {/* Hardware accelerated video */}
+      {video && inView && (
+        <video
+          ref={videoRef}
+          src={video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className={`absolute inset-0 object-cover w-full h-full z-10 transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
           style={style}
-          onLoad={() => setLoaded(true)}
-          unoptimized={src.endsWith(".gif")}
         />
       )}
     </div>
@@ -236,6 +261,8 @@ const InteractionsPage = () => {
                     >
                       <LazyImage
                         src={item.image}
+                        poster={item.poster}
+                        video={item.video}
                         alt={item.title}
                         className="rounded-[2rem]"
                       />
