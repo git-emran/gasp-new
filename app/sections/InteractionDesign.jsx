@@ -5,86 +5,6 @@ import { interactionDesignsCarousel } from "../constants";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-/**
- * Ultra-smooth media component for carousel items.
- * Uses lightweight WebP poster and hardware-accelerated MP4 video.
- * Automatically pauses / unloads when out of view to maintain 60/120fps scroll performance.
- */
-const InteractionCardMedia = ({ item }) => {
-  const containerRef = useRef(null);
-  const videoRef = useRef(null);
-  const [isInView, setIsInView] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [hasVideoError, setHasVideoError] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-        if (entry.isIntersecting && videoRef.current) {
-          videoRef.current.play().catch(() => {});
-        } else if (!entry.isIntersecting && videoRef.current) {
-          videoRef.current.pause();
-        }
-      },
-      {
-        rootMargin: "200px 100px 200px 100px",
-        threshold: 0.05,
-      }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={containerRef} className="absolute inset-0 w-full h-full overflow-hidden bg-neutral-900">
-      {/* Crisp static WebP poster — zero decoding cost */}
-      <img
-        src={item.poster || item.image}
-        alt={item.title}
-        loading="lazy"
-        decoding="async"
-        className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-500 ${
-          videoLoaded ? "opacity-0" : "opacity-100"
-        }`}
-      />
-
-      {/* Hardware GPU-decoded MP4 Video (when in view) */}
-      {item.video && !hasVideoError && isInView && (
-        <video
-          ref={videoRef}
-          src={item.video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          onCanPlayThrough={() => setVideoLoaded(true)}
-          onError={() => setHasVideoError(true)}
-          className={`absolute inset-0 object-cover w-full h-full transition-opacity duration-300 ${
-            videoLoaded ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      )}
-
-      {/* Fallback image/GIF if video is unavailable or failed */}
-      {(!item.video || hasVideoError) && isInView && (
-        <img
-          src={item.image}
-          alt={item.title}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 object-cover w-full h-full"
-        />
-      )}
-    </div>
-  );
-};
-
 const InteractionDesign = () => {
   const text = `A collection of interaction designs and micro-animations, focusing on seamless user experiences.`;
   const carouselRef = useRef(null);
@@ -181,8 +101,14 @@ const InteractionDesign = () => {
                 contain: "paint layout",
               }}
             >
-              {/* Ultra-smooth hardware-accelerated Media */}
-              <InteractionCardMedia item={item} />
+              {/* Direct GIF rendering */}
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 object-cover w-full h-full"
+              />
 
               {/* Static gradient overlay */}
               <div
@@ -279,23 +205,11 @@ const InteractionDesign = () => {
               </div>
 
               <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-black/5 dark:border-white/10 bg-neutral-100 dark:bg-neutral-800">
-                {activeItem.video ? (
-                  <video
-                    src={activeItem.video}
-                    poster={activeItem.poster || activeItem.image}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <img
-                    src={activeItem.image}
-                    alt={activeItem.title}
-                    className="w-full h-full object-contain"
-                  />
-                )}
+                <img
+                  src={activeItem.image}
+                  alt={activeItem.title}
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               <div className="flex justify-between items-center mt-2">
