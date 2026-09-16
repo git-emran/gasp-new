@@ -36,28 +36,28 @@ const ServiceSummary = () => {
   return (
     <section className="mt-20 overflow-hidden font-light leading-snug text-center mb-42 contact-text-responsive">
       <div id="title-service-1">
-        <p>System Design</p>
+        <p>Design Systems</p>
       </div>
       <div
         id="title-service-2"
         className="flex items-center justify-center gap-3 translate-x-16"
       >
-        <p className="font-normal">Front-ends</p>
+        <p className="font-normal">Microservices</p>
         <div className="w-10 h-1 md:w-32 bg-gold" />
-        <p>Microservices</p>
+        <p>SaaS</p>
       </div>
       <div
         id="title-service-3"
         className="flex items-center justify-center gap-3 -translate-x-48"
       >
-        <p>LLMs</p>
+        <p>MCP</p>
         <div className="w-10 h-1 md:w-32 bg-gold" />
-        <p>Agents</p>
+        <p>Agentic AI</p>
         <div className="w-10 h-1 md:w-32 bg-gold" />
         <p>RAG</p>
       </div>
       <div id="title-service-4" className="translate-x-48">
-        <p>BigData</p>
+        <p>Observability</p>
       </div>
     </section>
   );
