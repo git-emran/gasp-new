@@ -129,12 +129,94 @@
   }
 }
 
+.font-serif,
+.font-serif.font-semibold {
+  font-family: swear-text-cilati, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.font-serif.font-semibold {
+  font-weight: 600;
+}
+
 body {
-  background: #e5e5e0;
-  color: black;
+  background: #ffffff;
+  color: #000000;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  font-family: var(--font-amiamie);
+  letter-spacing: -0.01em;
+  font-family: neue-haas-grotesk-text, var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #000000;
+    color: #ffffff;
+  }
+}
+
+strong {
+  font-weight: 500;
+}
+
+img {
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+  outline-offset: -1px;
+  border-radius: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  img {
+    outline: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+@layer base {
+  a {
+    text-decoration: underline;
+    text-decoration-color: #dcdcdc;
+    color: inherit;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+    position: relative;
+    transition: text-decoration-color 0.15s ease;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #ef4444;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    a {
+      text-decoration-color: #4b5563;
+    }
+    a:hover {
+      text-decoration-color: #ef4444;
+    }
+  }
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.no-underline:hover,
+.hover\:underline:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #ef4444 !important;
+}
+
+.font-medium {
+  font-family: neue-haas-grotesk-text, var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 @utility clip-path {

@@ -1,111 +1,14 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { interactionDesigns } from "../constants";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import ReactLenis from "lenis/react";
-import Contact from "../sections/Contact";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-/**
- * Lazy-loads an image/GIF only when it enters the viewport.
- * Uses react-intersection-observer for production-ready, singleton observer performance.
- * Leverages next/image for optimized rendering.
- */
-const LazyImage = ({ src, alt, className, style }) => {
-  return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden">
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        className={`absolute inset-0 object-cover w-full h-full ${className || ""}`}
-        style={style}
-      />
-    </div>
-  );
-};
-
-gsap.registerPlugin(ScrollTrigger);
 
 const uniqueCategories = [...new Set(interactionDesigns.map((item) => item.category))];
 
-// Group items by category
-const groupedByCategory = uniqueCategories.map((cat) => ({
-  category: cat,
-  items: interactionDesigns.filter((item) => item.category === cat),
-}));
-
-const InteractionsPage = () => {
-  const [activeTab, setActiveTab] = useState(uniqueCategories[0] || "");
+export default function InteractionsPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedImage, setSelectedImage] = useState(null);
-  const containerRef = useRef(null);
-  const sectionRefs = useRef({});
-  const tabStripRef = useRef(null);
-  const isScrollingRef = useRef(false);
-
-  useGSAP(() => {
-    gsap.from(".hero-content > *", {
-      opacity: 0,
-      y: 80,
-      stagger: 0.15,
-      duration: 1.2,
-      ease: "power4.out",
-    });
-  }, { scope: containerRef });
-
-  // Scroll to section on tab click
-  const handleTabClick = useCallback((cat) => {
-    const el = sectionRefs.current[cat];
-    if (!el) return;
-
-    isScrollingRef.current = true;
-    setActiveTab(cat);
-
-    const tabStripHeight = tabStripRef.current?.offsetHeight || 0;
-    const navbarHeight = 80;
-    const offset = navbarHeight + tabStripHeight + 16;
-
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: "smooth" });
-
-    // Re-enable IntersectionObserver tracking after scroll settles
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 800);
-  }, []);
-
-  // IntersectionObserver — highlight the tab whose section is in view
-  useEffect(() => {
-    const observers = [];
-
-    uniqueCategories.forEach((cat) => {
-      const el = sectionRefs.current[cat];
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && !isScrollingRef.current) {
-            setActiveTab(cat);
-          }
-        },
-        {
-          root: null,
-          // Trigger when section crosses into the middle band of the viewport
-          rootMargin: "-30% 0px -60% 0px",
-          threshold: 0,
-        }
-      );
-
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -115,158 +18,245 @@ const InteractionsPage = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
+  const filteredItems =
+    selectedCategory === "All"
+      ? interactionDesigns
+      : interactionDesigns.filter((item) => item.category === selectedCategory);
+
   return (
-    <ReactLenis root>
-      <main
-        ref={containerRef}
-        className="bg-[#e5e5e0] dark:bg-[#0a0a0a] text-black dark:text-white min-h-screen selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black font-light transition-colors duration-500"
-      >
-        {/* Back Button */}
-        <div className="fixed top-24 left-8 z-[60] mix-blend-difference hidden md:block">
+    <main className="tracking-tight md:px-2 md:py-1 px-0 py-1 bg-white text-black dark:bg-black dark:text-white min-h-screen flex flex-col">
+      {/* Mobile Top Navigation */}
+      <div className="md:hidden flex flex-row justify-between items-center px-7 pt-4 pb-2 mb-6">
+        <div className="flex flex-row gap-6">
           <Link
-            href="/#interaction-design"
-            className="flex items-center gap-2 group text-xs uppercase tracking-[0.3em] text-white font-medium"
+            className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+            href="/"
           >
-            <Icon icon="lucide:arrow-left" className="size-4" />
-            <span className="relative overflow-hidden h-4">
-              <span className="block transition-transform duration-500 group-hover:-translate-y-full">
-                Back
-              </span>
-              <span className="absolute top-full left-0 transition-transform duration-500 group-hover:-translate-y-full">
-                Back
-              </span>
-            </span>
+            Work
+          </Link>
+          <Link
+            className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+            href="/about"
+          >
+            About
+          </Link>
+          <Link
+            className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+            href="/notes"
+          >
+            Notes
+          </Link>
+          <Link
+            className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300 font-medium"
+            href="/interaction-archive"
+          >
+            Interactions
           </Link>
         </div>
+      </div>
 
-        {/* Hero Section */}
-        <section className="relative flex flex-col pt-32 pb-16 px-6 md:px-12 lg:px-24">
-          <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center">
-            <div className="hero-content space-y-8 mb-16">
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 border border-black/10 dark:border-white/20 rounded-full text-[9px] uppercase tracking-widest text-black/40 dark:text-white/50">
-                  Interactive
-                </span>
-              </div>
-              <h1 className="text-[12vw] md:text-[8vw] font-black leading-[0.85] tracking-tighter uppercase">
-                Interaction<br />Archive
-              </h1>
-              <div className="max-w-2xl">
-                <p className="text-xl md:text-2xl text-black/60 dark:text-white/60 font-light leading-relaxed">
-                  A curated collection of micro-animations, flows, and interactive components.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+      <div className="bg-white text-lg dark:bg-black dark:text-white flex-1 w-full">
+        <div className="grid grid-cols-12 px-7">
+          <div className="col-span-12 md:col-span-11 lg:col-span-9 max-w-screen-xl pb-16 leading-relaxed">
+            {/* Header */}
+            <h1 className="text-4xl font-serif mb-4 mt-4 tracking-tight">
+              <Link
+                className="font-bold font-serif text-black hover:text-gray-800 hover:no-underline no-underline dark:text-white dark:hover:text-gray-300"
+                href="/"
+              >
+                Emran Hossain
+                <span className="font-serif font-semibold"> — Interactions</span>
+              </Link>
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-prose leading-relaxed">
+              A curated collection of micro-animations, gesture mechanics for VisionOS and iPadOS, tactile feedback patterns, and fluid UI interactions.
+            </p>
 
-        {/* Sticky Tab Strip */}
-        <div
-          ref={tabStripRef}
-          className="sticky top-0 z-50 py-4 border-y border-black/10 dark:border-white/10 bg-[#e5e5e0]/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md px-6 md:px-12 lg:px-24"
-        >
-          <div className="max-w-7xl mx-auto flex flex-wrap gap-3">
-            {uniqueCategories.map((cat) => (
+            {/* Category Filter Tabs */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 mb-10 text-base border-b border-gray-200 dark:border-gray-800 pb-4">
               <button
-                key={cat}
-                onClick={() => handleTabClick(cat)}
-                className={`px-6 py-2.5 text-[10px] font-normal uppercase tracking-widest transition-all duration-300 rounded-full border cursor-pointer ${
-                  activeTab === cat
-                    ? "bg-black text-white dark:bg-white dark:text-black border-transparent shadow-sm"
-                    : "bg-black/[0.02] dark:bg-white/[0.03] text-black/50 dark:text-white/50 border-black/5 dark:border-white/10 hover:bg-black/[0.05] dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
+                onClick={() => setSelectedCategory("All")}
+                className={`cursor-pointer transition-colors ${
+                  selectedCategory === "All"
+                    ? "font-semibold underline underline-offset-4 decoration-2 decoration-red-500 text-black dark:text-white"
+                    : "text-gray-500 hover:text-black dark:hover:text-white"
                 }`}
               >
-                {cat}
+                All ({interactionDesigns.length})
               </button>
-            ))}
+              {uniqueCategories.map((cat) => {
+                const count = interactionDesigns.filter((item) => item.category === cat).length;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`cursor-pointer transition-colors ${
+                      selectedCategory === cat
+                        ? "font-semibold underline underline-offset-4 decoration-2 decoration-red-500 text-black dark:text-white"
+                        : "text-gray-500 hover:text-black dark:hover:text-white"
+                    }`}
+                  >
+                    {cat} ({count})
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Interactions Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="group cursor-zoom-in"
+                  onClick={() => setSelectedImage(item.image)}
+                >
+                  <div className="relative aspect-[4/3] bg-gray-100 dark:bg-gray-900 overflow-hidden outline outline-1 outline-black/10 dark:outline-white/10">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300 rounded-none"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-baseline justify-between">
+                    <h3 className="font-medium text-base text-black dark:text-white">
+                      {item.title}
+                    </h3>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {item.category}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Fixed Right Navigation */}
+          <div className="hidden md:block md:fixed md:right-8 md:top-4 lg:col-span-2 lg:col-start-11 md:col-span-2 md:col-start-12 col-span-12 pt-4 pb-20 transition-opacity z-20">
+            <div className="flex flex-col items-end text-right md:mt-0 mt-6">
+              <Link
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                href="/"
+              >
+                Work
+              </Link>
+              <Link
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                href="/about"
+              >
+                About
+              </Link>
+              <Link
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                href="/notes"
+              >
+                Notes
+              </Link>
+              <Link
+                className="mb-8 no-underline hover:underline dark:text-white dark:hover:text-gray-300 font-medium"
+                href="/interaction-archive"
+              >
+                Interactions
+              </Link>
+              <a
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.linkedin.com/in/emran-hossain-80ab17190/"
+              >
+                LinkedIn
+              </a>
+              <a
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/git-emran"
+              >
+                GitHub
+              </a>
+              <a
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.instagram.com/designwithemran/"
+              >
+                Instagram
+              </a>
+              <a
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://my-blog-omega-ashy.vercel.app/"
+              >
+                Blog
+              </a>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* All Category Sections stacked */}
-        {groupedByCategory.map(({ category, items }) => (
-          <section
-            key={category}
-            ref={(el) => { sectionRefs.current[category] = el; }}
-            className="py-24 px-6 md:px-12 lg:px-24 border-b border-black/5 dark:border-white/5"
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden flex flex-row flex-wrap px-7 py-2 pb-10 w-full">
+        <a
+          className="text-left no-underline text-lg dark:text-white inline-block transition"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.linkedin.com/in/emran-hossain-80ab17190/"
+        >
+          LinkedIn
+        </a>
+        <span className="mx-1 text-lg text-gray-400 dark:text-gray-500">/</span>
+        <a
+          className="text-left no-underline text-lg dark:text-white inline-block transition"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/git-emran"
+        >
+          GitHub
+        </a>
+        <span className="mx-1 text-lg text-gray-400 dark:text-gray-500">/</span>
+        <a
+          className="text-left no-underline text-lg dark:text-white inline-block transition"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.instagram.com/designwithemran/"
+        >
+          Instagram
+        </a>
+        <span className="mx-1 text-lg text-gray-400 dark:text-gray-500">/</span>
+        <a
+          className="text-left no-underline text-lg dark:text-white inline-block transition"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://my-blog-omega-ashy.vercel.app/"
+        >
+          Blog
+        </a>
+      </nav>
+
+      {/* Lightbox Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md cursor-zoom-out"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="absolute top-6 right-6 z-10 p-2 text-white/70 hover:text-white transition-colors cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImage(null);
+            }}
           >
-            <div className="max-w-7xl mx-auto">
-              {/* Section heading */}
-              <div className="mb-12 flex items-end justify-between">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">
-                  {category}
-                </h2>
-                <span className="text-sm text-black/40 dark:text-white/40 tabular-nums">
-                  {items.length} {items.length === 1 ? "item" : "items"}
-                </span>
-              </div>
-
-              {/* Masonry grid */}
-              <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="reveal-card break-inside-avoid overflow-hidden border rounded-[2rem] border-black/5 dark:border-white/10 group cursor-zoom-in transition-[transform,box-shadow] duration-500 bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/[0.05] dark:hover:bg-white/5 hover:-translate-y-1"
-                    onClick={() => setSelectedImage(item.image)}
-                    style={{
-                      transform: "translate3d(0, 0, 0)",
-                      backfaceVisibility: "hidden",
-                    }}
-                  >
-                    <div
-                      className="relative"
-                      style={{ aspectRatio: item.aspectRatio || "4/3" }}
-                    >
-                      <LazyImage
-                        src={item.image}
-                        alt={item.title}
-                        className="rounded-[2rem]"
-                      />
-                      <div className="absolute inset-0 flex flex-col justify-end p-8 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:opacity-100">
-                        <p className="text-[10px] font-bold tracking-[0.2em] text-white/70 uppercase">
-                          {item.category}
-                        </p>
-                        <h3 className="mt-2 text-2xl font-bold text-white">{item.title}</h3>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        ))}
-
-        <Contact />
-
-        {/* Image Lightbox */}
-        {selectedImage && (
-          <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl cursor-zoom-out animate-in fade-in duration-300"
-            onClick={() => setSelectedImage(null)}
-          >
-            {/* Close button */}
-            <button
-              className="absolute top-4 right-4 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedImage(null);
-              }}
-            >
-              <Icon icon="lucide:x" className="size-5" />
-            </button>
-
-            {/* Image — fills available screen space while preserving aspect ratio */}
-            <img
-              src={selectedImage}
-              className="block max-w-full max-h-full w-auto h-auto object-contain rounded-xl shadow-2xl animate-in zoom-in-95 duration-300"
-              style={{ maxHeight: "calc(100vh - 4rem)", maxWidth: "calc(100vw - 4rem)" }}
-              alt="Lightbox View"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        )}
-      </main>
-    </ReactLenis>
+            <Icon icon="lucide:x" className="size-6" />
+          </button>
+          <img
+            src={selectedImage}
+            alt="Expanded view"
+            className="max-h-[90vh] max-w-[90vw] object-contain rounded-none shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </main>
   );
-};
-
-export default InteractionsPage;
+}

@@ -22,8 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Emran's Portfolio",
-  description: "A Designer & Developer",
+  title: "Emran Hossain",
+  description: "Portfolio and design engineering work by Emran Hossain",
 };
 
 export default function RootLayout({ children }) {
@@ -32,8 +32,9 @@ export default function RootLayout({ children }) {
       <head>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no "
+          content="width=device-width, initial-scale=1"
         />
+        <link rel="stylesheet" href="https://use.typekit.net/rku4zxn.css" />
       </head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-D2ZF2LF7V8" />
       <Script id="ga4-init" strategy="afterInteractive">
@@ -45,12 +46,10 @@ export default function RootLayout({ children }) {
         `}
       </Script>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} antialiased bg-white text-black dark:bg-black dark:text-white`}
       >
-        <LoaderWrapper>
-          {children}
-          <SpeedInsights />
-        </LoaderWrapper>
+        {children}
+        <SpeedInsights />
         <Analytics />
       </body>
     </html>
