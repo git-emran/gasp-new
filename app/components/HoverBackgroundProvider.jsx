@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import FluidBackgroundShader from "./FluidBackgroundShader";
 
 export const HOVER_PRESETS = {
@@ -159,11 +160,13 @@ const HoverBackgroundContext = createContext({
 });
 
 export function HoverBackgroundProvider({ children }) {
+  const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [currentStyle, setCurrentStyle] = useState(HOVER_PRESETS.default);
   const hideTimerRef = useRef(null);
 
+  // Sync dark/light theme based on system preferences
   useEffect(() => {
     if (typeof window === "undefined") return;
     const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -179,6 +182,46 @@ export function HoverBackgroundProvider({ children }) {
     const handler = (e) => syncTheme(e.matches);
     media.addEventListener("change", handler);
     return () => media.removeEventListener("change", handler);
+  }, []);
+
+  // Guarantee hover effect is immediately cleared whenever route/page changes
+  useEffect(() => {
+    if (hideTimerRef.current) {
+      clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+    setIsHovered(false);
+  }, [pathname]);
+
+  // Clear hover on scrolling, window blur, visibility loss, or mouse leaving the viewport
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const dismissHover = () => {
+      if (hideTimerRef.current) {
+        clearTimeout(hideTimerRef.current);
+        hideTimerRef.current = null;
+      }
+      setIsHovered(false);
+    };
+
+    const handleMouseLeaveDoc = (e) => {
+      if (!e.relatedTarget && !e.toElement) {
+        dismissHover();
+      }
+    };
+
+    window.addEventListener("blur", dismissHover);
+    window.addEventListener("scroll", dismissHover, { passive: true });
+    document.addEventListener("visibilitychange", dismissHover);
+    document.addEventListener("mouseleave", handleMouseLeaveDoc);
+
+    return () => {
+      window.removeEventListener("blur", dismissHover);
+      window.removeEventListener("scroll", dismissHover);
+      document.removeEventListener("visibilitychange", dismissHover);
+      document.removeEventListener("mouseleave", handleMouseLeaveDoc);
+    };
   }, []);
 
   const triggerHover = (customStyleOrPreset) => {
@@ -198,11 +241,18 @@ export function HoverBackgroundProvider({ children }) {
     setIsHovered(true);
   };
 
-  const clearHover = () => {
-    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    hideTimerRef.current = setTimeout(() => {
+  const clearHover = (immediate = false) => {
+    if (hideTimerRef.current) {
+      clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+    if (immediate) {
       setIsHovered(false);
-    }, 40);
+    } else {
+      hideTimerRef.current = setTimeout(() => {
+        setIsHovered(false);
+      }, 40);
+    }
   };
 
   return (

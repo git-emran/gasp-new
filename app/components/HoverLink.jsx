@@ -22,7 +22,7 @@ export default function HoverLink({
 }) {
   const { triggerHover, clearHover } = useHoverBackground();
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = () => {
     if (tint || distortion !== undefined || swirl !== undefined || speed !== undefined) {
       triggerHover({
         ...(preset ? { preset } : {}),
@@ -42,6 +42,11 @@ export default function HoverLink({
     clearHover();
   };
 
+  const handleClick = (e) => {
+    clearHover(true);
+    if (onClick) onClick(e);
+  };
+
   const isExternal =
     target === "_blank" ||
     (typeof href === "string" && (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("mailto:")));
@@ -50,14 +55,15 @@ export default function HoverLink({
     return (
       <a
         href={href}
-        target={target || (isExternal ? "_blank" : undefined)}
-        rel={rel || (isExternal ? "noopener noreferrer" : undefined)}
+        target={target || "_blank"}
+        rel={rel || "noopener noreferrer"}
         className={className}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleMouseEnter}
         onTouchEnd={handleMouseLeave}
-        onClick={onClick}
+        onTouchCancel={handleMouseLeave}
+        onClick={handleClick}
         {...props}
       >
         {children}
@@ -73,7 +79,8 @@ export default function HoverLink({
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleMouseEnter}
       onTouchEnd={handleMouseLeave}
-      onClick={onClick}
+      onTouchCancel={handleMouseLeave}
+      onClick={handleClick}
       {...props}
     >
       {children}

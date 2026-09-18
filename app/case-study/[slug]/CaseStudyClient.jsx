@@ -135,12 +135,13 @@ export default function CaseStudyClient({ project }) {
             {/* Main Showcase Hero Media */}
             {project.image && (
               <div
-                className="my-10 outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm"
+                className="my-10 outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm bg-neutral-100 dark:bg-neutral-900"
                 onClick={() => setSelectedImage(project.image)}
               >
                 <img
                   src={project.image}
                   alt={project.name}
+                  loading="eager"
                   className="w-full h-auto rounded-none block"
                 />
               </div>
@@ -172,12 +173,13 @@ export default function CaseStudyClient({ project }) {
                     {project.caseStudy.problemImages.map((img, i) => (
                       <div
                         key={i}
-                        className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm"
+                        className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm bg-neutral-100 dark:bg-neutral-900"
                         onClick={() => setSelectedImage(img)}
                       >
                         <img
                           src={img}
                           alt={`Problem illustration ${i + 1}`}
+                          loading="lazy"
                           className="w-full h-auto rounded-none block"
                         />
                       </div>
@@ -206,12 +208,13 @@ export default function CaseStudyClient({ project }) {
                       </p>
                       {phase.image && (
                         <div
-                          className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in my-6 rounded-lg shadow-sm"
+                          className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in my-6 rounded-lg shadow-sm bg-neutral-100 dark:bg-neutral-900"
                           onClick={() => setSelectedImage(phase.image)}
                         >
                           <img
                             src={phase.image}
                             alt={phase.title}
+                            loading="lazy"
                             className="w-full h-auto rounded-none block"
                           />
                         </div>
@@ -262,12 +265,13 @@ export default function CaseStudyClient({ project }) {
                         </p>
                         {sec.image && (
                           <div
-                            className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in my-6 rounded-lg shadow-sm"
+                            className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in my-6 rounded-lg shadow-sm bg-neutral-100 dark:bg-neutral-900"
                             onClick={() => setSelectedImage(sec.image)}
                           >
                             <img
                               src={sec.image}
                               alt={sec.title}
+                              loading="lazy"
                               className="w-full h-auto rounded-none block"
                             />
                           </div>
@@ -300,12 +304,13 @@ export default function CaseStudyClient({ project }) {
                     {project.caseStudy.resultsImages.map((img, i) => (
                       <div
                         key={i}
-                        className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm"
+                        className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm bg-neutral-100 dark:bg-neutral-900"
                         onClick={() => setSelectedImage(img)}
                       >
                         <img
                           src={img}
                           alt={`Result image ${i + 1}`}
+                          loading="lazy"
                           className="w-full h-auto rounded-none block"
                         />
                       </div>
