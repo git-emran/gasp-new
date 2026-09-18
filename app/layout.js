@@ -37,6 +37,11 @@ export default function RootLayout({ children }) {
           content="width=device-width, initial-scale=1"
         />
         <link rel="stylesheet" href="https://use.typekit.net/rku4zxn.css" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var m=window.matchMedia('(prefers-color-scheme: dark)');if(m.matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}})();`,
+          }}
+        />
       </head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-D2ZF2LF7V8" />
       <Script id="ga4-init" strategy="afterInteractive">

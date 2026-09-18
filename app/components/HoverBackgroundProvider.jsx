@@ -167,8 +167,16 @@ export function HoverBackgroundProvider({ children }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const media = window.matchMedia("(prefers-color-scheme: dark)");
-    setIsDark(media.matches);
-    const handler = (e) => setIsDark(e.matches);
+    const syncTheme = (matches) => {
+      setIsDark(matches);
+      if (matches) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    };
+    syncTheme(media.matches);
+    const handler = (e) => syncTheme(e.matches);
     media.addEventListener("change", handler);
     return () => media.removeEventListener("change", handler);
   }, []);

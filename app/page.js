@@ -44,7 +44,7 @@ export default function Home() {
           <div className="col-span-11 lg:col-span-7 md:col-span-9 max-w-screen-lg pb-5 leading-relaxed">
             {/* Hero / Intro */}
             <div className="xl:mr-60 lg:mr-30 md:mr-20 max-w-prose">
-              <h1 className="font-serif font-extrabold md:text-8xl text-7xl mt-0 mb-6 text-dark tracking-tight -mr-[calc(100%/11)] md:mr-0">
+              <h1 className="font-serif font-extrabold md:text-8xl text-7xl mt-0 mb-6 text-black dark:text-white tracking-tight -mr-[calc(100%/11)] md:mr-0">
                 Emran Hossain
               </h1>
               <div className="leading-relaxed">
