@@ -3,7 +3,6 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
-import LoaderWrapper from "./components/LoaderWrapper";
 import { HoverBackgroundProvider } from "./components/HoverBackgroundProvider";
 import ScrollToTopFab from "./components/ScrollToTopFab";
 

@@ -1,83 +1,5 @@
 // index.js
 
-export const skillsData = [
-  {
-    title: "Design & Fullstack Development",
-    description:
-      "From AI content platforms to laboratory dashboards, I design and build the full stack React/Next.js front-ends, Go/Node services, and schema design that holds up under real production load.",
-    items: [
-      {
-        title: "Frontend Excellence",
-        description: "(React, Vue, TypeScript, Vanilla JS, Interactive UI/UX)",
-      },
-      {
-        title: "Backend Engineering",
-        description: "(REST/GraphQL APIs, Microservices, Auth Systems)",
-      },
-      {
-        title: "Database Design",
-        description: "(SQL/NoSQL Optimization, Scalable Structures)",
-      },
-    ],
-  },
-  {
-    title: "DevOps & Cloud Solutions",
-    description:
-      "I automate the boring parts of shipping CI/CD, deployments, and monitoring — on AWS/Azure, so releases stop being an event.",
-    items: [
-      {
-        title: "CI/CD Pipelines",
-        description: "(GitHub Actions, Docker, Kubernetes)",
-      },
-      {
-        title: "Server Management ",
-        description: "(Linux, Nginx, Load Balancing)",
-      },
-      {
-        title: "Performance Tuning",
-        description: "(Caching, Compression, Lighthouse 90+ Scores)",
-      },
-    ],
-  },
-  {
-    title: "Security & Optimization",
-    description:
-      "I harden auth flows (OAuth, JWT) and close off XSS/SQLI gaps before they're a headline. Then I go after the slow queries and bloated bundles nobody else wants to touch.",
-    items: [
-      {
-        title: "Code Audits",
-        description: "(Refactoring, Tech Debt Cleanup)",
-      },
-      {
-        title: "Pen Testing",
-        description: "(Vulnerability Assessments)",
-      },
-      {
-        title: "SEO Tech Stack",
-        description: "(SSR, Metadata, Structured Data)",
-      },
-    ],
-  },
-  {
-    title: "Web & Mobile Apps",
-    description:
-      "A clunky interface can sink even the best ideas. I craft responsive, pixel perfect web and mobile apps (React Native/Flutter) that users love bridging design and functionality seamlessly.",
-    items: [
-      {
-        title: "Cross-Platform Apps",
-        description: "(Single codebase for iOS/Android/Web)",
-      },
-      {
-        title: "PWAs",
-        description: "(Offline mode, Push Notifications)",
-      },
-      {
-        title: "E-Commerce",
-        description: "(Checkout flows, Payment Gateways, Inventory APIs)",
-      },
-    ],
-  },
-];
 export const projects = [
   {
     id: 1,
@@ -524,16 +446,6 @@ export const projects = [
     }
   },
 ];
-export const socials = [
-  { name: "Insta", href: "https://www.instagram.com/designwithemran/" },
-
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/emran-hossain-80ab17190/",
-  },
-  { name: "GitHub", href: "https://github.com/git-emran" },
-  { name: "My Blog", href: "https://my-blog-omega-ashy.vercel.app/" },
-];
 
 export const testimonials = [
   {
@@ -572,7 +484,7 @@ export const testimonials = [
 // To add a new interaction:
 //   1. Find the category you want (or add a new one).
 //   2. Append a { title, image } object to that category's array.
-//   3. Tabs and carousel update automatically — no code changes needed elsewhere.
+//   3. Tabs and gallery update automatically — no code changes needed elsewhere.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const interactionDesignsByCategory = {
@@ -652,20 +564,4 @@ export const interactionDesigns = Object.entries(interactionDesignsByCategory).f
         poster: item.poster || media.poster,
       };
     })
-);
-
-// One card per category — used by the homepage carousel
-export const interactionDesignsCarousel = Object.entries(interactionDesignsByCategory).map(
-  ([category, items]) => {
-    const firstItem = items[0];
-    const media = resolveMedia(firstItem.image);
-    return {
-      id: `${category}-carousel`,
-      category,
-      title: firstItem.title,
-      image: firstItem.image,
-      video: firstItem.video || media.video,
-      poster: firstItem.poster || media.poster,
-    };
-  }
 );
