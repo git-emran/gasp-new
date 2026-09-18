@@ -1,5 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
+import HoverLink from "../components/HoverLink";
+import AboutVideos from "../components/AboutVideos";
+import Testimonials from "../components/Testimonials";
 
 export const metadata = {
   title: "Emran Hossain — About",
@@ -12,30 +14,34 @@ export default function AboutPage() {
       {/* Mobile Top Navigation */}
       <div className="md:hidden flex flex-row justify-between items-center px-7 pt-4 pb-2 mb-6">
         <div className="flex flex-row gap-6">
-          <Link
+          <HoverLink
+            preset="work"
             className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
             href="/"
           >
             Work
-          </Link>
-          <Link
+          </HoverLink>
+          <HoverLink
+            preset="about"
             className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300 font-medium"
             href="/about"
           >
             About
-          </Link>
-          <Link
+          </HoverLink>
+          <HoverLink
+            preset="notes"
             className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
             href="/notes"
           >
             Notes
-          </Link>
-          <Link
+          </HoverLink>
+          <HoverLink
+            preset="interactions_nav"
             className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
             href="/interaction-archive"
           >
             Interactions
-          </Link>
+          </HoverLink>
         </div>
       </div>
 
@@ -72,6 +78,22 @@ export default function AboutPage() {
               />
             </div>
 
+            {/* Videos Showcase */}
+            <div className="mb-16 xl:mr-60 lg:mr-30 md:mr-10 max-w-prose">
+              <h3 className="font-serif text-2xl font-bold mb-6 text-black dark:text-white">
+                Videos
+              </h3>
+              <AboutVideos />
+            </div>
+
+            {/* Testimonials */}
+            <div className="mb-16 xl:mr-60 lg:mr-30 md:mr-10 max-w-prose">
+              <h3 className="font-serif text-2xl font-bold mb-6 text-black dark:text-white">
+                Testimonials
+              </h3>
+              <Testimonials />
+            </div>
+
             {/* Personal / Off-duty Interests */}
             <div className="mb-16 xl:mr-60 lg:mr-30 md:mr-10 max-w-prose">
               <h3 className="font-serif text-2xl font-bold mb-6 text-black dark:text-white">
@@ -88,14 +110,15 @@ export default function AboutPage() {
                   <span className="text-xl flex-shrink-0 select-none">🎥</span>
                   <span>
                     Teaching UX &amp; Dev fundamentals on{" "}
-                    <a
+                    <HoverLink
                       href="https://adplist.org"
                       target="_blank"
                       rel="noopener noreferrer"
+                      preset="writer"
                       className="text-black hover:underline dark:text-white font-medium"
                     >
                       ADPList
-                    </a>{" "}
+                    </HoverLink>{" "}
                     — rising tide lift all ships
                   </span>
                 </li>
@@ -118,62 +141,70 @@ export default function AboutPage() {
           {/* Desktop Fixed Right Navigation */}
           <div className="hidden md:block md:fixed md:right-8 md:top-4 lg:col-span-2 lg:col-start-11 md:col-span-2 md:col-start-12 col-span-12 pt-4 pb-20 transition-opacity z-20">
             <div className="flex flex-col items-end text-right md:mt-0 mt-6">
-              <Link
+              <HoverLink
+                preset="work"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 href="/"
               >
                 Work
-              </Link>
-              <Link
+              </HoverLink>
+              <HoverLink
+                preset="about"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300 font-medium"
                 href="/about"
               >
                 About
-              </Link>
-              <Link
+              </HoverLink>
+              <HoverLink
+                preset="notes"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 href="/notes"
               >
                 Notes
-              </Link>
-              <Link
+              </HoverLink>
+              <HoverLink
+                preset="interactions_nav"
                 className="mb-8 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 href="/interaction-archive"
               >
                 Interactions
-              </Link>
-              <a
+              </HoverLink>
+              <HoverLink
+                preset="linkedin"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.linkedin.com/in/emran-hossain-80ab17190/"
               >
                 LinkedIn
-              </a>
-              <a
+              </HoverLink>
+              <HoverLink
+                preset="github"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://github.com/git-emran"
               >
                 GitHub
-              </a>
-              <a
+              </HoverLink>
+              <HoverLink
+                preset="instagram"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.instagram.com/designwithemran/"
               >
                 Instagram
-              </a>
-              <a
+              </HoverLink>
+              <HoverLink
+                preset="blog"
                 className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://my-blog-omega-ashy.vercel.app/"
               >
                 Blog
-              </a>
+              </HoverLink>
             </div>
           </div>
         </div>
@@ -181,41 +212,45 @@ export default function AboutPage() {
 
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden flex flex-row flex-wrap px-7 py-2 pb-10 w-full">
-        <a
+        <HoverLink
+          preset="linkedin"
           className="text-left no-underline text-lg dark:text-white inline-block transition"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.linkedin.com/in/emran-hossain-80ab17190/"
         >
           LinkedIn
-        </a>
+        </HoverLink>
         <span className="mx-1 text-lg text-gray-400 dark:text-gray-500">/</span>
-        <a
+        <HoverLink
+          preset="github"
           className="text-left no-underline text-lg dark:text-white inline-block transition"
           target="_blank"
           rel="noopener noreferrer"
           href="https://github.com/git-emran"
         >
           GitHub
-        </a>
+        </HoverLink>
         <span className="mx-1 text-lg text-gray-400 dark:text-gray-500">/</span>
-        <a
+        <HoverLink
+          preset="instagram"
           className="text-left no-underline text-lg dark:text-white inline-block transition"
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.instagram.com/designwithemran/"
         >
           Instagram
-        </a>
+        </HoverLink>
         <span className="mx-1 text-lg text-gray-400 dark:text-gray-500">/</span>
-        <a
+        <HoverLink
+          preset="blog"
           className="text-left no-underline text-lg dark:text-white inline-block transition"
           target="_blank"
           rel="noopener noreferrer"
           href="https://my-blog-omega-ashy.vercel.app/"
         >
           Blog
-        </a>
+        </HoverLink>
       </nav>
     </main>
   );

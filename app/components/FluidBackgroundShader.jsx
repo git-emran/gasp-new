@@ -236,8 +236,19 @@ function hslToHex(h, s, l) {
     .join("")}`;
 }
 
-function generatePalette(tintHex, bgHex = "#ffffff") {
-  let [h, s, l] = hexToHsl(tintHex);
+function lerpHsl(current, target, rate = 0.08) {
+  let [h1, s1, l1] = current;
+  let [h2, s2, l2] = target;
+  if (s2 < 8) h2 = h1;
+  const hueDiff = ((h2 - h1 + 540) % 360) - 180;
+  const h = ((h1 + hueDiff * rate) % 360 + 360) % 360;
+  const s = s1 + (s2 - s1) * rate;
+  const l = l1 + (l2 - l1) * rate;
+  return [h, s, l];
+}
+
+function generatePaletteFromHsl(hsl, bgHex = "#ffffff") {
+  let [h, s, l] = hsl;
   s = Math.max(s, 38);
   l = clamp(l, 42, 62);
   return [
@@ -280,7 +291,7 @@ function createShader(gl, type, source) {
   return shader;
 }
 
-export default function LamaBackgroundShader({
+export default function FluidBackgroundShader({
   tint = "#cc785c",
   themeBg = "#ffffff",
   distortion = 0.8,
@@ -298,6 +309,51 @@ export default function LamaBackgroundShader({
   const rafIdRef = useRef(null);
   const currentFrameRef = useRef(0);
   const lastRenderTimeRef = useRef(0);
+
+  // Smooth lerp state refs for continuous fluid morphing
+  const currentHslRef = useRef(hexToHsl(tint));
+  const currentDistortionRef = useRef(distortion);
+  const currentSwirlRef = useRef(swirl);
+  const currentSpeedRef = useRef(speed);
+  const currentGrainMixerRef = useRef(grainMixer);
+  const currentGrainOverlayRef = useRef(grainOverlay);
+
+  // Target values updated via props
+  const targetTintRef = useRef(tint);
+  const targetThemeBgRef = useRef(themeBg);
+  const targetDistortionRef = useRef(distortion);
+  const targetSwirlRef = useRef(swirl);
+  const targetSpeedRef = useRef(speed);
+  const targetGrainMixerRef = useRef(grainMixer);
+  const targetGrainOverlayRef = useRef(grainOverlay);
+
+  useEffect(() => {
+    targetTintRef.current = tint;
+  }, [tint]);
+
+  useEffect(() => {
+    targetThemeBgRef.current = themeBg;
+  }, [themeBg]);
+
+  useEffect(() => {
+    targetDistortionRef.current = distortion;
+  }, [distortion]);
+
+  useEffect(() => {
+    targetSwirlRef.current = swirl;
+  }, [swirl]);
+
+  useEffect(() => {
+    targetSpeedRef.current = speed;
+  }, [speed]);
+
+  useEffect(() => {
+    targetGrainMixerRef.current = grainMixer;
+  }, [grainMixer]);
+
+  useEffect(() => {
+    targetGrainOverlayRef.current = grainOverlay;
+  }, [grainOverlay]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -413,7 +469,19 @@ export default function LamaBackgroundShader({
       const delta = time - (lastRenderTimeRef.current || time);
       lastRenderTimeRef.current = time;
 
-      currentFrameRef.current += delta * speed;
+      // Smooth interpolation for color palette
+      const targetHsl = hexToHsl(targetTintRef.current);
+      currentHslRef.current = lerpHsl(currentHslRef.current, targetHsl, 0.08);
+
+      // Smooth interpolation for fluid parameters
+      const lerpFactor = 0.08;
+      currentDistortionRef.current += (targetDistortionRef.current - currentDistortionRef.current) * lerpFactor;
+      currentSwirlRef.current += (targetSwirlRef.current - currentSwirlRef.current) * lerpFactor;
+      currentSpeedRef.current += (targetSpeedRef.current - currentSpeedRef.current) * lerpFactor;
+      currentGrainMixerRef.current += (targetGrainMixerRef.current - currentGrainMixerRef.current) * lerpFactor;
+      currentGrainOverlayRef.current += (targetGrainOverlayRef.current - currentGrainOverlayRef.current) * lerpFactor;
+
+      currentFrameRef.current += delta * currentSpeedRef.current;
 
       gl.useProgram(program);
       gl.clearColor(0, 0, 0, 0);
@@ -433,12 +501,12 @@ export default function LamaBackgroundShader({
       gl.uniform1f(uLocs.u_offsetX, 0);
       gl.uniform1f(uLocs.u_offsetY, 0);
 
-      gl.uniform1f(uLocs.u_distortion, distortion);
-      gl.uniform1f(uLocs.u_swirl, swirl);
-      gl.uniform1f(uLocs.u_grainMixer, grainMixer);
-      gl.uniform1f(uLocs.u_grainOverlay, grainOverlay);
+      gl.uniform1f(uLocs.u_distortion, currentDistortionRef.current);
+      gl.uniform1f(uLocs.u_swirl, currentSwirlRef.current);
+      gl.uniform1f(uLocs.u_grainMixer, currentGrainMixerRef.current);
+      gl.uniform1f(uLocs.u_grainOverlay, currentGrainOverlayRef.current);
 
-      const palette = generatePalette(tint, themeBg);
+      const palette = generatePaletteFromHsl(currentHslRef.current, targetThemeBgRef.current);
       const colorVectors = palette.flatMap((hex) => hexToRgbaArray(hex));
       gl.uniform4fv(uLocs.u_colors, new Float32Array(colorVectors));
       gl.uniform1f(uLocs.u_colorsCount, palette.length);
@@ -463,7 +531,7 @@ export default function LamaBackgroundShader({
       }
       canvas.remove();
     };
-  }, [tint, themeBg, distortion, swirl, speed, grainMixer, grainOverlay, minPixelRatio, maxPixelCount]);
+  }, [minPixelRatio, maxPixelCount]);
 
   return (
     <div

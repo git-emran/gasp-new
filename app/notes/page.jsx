@@ -1,5 +1,4 @@
 import Link from "next/link";
-import HoverName from "../components/HoverName";
 
 export const metadata = {
   title: "Emran Hossain — Notes",
@@ -86,7 +85,7 @@ export default function NotesPage() {
                 className="font-bold font-serif text-black hover:text-gray-800 hover:no-underline no-underline dark:text-white dark:hover:text-gray-300"
                 href="/"
               >
-                <HoverName>Emran Hossain</HoverName>
+                Emran Hossain
                 <span className="font-serif font-semibold"> — Notes</span>
               </Link>
             </h1>

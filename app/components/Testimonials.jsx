@@ -1,24 +1,13 @@
-import AnimatedHeaderSection from "./AnimatedHeaderSection";
+"use client";
+
+import React from "react";
 import { AnimatedTestimonials } from "./ui/animated-testimonials";
 import { testimonials } from "../constants";
 
-const Testimonials = () => {
-  const text =
-    "Winning comes from using each other's strengths and covering each other's weaknesses.";
+export default function Testimonials({ className = "" }) {
   return (
-    <section id="praises" className="flex-col justify-between min-h-screen">
-      <AnimatedHeaderSection
-        title={"Testimonials"}
-        subTitle={"Kind words from my colleagues"}
-        text={text}
-        textColor={"text-black"}
-        withScrollTrigger={true}
-      />
-      <div className="pb-10">
-        <AnimatedTestimonials testimonials={testimonials} />
-      </div>
-    </section>
+    <div className={`w-full ${className}`}>
+      <AnimatedTestimonials testimonials={testimonials} />
+    </div>
   );
-};
-
-export default Testimonials;
+}

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { interactionDesigns } from "../constants";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import HoverName from "../components/HoverName";
 
 const uniqueCategories = [...new Set(interactionDesigns.map((item) => item.category))];
 
@@ -65,7 +64,7 @@ export default function InteractionsPage() {
                 className="font-bold font-serif text-black hover:text-gray-800 hover:no-underline no-underline dark:text-white dark:hover:text-gray-300"
                 href="/"
               >
-                <HoverName>Emran Hossain</HoverName>
+                Emran Hossain
                 <span className="font-serif font-semibold"> — Interactions</span>
               </Link>
             </h1>
