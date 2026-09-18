@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import HoverName from "./components/HoverName";
 
 export default function Home() {
   return (
-    <main className="tracking-tight md:px-2 md:py-1 px-0 py-1 bg-white text-black dark:bg-black dark:text-white min-h-screen flex flex-col">
+    <main className="tracking-tight md:px-2 md:py-1 px-0 py-1 bg-transparent text-black dark:text-white min-h-screen flex flex-col">
       {/* Mobile Top Navigation */}
       <div className="md:hidden flex flex-row justify-between items-center px-7 pt-4 pb-2 mb-6">
         <div className="flex flex-row gap-6">
@@ -35,13 +36,13 @@ export default function Home() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="bg-white text-lg dark:bg-black dark:text-white flex-1 w-full">
+      <div className="bg-transparent text-lg dark:text-white flex-1 w-full">
         <div className="grid grid-cols-12 px-7">
           <div className="col-span-11 lg:col-span-7 md:col-span-9 max-w-screen-lg pb-5 leading-relaxed">
             {/* Hero / Intro */}
             <div className="xl:mr-60 lg:mr-30 md:mr-20 max-w-prose">
               <h1 className="font-serif font-extrabold md:text-8xl text-7xl mt-0 mb-6 text-dark tracking-tight -mr-[calc(100%/11)] md:mr-0">
-                Emran Hossain
+                <HoverName>Emran Hossain</HoverName>
               </h1>
               <div className="leading-relaxed">
                 I&apos;m a designer and full-stack developer who builds high-performance, polished digital products. Most recently, I designed and engineered solutions for{" "}

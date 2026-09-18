@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import LoaderWrapper from "./components/LoaderWrapper";
+import { HoverBackgroundProvider } from "./components/HoverBackgroundProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,9 +47,11 @@ export default function RootLayout({ children }) {
         `}
       </Script>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} antialiased bg-white text-black dark:bg-black dark:text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} antialiased bg-white text-black dark:bg-black dark:text-white min-h-screen`}
       >
-        {children}
+        <HoverBackgroundProvider>
+          {children}
+        </HoverBackgroundProvider>
         <SpeedInsights />
         <Analytics />
       </body>

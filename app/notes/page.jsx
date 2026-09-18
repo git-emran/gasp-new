@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HoverName from "../components/HoverName";
 
 export const metadata = {
   title: "Emran Hossain — Notes",
@@ -46,7 +47,7 @@ const notes = [
 
 export default function NotesPage() {
   return (
-    <main className="tracking-tight md:px-2 md:py-1 px-0 py-1 bg-white text-black dark:bg-black dark:text-white min-h-screen flex flex-col">
+    <main className="tracking-tight md:px-2 md:py-1 px-0 py-1 bg-transparent text-black dark:text-white min-h-screen flex flex-col">
       {/* Mobile Top Navigation */}
       <div className="md:hidden flex flex-row justify-between items-center px-7 pt-4 pb-2 mb-6">
         <div className="flex flex-row gap-6">
@@ -77,7 +78,7 @@ export default function NotesPage() {
         </div>
       </div>
 
-      <div className="bg-white text-lg dark:bg-black dark:text-white flex-1 w-full">
+      <div className="bg-transparent text-lg dark:text-white flex-1 w-full">
         <div className="grid grid-cols-12 px-7">
           <div className="col-span-12 md:col-span-11 lg:col-span-7 md:col-span-9 max-w-screen-lg pb-5 leading-relaxed">
             <h1 className="text-4xl font-serif mb-12 mt-4 tracking-tight">
@@ -85,7 +86,7 @@ export default function NotesPage() {
                 className="font-bold font-serif text-black hover:text-gray-800 hover:no-underline no-underline dark:text-white dark:hover:text-gray-300"
                 href="/"
               >
-                Emran Hossain
+                <HoverName>Emran Hossain</HoverName>
                 <span className="font-serif font-semibold"> — Notes</span>
               </Link>
             </h1>
