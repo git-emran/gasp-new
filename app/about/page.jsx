@@ -22,6 +22,13 @@ export default function AboutPage() {
             Work
           </HoverLink>
           <HoverLink
+            preset="hero"
+            className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+            href="/timeline"
+          >
+            Timeline
+          </HoverLink>
+          <HoverLink
             preset="about"
             className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300 font-medium"
             href="/about"
@@ -147,6 +154,13 @@ export default function AboutPage() {
                 href="/"
               >
                 Work
+              </HoverLink>
+              <HoverLink
+                preset="hero"
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                href="/timeline"
+              >
+                Timeline
               </HoverLink>
               <HoverLink
                 preset="about"

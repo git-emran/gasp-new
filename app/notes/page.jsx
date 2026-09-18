@@ -62,6 +62,13 @@ export default function NotesPage() {
             Work
           </HoverLink>
           <HoverLink
+            preset="hero"
+            className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+            href="/timeline"
+          >
+            Timeline
+          </HoverLink>
+          <HoverLink
             preset="about"
             className="text-lg no-underline hover:underline dark:text-white dark:hover:text-gray-300"
             href="/about"
@@ -136,6 +143,13 @@ export default function NotesPage() {
                 href="/"
               >
                 Work
+              </HoverLink>
+              <HoverLink
+                preset="hero"
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                href="/timeline"
+              >
+                Timeline
               </HoverLink>
               <HoverLink
                 preset="about"
