@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import LoaderWrapper from "./components/LoaderWrapper";
 import { HoverBackgroundProvider } from "./components/HoverBackgroundProvider";
+import ScrollToTopFab from "./components/ScrollToTopFab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({ children }) {
       >
         <HoverBackgroundProvider>
           {children}
+          <ScrollToTopFab />
         </HoverBackgroundProvider>
         <SpeedInsights />
         <Analytics />
