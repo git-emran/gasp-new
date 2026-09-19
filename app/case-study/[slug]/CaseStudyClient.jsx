@@ -260,6 +260,26 @@ export default function CaseStudyClient({ project }) {
                   </div>
                 )}
 
+                {/* Solution Images Grid */}
+                {project.caseStudy?.solutionImages?.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                    {project.caseStudy.solutionImages.map((img, i) => (
+                      <div
+                        key={i}
+                        className="outline outline-1 outline-black/10 dark:outline-white/10 overflow-hidden cursor-zoom-in rounded-lg shadow-sm bg-neutral-100 dark:bg-neutral-900"
+                        onClick={() => setSelectedImage(img)}
+                      >
+                        <img
+                          src={getOptimizedImageUrl(img, { width: 900 })}
+                          alt={`Solution illustration ${i + 1}`}
+                          loading="lazy"
+                          className="w-full h-auto rounded-none block"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 {/* Improvement Sections */}
                 {project.caseStudy?.improvementSections?.length > 0 && (
                   <div className="space-y-12 mt-12">

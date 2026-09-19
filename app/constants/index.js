@@ -117,8 +117,8 @@ export const projects = [
         "Thick Data UX: Qualitative insights used to make high-tech tools feel 'fun to use'."
       ],
       resultsTitle: "The Resulting Transformation",
-      resultsMetric: "100%",
-      resultsContent: "Transformed wireframe chaos into a comprehensive, high-performance dashboard. The final product turned a biotech 'mess' into a system where everything finally 'makes sense', resulting in high user satisfaction and improved operational speed.",
+      resultsMetric: "70%",
+      resultsContent: "Transformed wireframe chaos into a comprehensive, high-performance dashboard. The final product turned a biotech 'mess' into a system where everything finally 'makes sense', resulting in high user satisfaction and improved operational speed. More importantly onboarding time was reduced by 70%.",
     }
   },
   {
