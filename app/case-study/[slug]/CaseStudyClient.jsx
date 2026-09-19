@@ -101,7 +101,7 @@ export default function CaseStudyClient({ project }) {
             <div className="border-y border-neutral-200 dark:border-neutral-800 py-6 my-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm">
               {project.caseStudy?.role && (
                 <div>
-                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 font-mono text-xs uppercase tracking-wider">Role</div>
+                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 text-xs uppercase tracking-wider">Role</div>
                   <div className="font-medium text-black dark:text-white">
                     {project.caseStudy.role}
                   </div>
@@ -109,7 +109,7 @@ export default function CaseStudyClient({ project }) {
               )}
               {project.caseStudy?.techStack && (
                 <div>
-                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 font-mono text-xs uppercase tracking-wider">Stack</div>
+                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 text-xs uppercase tracking-wider">Stack</div>
                   <div className="font-medium text-black dark:text-white">
                     {project.caseStudy.techStack}
                   </div>
@@ -117,7 +117,7 @@ export default function CaseStudyClient({ project }) {
               )}
               {project.caseStudy?.team && (
                 <div>
-                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 font-mono text-xs uppercase tracking-wider">Team</div>
+                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 text-xs uppercase tracking-wider">Team</div>
                   <div className="font-medium text-black dark:text-white">
                     {project.caseStudy.team}
                   </div>
@@ -125,7 +125,7 @@ export default function CaseStudyClient({ project }) {
               )}
               {project.visitUrl && (
                 <div>
-                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 font-mono text-xs uppercase tracking-wider">Link</div>
+                  <div className="text-neutral-500 dark:text-neutral-400 mb-1 text-xs uppercase tracking-wider">Link</div>
                   <HoverLink
                     href={project.visitUrl}
                     target="_blank"
@@ -157,7 +157,7 @@ export default function CaseStudyClient({ project }) {
             {/* Overview Section */}
             {project.caseStudy?.overview && (
               <div className="my-12">
-                <div className="text-neutral-500 dark:text-neutral-400 font-mono text-xs uppercase tracking-wider mb-2">Overview</div>
+                <div className="text-neutral-500 dark:text-neutral-400 text-xs uppercase tracking-wider mb-2">Overview</div>
                 <p className="text-xl leading-relaxed text-black dark:text-neutral-100 max-w-prose">
                   {project.caseStudy.overview}
                 </p>
@@ -167,8 +167,8 @@ export default function CaseStudyClient({ project }) {
             {/* Problem Section */}
             {project.caseStudy?.problemTitle && (
               <section className="my-16">
-                <div className="text-neutral-500 dark:text-neutral-400 font-mono text-xs uppercase tracking-wider mb-2">The Challenge</div>
-                <h2 className="font-serif font-bold text-3xl md:text-4xl mb-4 tracking-tight text-black dark:text-white">
+                <div className="text-neutral-500 dark:text-neutral-400 text-xs uppercase tracking-wider mb-2">The Challenge</div>
+                <h2 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight text-black dark:text-white">
                   {project.caseStudy.problemTitle}
                 </h2>
                 <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-prose mb-8">
@@ -199,15 +199,15 @@ export default function CaseStudyClient({ project }) {
             {/* Research Phases */}
             {project.caseStudy?.researchPhases?.length > 0 && (
               <section className="my-16">
-                <div className="text-neutral-500 dark:text-neutral-400 font-mono text-xs uppercase tracking-wider mb-2">Research & Discovery</div>
-                <h2 className="font-serif font-bold text-3xl md:text-4xl mb-8 tracking-tight text-black dark:text-white">
+                <div className="text-neutral-500 dark:text-neutral-400 text-xs uppercase tracking-wider mb-2">Research & Discovery</div>
+                <h2 className="font-bold text-3xl md:text-4xl mb-8 tracking-tight text-black dark:text-white">
                   {project.caseStudy.researchTitle || "Workflow Analysis & Constraints"}
                 </h2>
 
                 <div className="space-y-12">
                   {project.caseStudy.researchPhases.map((phase, i) => (
                     <div key={i} className="my-8">
-                      <h3 className="font-serif font-bold text-xl md:text-2xl mb-3 text-black dark:text-white">
+                      <h3 className="font-bold text-xl md:text-2xl mb-3 text-black dark:text-white">
                         {phase.title}
                       </h3>
                       <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-prose mb-6">
@@ -235,8 +235,8 @@ export default function CaseStudyClient({ project }) {
             {/* Solution Section */}
             {project.caseStudy?.solutionTitle && (
               <section className="my-16">
-                <div className="text-neutral-500 dark:text-neutral-400 font-mono text-xs uppercase tracking-wider mb-2">The Solution</div>
-                <h2 className="font-serif font-bold text-3xl md:text-4xl mb-4 tracking-tight text-black dark:text-white">
+                <div className="text-neutral-500 dark:text-neutral-400 text-xs uppercase tracking-wider mb-2">The Solution</div>
+                <h2 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight text-black dark:text-white">
                   {project.caseStudy.solutionTitle}
                 </h2>
                 <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-prose mb-8">
@@ -264,7 +264,7 @@ export default function CaseStudyClient({ project }) {
                   <div className="space-y-12 mt-12">
                     {project.caseStudy.improvementSections.map((sec, i) => (
                       <div key={i} className="my-8">
-                        <h3 className="font-serif font-bold text-xl md:text-2xl mb-3 text-black dark:text-white">
+                        <h3 className="font-bold text-xl md:text-2xl mb-3 text-black dark:text-white">
                           {sec.title}
                         </h3>
                         <p className="text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-prose mb-6">
@@ -293,12 +293,12 @@ export default function CaseStudyClient({ project }) {
             {/* Results Section */}
             {project.caseStudy?.resultsTitle && (
               <section className="my-16 border-t border-neutral-200 dark:border-neutral-800 pt-12">
-                <div className="text-neutral-500 dark:text-neutral-400 font-mono text-xs uppercase tracking-wider mb-2">Impact & Results</div>
-                <h2 className="font-serif font-bold text-3xl md:text-4xl mb-4 tracking-tight text-black dark:text-white">
+                <div className="text-neutral-500 dark:text-neutral-400 text-xs uppercase tracking-wider mb-2">Impact & Results</div>
+                <h2 className="font-bold text-3xl md:text-4xl mb-4 tracking-tight text-black dark:text-white">
                   {project.caseStudy.resultsTitle}
                 </h2>
                 {project.caseStudy?.resultsMetric && (
-                  <div className="font-serif font-extrabold text-6xl md:text-7xl my-4 text-black dark:text-white">
+                  <div className="font-extrabold text-6xl md:text-7xl my-4 text-black dark:text-white">
                     {project.caseStudy.resultsMetric}
                   </div>
                 )}
@@ -336,7 +336,7 @@ export default function CaseStudyClient({ project }) {
                     preset="work"
                     className="no-underline group hover:underline text-left block text-neutral-800 dark:text-neutral-200"
                   >
-                    <div className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1">Previous Project</div>
+                    <div className="text-xs uppercase tracking-wider text-neutral-400 mb-1">Previous Project</div>
                     <div className="text-lg font-medium group-hover:underline">
                       ← {prevProject.name.split(" - ")[0]}
                     </div>
@@ -355,7 +355,7 @@ export default function CaseStudyClient({ project }) {
                     preset="work"
                     className="no-underline group hover:underline text-right block text-neutral-800 dark:text-neutral-200"
                   >
-                    <div className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1">Next Project</div>
+                    <div className="text-xs uppercase tracking-wider text-neutral-400 mb-1">Next Project</div>
                     <div className="text-lg font-medium group-hover:underline">
                       {nextProject.name.split(" - ")[0]} →
                     </div>

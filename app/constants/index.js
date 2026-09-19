@@ -188,7 +188,7 @@ export const projects = [
       ],
 
       resultsTitle: "The Resulting Transformation",
-      resultsMetric: "100%",
+      resultsMetric: "91%",
       resultsContent: "Successfully improved user satisfaction scores and reduced session abandonment rates.",
       resultsImages: ["/assets/projects/im-7.webp", "/assets/projects/im-8.webp"]
     }
@@ -253,7 +253,7 @@ export const projects = [
       ],
 
       resultsTitle: "Retrospective",
-      resultsMetric: "100%",
+      // resultsMetric: "100%",
       resultsContent: "After the launch, we were very happy with the market response and the praises. Since this is a SaaS, we quickly iterated one last time to make sure it was perfectly scalable.",
       resultsImages: ["/assets/projects/mt-7.webp"]
     }
@@ -308,8 +308,8 @@ export const projects = [
       ],
 
       resultsTitle: "Final Design",
-      resultsMetric: "100%",
-      resultsContent: "Final output was satisfactory because 100% user conversion rate during Q1 was outstanding result we never hoped for. Everyone who visited the website ended up ordering from the website. Initial launch was only inside Dubai. Later we expanded to the UAE region.",
+      resultsMetric: "60%",
+      resultsContent: "Final output was satisfactory because 60% user conversion rate during Q1 was outstanding result we never hoped for. Everyone who visited the website ended up ordering from the website. Initial launch was only inside Dubai. Later we expanded to the UAE region.",
       resultsImages: ["/assets/projects/office-5.webp"]
     }
   },
