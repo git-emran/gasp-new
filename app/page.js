@@ -79,15 +79,14 @@ export default function Home() {
                 >
                   InsideMaps
                 </HoverLink>{" "}
-                spatial capture. As a design technologist, I bridge the gap between creative visual craft, robust component architecture, and production frontend systems.
+                spatial capture. 
               </div>
-              <div className="mt-4 leading-relaxed mb-16">
-                In lots of parts of my life, I&apos;m a generalist. I like helping teams move faster and be more ambitious together: imagining novel solutions, obsessing over interaction details, and shipping software that users love using.
+              <div className="mt-4 leading-relaxed mb-16 opacity-50">
+                In lots of parts of my life, I&apos;m a generalist. I like helping teams move faster and be more ambitious together, imagining novel solutions, obsessing over interaction details, and shipping software that users love using.
               </div>
             </div>
 
             {/* Articles Stream */}
-
             {/* Project 1: GetGenie */}
             <article className="mb-12 my-12">
               <div className="mb-6 mt-6 leading-relaxed xl:mr-60 lg:mr-30 max-w-prose md:mr-20">
