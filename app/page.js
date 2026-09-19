@@ -246,7 +246,7 @@ export default function Home() {
                     height={600}
                     className="w-full rounded-none mb-0"
                     style={{ color: "transparent" }}
-                    src="/assets/projects/mt-4.webp"
+                    src="/assets/projects/mt-7.webp"
                   />
                 </div>
                 <div className="mb-6 md:mb-0 md:col-span-6 col-span-12">

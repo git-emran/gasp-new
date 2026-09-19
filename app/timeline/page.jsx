@@ -529,14 +529,14 @@ export default function TimelinePage() {
             </button>
 
             {/* Header / Meta */}
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-2 font-medium">
+            <div className="flex items-center gap-2 text-xs tracking-tight text-neutral-500 dark:text-neutral-400 mb-2 font-normal">
               <span>{activeItem.year}</span>
               <span>•</span>
               <span className="text-[#DE5E38] dark:text-[#F37A57] font-semibold">{activeItem.role}</span>
             </div>
 
             {/* Title */}
-            <h3 className="text-2xl font-bold text-black dark:text-white mb-3">
+            <h3 className="text-2xl font-semibold text-black dark:text-white mb-3">
               {activeItem.title}
             </h3>
 
