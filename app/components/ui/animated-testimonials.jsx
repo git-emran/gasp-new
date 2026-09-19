@@ -2,6 +2,7 @@
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
+import { getOptimizedImageUrl } from "@/lib/imageLoader";
 
 export const AnimatedTestimonials = ({
   testimonials,
@@ -77,7 +78,7 @@ export const AnimatedTestimonials = ({
                   className="absolute inset-0 origin-bottom rounded-2xl overflow-hidden shadow-md border border-neutral-200/70 dark:border-neutral-800"
                 >
                   <img
-                    src={testimonial.src}
+                    src={getOptimizedImageUrl(testimonial.src, { width: 500 })}
                     alt={testimonial.name}
                     width={500}
                     height={500}

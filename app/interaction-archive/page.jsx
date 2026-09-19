@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { interactionDesigns } from "../constants";
 import HoverLink from "../components/HoverLink";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { getOptimizedImageUrl } from "@/lib/imageLoader";
 
 const uniqueCategories = [...new Set(interactionDesigns.map((item) => item.category))];
 
@@ -124,7 +125,7 @@ export default function InteractionsPage() {
                 >
                   <div className="relative aspect-[4/3] bg-neutral-100 dark:bg-neutral-900 overflow-hidden outline outline-1 outline-black/10 dark:outline-white/10 rounded-lg shadow-xs">
                     <img
-                      src={item.image}
+                      src={getOptimizedImageUrl(item.image, { width: 800 })}
                       alt={item.title}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300 rounded-none"
