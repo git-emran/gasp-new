@@ -14,12 +14,12 @@ export const HOVER_PRESETS = {
     grainOverlay: 0.08,
   },
   hero: {
-    tint: "#cc785c",
-    distortion: 0.8,
-    swirl: 0.2,
-    speed: 0.25,
-    grainMixer: 0.15,
-    grainOverlay: 0.08,
+    tint: "#b8860b",
+    distortion: 0.95,
+    swirl: 0.32,
+    speed: 0.3,
+    grainMixer: 0.18,
+    grainOverlay: 0.09,
   },
   ai: {
     tint: "#8175ec",
