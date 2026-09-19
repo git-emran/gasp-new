@@ -161,17 +161,8 @@ strong {
   font-weight: 500;
 }
 
-img {
-  outline: 1px solid rgba(0, 0, 0, 0.1);
-  outline-offset: -1px;
-  border-radius: 0;
-}
 
-@media (prefers-color-scheme: dark) {
-  img {
-    outline: 1px solid rgba(255, 255, 255, 0.12);
-  }
-}
+
 
 @layer base {
   a {
@@ -354,6 +345,10 @@ img {
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  img {
+    border-style: none;
+    outline: none;
   }
   body {
     @apply bg-background text-foreground;
