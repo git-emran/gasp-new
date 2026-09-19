@@ -224,6 +224,9 @@ export function HoverBackgroundProvider({ children }) {
     };
   }, []);
 
+  const [hoveredRects, setHoveredRects] = useState([]);
+  const [isBlurActive, setIsBlurActive] = useState(false);
+
   const triggerHover = (customStyleOrPreset) => {
     if (hideTimerRef.current) {
       clearTimeout(hideTimerRef.current);
@@ -231,12 +234,27 @@ export function HoverBackgroundProvider({ children }) {
     }
 
     let resolvedStyle = HOVER_PRESETS.default;
+    let rects = [];
+    let blur = false;
+
     if (typeof customStyleOrPreset === "string" && HOVER_PRESETS[customStyleOrPreset]) {
       resolvedStyle = HOVER_PRESETS[customStyleOrPreset];
     } else if (typeof customStyleOrPreset === "object" && customStyleOrPreset !== null) {
-      resolvedStyle = { ...HOVER_PRESETS.default, ...customStyleOrPreset };
+      if (customStyleOrPreset.preset && HOVER_PRESETS[customStyleOrPreset.preset]) {
+        resolvedStyle = { ...HOVER_PRESETS[customStyleOrPreset.preset], ...customStyleOrPreset };
+      } else {
+        resolvedStyle = { ...HOVER_PRESETS.default, ...customStyleOrPreset };
+      }
+      if (Array.isArray(customStyleOrPreset.rects)) {
+        rects = customStyleOrPreset.rects;
+      }
+      if (typeof customStyleOrPreset.shouldBlur === "boolean") {
+        blur = customStyleOrPreset.shouldBlur;
+      }
     }
 
+    setHoveredRects(rects);
+    setIsBlurActive(blur);
     setCurrentStyle(resolvedStyle);
     setIsHovered(true);
   };
@@ -248,12 +266,33 @@ export function HoverBackgroundProvider({ children }) {
     }
     if (immediate) {
       setIsHovered(false);
+      setIsBlurActive(false);
+      setHoveredRects([]);
     } else {
       hideTimerRef.current = setTimeout(() => {
         setIsHovered(false);
+        setIsBlurActive(false);
+        setHoveredRects([]);
       }, 40);
     }
   };
+
+  const padX = 8;
+  const padY = 8;
+  let blurClipPath = undefined;
+  if (isHovered && isBlurActive && hoveredRects.length > 0) {
+    const holePolygons = hoveredRects
+      .map((r) => {
+        const x1 = Math.max(0, Math.round(r.x - padX));
+        const y1 = Math.round(r.y - padY);
+        const x2 = Math.round(r.x + r.width + padX);
+        const y2 = Math.round(r.y + r.height + padY);
+        return `${x1}px ${y1}px, ${x2}px ${y1}px, ${x2}px ${y2}px, ${x1}px ${y2}px, ${x1}px ${y1}px`;
+      })
+      .join(", ");
+
+    blurClipPath = `polygon(evenodd, 0 0, 100vw 0, 100vw 100vh, 0 100vh, 0 0, ${holePolygons})`;
+  }
 
   return (
     <HoverBackgroundContext.Provider
@@ -291,9 +330,24 @@ export function HoverBackgroundProvider({ children }) {
         />
       </div>
 
+      {/* Content */}
       <div className="relative z-[1] w-full min-h-full">
         {children}
       </div>
+
+      {/* Blur overlay — blurs all content EXCEPT the hovered project section */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none transition-opacity duration-300 ease-out"
+        style={{
+          zIndex: 10,
+          opacity: isHovered && isBlurActive ? 1 : 0,
+          backdropFilter: isHovered && isBlurActive ? "blur(3px)" : "none",
+          WebkitBackdropFilter: isHovered && isBlurActive ? "blur(3px)" : "none",
+          clipPath: blurClipPath,
+          WebkitClipPath: blurClipPath,
+        }}
+      />
     </HoverBackgroundContext.Provider>
   );
 }

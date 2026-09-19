@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useHoverBackground } from "./HoverBackgroundProvider";
 
@@ -21,30 +21,56 @@ export default function HoverLink({
   ...props
 }) {
   const { triggerHover, clearHover } = useHoverBackground();
+  const [isLocalHovered, setIsLocalHovered] = useState(false);
 
-  const handleMouseEnter = () => {
-    if (tint || distortion !== undefined || swirl !== undefined || speed !== undefined) {
-      triggerHover({
-        ...(preset ? { preset } : {}),
-        ...(tint ? { tint } : {}),
-        ...(distortion !== undefined ? { distortion } : {}),
-        ...(swirl !== undefined ? { swirl } : {}),
-        ...(speed !== undefined ? { speed } : {}),
-        ...(grainMixer !== undefined ? { grainMixer } : {}),
-        ...(grainOverlay !== undefined ? { grainOverlay } : {}),
-      });
-    } else {
-      triggerHover(preset);
+  const handleMouseEnter = (e) => {
+    setIsLocalHovered(true);
+    let rects = [];
+    let shouldBlur = false;
+
+    if (e && e.currentTarget) {
+      const article = e.currentTarget.closest("article");
+      if (article && typeof article.getBoundingClientRect === "function") {
+        const r = article.getBoundingClientRect();
+        rects = [
+          {
+            x: r.left,
+            y: r.top,
+            width: r.width,
+            height: r.height,
+          },
+        ];
+        shouldBlur = true;
+      }
     }
+
+    triggerHover({
+      rects,
+      shouldBlur,
+      ...(preset ? { preset } : {}),
+      ...(tint ? { tint } : {}),
+      ...(distortion !== undefined ? { distortion } : {}),
+      ...(swirl !== undefined ? { swirl } : {}),
+      ...(speed !== undefined ? { speed } : {}),
+      ...(grainMixer !== undefined ? { grainMixer } : {}),
+      ...(grainOverlay !== undefined ? { grainOverlay } : {}),
+    });
   };
 
   const handleMouseLeave = () => {
+    setIsLocalHovered(false);
     clearHover();
   };
 
   const handleClick = (e) => {
+    setIsLocalHovered(false);
     clearHover(true);
     if (onClick) onClick(e);
+  };
+
+  const combinedStyle = {
+    ...props.style,
+    ...(isLocalHovered ? { position: "relative" } : {}),
   };
 
   const isExternal =
@@ -54,17 +80,18 @@ export default function HoverLink({
   if (isExternal) {
     return (
       <a
+        {...props}
         href={href}
         target={target || "_blank"}
         rel={rel || "noopener noreferrer"}
         className={className}
+        style={combinedStyle}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleMouseEnter}
         onTouchEnd={handleMouseLeave}
         onTouchCancel={handleMouseLeave}
         onClick={handleClick}
-        {...props}
       >
         {children}
       </a>
@@ -73,15 +100,16 @@ export default function HoverLink({
 
   return (
     <Link
+      {...props}
       href={href}
       className={className}
+      style={combinedStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleMouseEnter}
       onTouchEnd={handleMouseLeave}
       onTouchCancel={handleMouseLeave}
       onClick={handleClick}
-      {...props}
     >
       {children}
     </Link>
