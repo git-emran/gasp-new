@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import HoverLink from "../../components/HoverLink";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { projects } from "../../constants";
-import { getOptimizedImageUrl } from "@/lib/imageLoader";
 
 export default function CaseStudyClient({ project }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -147,7 +146,7 @@ export default function CaseStudyClient({ project }) {
                 onClick={() => setSelectedImage(project.image)}
               >
                 <img
-                  src={getOptimizedImageUrl(project.image, { width: 1400 })}
+                  src={project.image}
                   alt={project.name}
                   loading="eager"
                   className="w-full h-auto rounded-none block"
@@ -185,7 +184,7 @@ export default function CaseStudyClient({ project }) {
                         onClick={() => setSelectedImage(img)}
                       >
                         <img
-                          src={getOptimizedImageUrl(img, { width: 900 })}
+                          src={img}
                           alt={`Problem illustration ${i + 1}`}
                           loading="lazy"
                           className="w-full h-auto rounded-none block"
@@ -220,7 +219,7 @@ export default function CaseStudyClient({ project }) {
                           onClick={() => setSelectedImage(phase.image)}
                         >
                           <img
-                            src={getOptimizedImageUrl(phase.image, { width: 1000 })}
+                            src={phase.image}
                             alt={phase.title}
                             loading="lazy"
                             className="w-full h-auto rounded-none block"
@@ -270,7 +269,7 @@ export default function CaseStudyClient({ project }) {
                         onClick={() => setSelectedImage(img)}
                       >
                         <img
-                          src={getOptimizedImageUrl(img, { width: 900 })}
+                          src={img}
                           alt={`Solution illustration ${i + 1}`}
                           loading="lazy"
                           className="w-full h-auto rounded-none block"
@@ -297,7 +296,7 @@ export default function CaseStudyClient({ project }) {
                             onClick={() => setSelectedImage(sec.image)}
                           >
                             <img
-                              src={getOptimizedImageUrl(sec.image, { width: 1000 })}
+                              src={sec.image}
                               alt={sec.title}
                               loading="lazy"
                               className="w-full h-auto rounded-none block"
@@ -336,7 +335,7 @@ export default function CaseStudyClient({ project }) {
                         onClick={() => setSelectedImage(img)}
                       >
                         <img
-                          src={getOptimizedImageUrl(img, { width: 900 })}
+                          src={img}
                           alt={`Result image ${i + 1}`}
                           loading="lazy"
                           className="w-full h-auto rounded-none block"
