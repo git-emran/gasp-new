@@ -81,7 +81,7 @@ export default function Home() {
                 </HoverLink>{" "}
                 spatial capture. 
               </div>
-              <div className="mt-4 leading-relaxed mb-16 opacity-50">
+              <div className="mt-4 leading-relaxed italic mb-16 opacity-50">
                 In lots of parts of my life, I&apos;m a generalist. I like helping teams move faster and be more ambitious together, imagining novel solutions, obsessing over interaction details, and shipping software that users love using.
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function Home() {
                 </HoverLink>
                 {" — "}
                 <span>
-                  WordPress Gutenberg-based AI writing assistant. I designed and engineered an interactive, responsive workspace bridging complex LLM pipelines directly into the editor workflow with custom state synchronization to eliminate block crashes.
+                  WordPress Gutenberg-based AI writing assistant. I designed and engineered an interactive, responsive workspace bridging complex LLM pipelines directly into the editor workflow.
                 </span>
               </div>
               <div className="grid grid-cols-12 md:gap-6 gap-2 -mr-[calc(100%/11)] md:mr-0">
@@ -126,7 +126,7 @@ export default function Home() {
                   className="text-black hover:underline dark:text-white dark:hover:text-gray-300"
                   href="/case-study/writer-app"
                 >
-                  <span className="font-medium">Writer — Canvas & Markdown Workspace</span>
+                  <span className="font-medium">Writer - Canvas & Markdown Workspace</span>
                 </HoverLink>
                 {" — "}
                 <span>
