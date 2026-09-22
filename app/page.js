@@ -55,7 +55,7 @@ export default function Home() {
                 Emran Hossain
               </h1>
               <div className="leading-relaxed">
-                I&apos;m a designer and full-stack developer who builds high-performance, polished digital products. Most recently, I designed and engineered solutions for{" "}
+                I&apos;m a designer and Software Engineer who builds high-performance, polished digital products. Most recently, I designed and engineered solutions for{" "}
                 <HoverLink
                   href="https://getgenie.ai"
                   preset="ai"
