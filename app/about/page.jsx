@@ -55,7 +55,7 @@ export default function AboutPage() {
       {/* Main Content Grid */}
       <div className="bg-transparent text-lg dark:text-white flex-1 w-full">
         <div className="grid grid-cols-12 px-7">
-          <div className="col-span-12 md:col-span-11 lg:col-span-7 md:col-span-9 max-w-screen-lg pb-5 leading-relaxed">
+          <div className="col-span-12 md:col-span-11 lg:col-span-7 max-w-screen-lg pb-5 leading-relaxed">
             {/* Page Header */}
             <h1 className="text-4xl font-serif mb-12 mt-4 tracking-tight font-bold text-black dark:text-white">
               About

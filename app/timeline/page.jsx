@@ -349,7 +349,7 @@ export default function TimelinePage() {
       {/* Main Content Layout */}
       <div className="bg-transparent text-lg dark:text-white flex-1 w-full">
         <div className="grid grid-cols-12 px-7">
-          <div className="col-span-12 md:col-span-11 lg:col-span-8 md:col-span-9 max-w-3xl pb-24 leading-relaxed">
+          <div className="col-span-12 md:col-span-11 lg:col-span-8 max-w-3xl pb-24 leading-relaxed">
             {/* Top Bar Header (Reference Layout) */}
             <div className="flex flex-row justify-between items-baseline pt-4 pb-12 text-sm md:text-base text-neutral-600 dark:text-neutral-400">
               <HoverLink
@@ -368,7 +368,7 @@ export default function TimelinePage() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight mb-8 text-black dark:text-white">
               Currently at{" "}
               <HoverLink
-                href="https://tiblo.com/"
+                href="https://tiblo.dk/"
                 target="_blank"
                 rel="noopener noreferrer"
                 preset="hero"
