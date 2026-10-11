@@ -14,6 +14,8 @@ import { createTips } from "./tip.js";
 import { familyFigure } from "./family.js";
 import { createLightbox } from "./lightbox.js";
 
+import GlimpseIntro from "./GlimpseIntro";
+
 const DEFAULT_THEME = "blackmoney";
 const THEME_KEY = "emran.scheme";
 const WORM_KEY = "emran.worm";
@@ -53,7 +55,7 @@ const distance = (a, b) => {
 const chroma = (value) => Math.hypot(lab(value)[1], lab(value)[2]);
 const mix = (a, b, t) => `#${hex(a).map((v, n) => Math.round(v * (1 - t) + hex(b)[n] * t).toString(16).padStart(2, "0")).join("")}`;
 
-export default function DevClient() {
+function DevWorkspace({ onReturnToIntro }) {
   const containerRef = useRef(null);
   const [activeSection, setActiveSection] = React.useState("about");
   const sectionSelectRef = useRef(null);
@@ -797,6 +799,24 @@ export default function DevClient() {
             <span>emran.dev</span>
           </Link>
           <nav className="switch is-solo" aria-label="Elsewhere">
+            <button
+              type="button"
+              className="quiet-button"
+              onClick={onReturnToIntro}
+              data-tip="play intro glimpse again"
+              style={{
+                marginRight: 16,
+                border: 0,
+                background: "none",
+                color: "var(--dim)",
+                cursor: "pointer",
+                font: "inherit",
+                padding: 0,
+                verticalAlign: "middle",
+              }}
+            >
+              intro
+            </button>
             <Link href="/" data-tip="back to GUI mode" target="_blank" rel="noopener noreferrer" style={{ marginRight: 16 }}>
               GUI mode
             </Link>
@@ -895,4 +915,33 @@ export default function DevClient() {
       <canvas className="overlay" aria-hidden="true"></canvas>
     </div>
   );
+}
+
+export default function DevClient() {
+  const [entered, setEntered] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return window.location.hash === "#workspace";
+    }
+    return false;
+  });
+
+  const handleEnter = React.useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.location.hash = "workspace";
+    }
+    setEntered(true);
+  }, []);
+
+  const handleReturnToIntro = React.useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.location.hash = "";
+    }
+    setEntered(false);
+  }, []);
+
+  if (!entered) {
+    return <GlimpseIntro onEnter={handleEnter} />;
+  }
+
+  return <DevWorkspace onReturnToIntro={handleReturnToIntro} />;
 }
