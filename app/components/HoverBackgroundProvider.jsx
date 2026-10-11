@@ -117,6 +117,22 @@ export const HOVER_PRESETS = {
     grainMixer: 0.18,
     grainOverlay: 0.09,
   },
+  dev: {
+    tint: "#10b981",
+    distortion: 1.25,
+    swirl: 0.5,
+    speed: 0.4,
+    grainMixer: 0.2,
+    grainOverlay: 0.1,
+  },
+  terminal: {
+    tint: "#10b981",
+    distortion: 1.35,
+    swirl: 0.6,
+    speed: 0.45,
+    grainMixer: 0.22,
+    grainOverlay: 0.12,
+  },
   linkedin: {
     tint: "#0a66c2",
     distortion: 0.85,

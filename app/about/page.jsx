@@ -178,10 +178,17 @@ export default function AboutPage() {
               </HoverLink>
               <HoverLink
                 preset="interactions_nav"
-                className="mb-8 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                className="mb-2 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
                 href="/interaction-archive"
               >
                 Interactions
+              </HoverLink>
+              <HoverLink
+                preset="terminal"
+                className="mb-8 no-underline hover:underline dark:text-white dark:hover:text-gray-300"
+                href="/dev"
+              >
+                Terminal mode
               </HoverLink>
               <HoverLink
                 preset="linkedin"
