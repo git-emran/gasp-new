@@ -95,7 +95,7 @@ const RUN_MS = 4000;
 const OBJECT_OF = {
   "quickshell-dots/versions/V1/panels/ImageCarouselPanel.qml": "carousel",
   "quickshell-dots/versions/V1/modules/ParticleStream.qml": "particles",
-  "OmaQ/helper/ratchet_adapt.c": "ratchet",
+  "linux/helper/ratchet_adapt.c": "ratchet",
   "omarchy-bongocat/Service.qml": "bongo",
 };
 const OBJECT_GLYPHS = "╭╮╰╯─│┤├▔▀▄▌▐▓▒░▁▂▃▅▆·•°◊‹›→↻≈^";

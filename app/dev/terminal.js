@@ -162,7 +162,7 @@ function monthParts(step) {
   const parts = [syn("("), syn(`"${step.month}"`), syn(", { ")];
   step.top.forEach((item, k) => {
     if (k) parts.push(syn(", "));
-    parts.push([JSON.stringify(item.owner && item.owner !== "HANCORE-linux" ? `${item.owner}/${item.repo}` : item.repo), ""], syn(": "), [String(item.commits), ""]);
+    parts.push([JSON.stringify(item.owner && item.owner !== "emrancore-linux" ? `${item.owner}/${item.repo}` : item.repo), ""], syn(": "), [String(item.commits), ""]);
   });
   parts.push(syn(" });"), [" // public commits", ""]);
   return parts;
