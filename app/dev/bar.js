@@ -108,12 +108,10 @@ export function createBar(host) {
     colors = { dim: rgbOf(style.getPropertyValue("--dim").trim(), "#7d8581"), accent: rgbOf(style.getPropertyValue("--accent").trim(), "#ff2fb3") };
     draw();
   }
-
   narrow.addEventListener("change", draw);
   if (den) new ResizeObserver(() => (den.style.right = `${graph.offsetWidth + 2}px`)).observe(graph);
   recolor();
   paintGhost();
   return { setView, setState, setTyping, setKeys, setSeen, recolor };
 }
-
 
