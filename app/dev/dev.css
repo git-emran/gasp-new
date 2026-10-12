@@ -1057,6 +1057,35 @@ a.md-link:hover {
   margin-right: 4px;
 }
 
+.t-idle {
+  cursor: text;
+}
+
+.t-cmd-input {
+  color: var(--ink);
+  white-space: pre;
+}
+
+.t-ghost {
+  color: var(--dim);
+  opacity: 0.45;
+  white-space: pre;
+  user-select: none;
+  pointer-events: none;
+}
+
+a.md-link[data-repo] {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 2px;
+}
+
+a.md-link[data-repo]:hover {
+  text-decoration-color: currentColor;
+  filter: brightness(1.2);
+}
+
 .t-cursor::after {
   content: "";
   display: inline-block;
@@ -1102,6 +1131,7 @@ a.md-link:hover {
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--dim) 35%, transparent);
   background: var(--line);
+  cursor: zoom-in;
 }
 
 .term-shot .frame.is-xray {
@@ -1285,27 +1315,39 @@ a.md-link:hover {
   inset: 0;
   z-index: 50;
   outline: none;
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
 }
 
 .lb[hidden] {
   display: none;
 }
 
+.lb.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .lb-back {
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: zoom-out;
 }
 
 .lb-stage {
   position: fixed;
-  top: 0;
-  left: 0;
   box-sizing: border-box;
-  border: 1px solid color-mix(in srgb, var(--dim) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--dim) 35%, transparent);
   background: var(--bg);
-  transform-origin: 0 0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px color-mix(in srgb, #000 40%, transparent);
   cursor: zoom-out;
+  transition: width 200ms ease, height 200ms ease, top 200ms ease, left 200ms ease;
 }
 
 .lb-img,
@@ -1315,6 +1357,7 @@ a.md-link:hover {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  background: var(--bg);
 }
 
 .lb-film {
@@ -1334,15 +1377,15 @@ a.md-link:hover {
 
 .lb-cap {
   position: fixed;
-  top: 0;
-  left: 0;
   display: flex;
   justify-content: space-between;
   gap: 16px;
   margin: 0;
+  padding: 4px 0;
   color: var(--dim);
-  font: 400 11px/13px "Plex Mono", ui-monospace, monospace;
+  font: 400 11px/20px "Plex Mono", ui-monospace, monospace;
   white-space: pre;
+  transition: top 200ms ease, left 200ms ease, width 200ms ease;
 }
 
 .lb-cap > span:first-child {
@@ -1353,6 +1396,7 @@ a.md-link:hover {
 
 .lb-cap > span:last-child {
   flex: none;
+  color: var(--ink);
 }
 
 .lb-b {
@@ -1361,6 +1405,75 @@ a.md-link:hover {
 
 .is-zoomed {
   overscroll-behavior-x: none;
+}
+
+.lb-nav {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lb-nav[hidden] {
+  display: none;
+}
+
+.lb-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid color-mix(in srgb, var(--dim) 30%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.7;
+  transition: opacity 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.lb-arrow:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
+  transform: scale(1.08);
+}
+
+.lb-close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--dim) 35%, transparent);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 52;
+  transition: opacity 150ms ease, background 150ms ease, transform 150ms ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lb-close:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: scale(1.08);
 }
 
 .lb-apply {

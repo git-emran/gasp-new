@@ -94,8 +94,12 @@ function fill(parent, segments) {
     if (href) {
       const link = make("a", `md-link${className ? ` ${className}` : ""}`, text);
       link.href = href;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+      if (href.startsWith("#")) {
+        link.dataset.repo = href.slice(1);
+      } else {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
       parent.append(link);
     } else parent.append(make("span", className, text));
   }
@@ -346,7 +350,8 @@ export function createTerminal(buffer, options) {
 
   function zoom(v) {
     const lightbox = options.lightbox;
-    if (!lightbox || !v || v.at < 0 || viewer !== v) return false;
+    if (!lightbox || !v) return false;
+    if (v.at < 0) v.at = 0;
     const inline = v.films.get(v.at)?.video;
     const start = { time: inline?.currentTime || 0, playing: Boolean(inline && !inline.paused) };
     if (start.playing) inline.pause();
@@ -595,17 +600,402 @@ export function createTerminal(buffer, options) {
         }
       }
       if (mine !== token) return;
-      const idle = row(prompt(spec.cwd, spec.branch), "t-prompt-row");
-      const cursor = row([["› ", "t-caret"], ["", "t-cursor"]], "t-idle");
-      buffer.append(idle, cursor);
+      currentCwd = spec.cwd;
+      currentBranch = spec.branch;
+      attachPrompt(spec.cwd, spec.branch);
     } finally {
       if (mine === token) onTyping?.(false);
     }
   }
 
+  let activePrompt = null;
+  let currentCwd = "~";
+  let currentBranch = null;
+  const history = [];
+  let historyIndex = -1;
+
+  // Autocomplete state
+  const COMMANDS = ["ls", "cd", "open", "cat", "whoami", "stack", "themes", "clear", "pwd", "help", "exit", "dir"];
+  let tabMatches = [];
+  let tabIndex = -1;
+  let tabPrefix = "";
+
+  function getCompletions(text) {
+    const trimmed = text.trimStart();
+    const parts = trimmed.split(/\s+/);
+    const projects = (options.projects || []).map((p) => p.repo);
+
+    if (parts.length <= 1) {
+      // Complete command names + project names (for quick cd)
+      const prefix = parts[0] || "";
+      if (!prefix) return COMMANDS;
+      const lower = prefix.toLowerCase();
+      const cmds = COMMANDS.filter((c) => c.startsWith(lower)).map((c) => c);
+      const repos = projects.filter((r) => r.toLowerCase().startsWith(lower));
+      return [...cmds, ...repos];
+    }
+
+    // Complete arguments (project names)
+    const cmd = parts[0].toLowerCase();
+    const arg = parts.slice(1).join(" ");
+    const lower = arg.toLowerCase();
+    if (["cd", "open", "cat"].includes(cmd)) {
+      return projects.filter((r) => r.toLowerCase().startsWith(lower)).map((r) => `${parts[0]} ${r}`);
+    }
+    return [];
+  }
+
+  function clearGhost() {
+    if (activePrompt?.ghost) activePrompt.ghost.textContent = "";
+  }
+
+  function showGhost(text) {
+    if (!activePrompt?.ghost) return;
+    const full = text;
+    const typed = activePrompt.text;
+    if (full.toLowerCase().startsWith(typed.toLowerCase()) && full.length > typed.length) {
+      activePrompt.ghost.textContent = full.slice(typed.length);
+    } else {
+      activePrompt.ghost.textContent = "";
+    }
+  }
+
+  function resetTab() {
+    tabMatches = [];
+    tabIndex = -1;
+    tabPrefix = "";
+    clearGhost();
+  }
+
+  function attachPrompt(cwd, branch) {
+    currentCwd = cwd || currentCwd || "~";
+    currentBranch = branch !== undefined ? branch : currentBranch;
+    buffer.append(row(prompt(currentCwd, currentBranch), "t-prompt-row"));
+    const cursorLine = make("div", "ln term t-idle");
+    const tx = make("span", "tx");
+    const caret = make("span", "t-caret", "› ");
+    const cmdInput = make("span", "t-cmd-input", "");
+    const ghost = make("span", "t-ghost", "");
+    const cursor = make("span", "t-cursor");
+    tx.append(caret, cmdInput, cursor, ghost);
+    cursorLine.append(tx);
+    buffer.append(cursorLine);
+    activePrompt = { cwd: currentCwd, branch: currentBranch, cursorLine, cmdInput, ghost, cursor, text: "" };
+    resetTab();
+    buffer.scrollTop = buffer.scrollHeight;
+  }
+
+  function listProjects() {
+    const projects = options.projects || [];
+    const count = projects.length;
+
+    buffer.append(
+      row([
+        ["total ", "t-dim"],
+        [String(count), "md-num"],
+        [" projects in ~/Projects:", "t-dim"],
+      ])
+    );
+
+    for (const p of projects) {
+      const repoStr = `${p.repo}/`.padEnd(23);
+      const langStr = (p.language || "TypeScript / React").padEnd(24);
+      const starStr = `★ ${String(p.stars || 0).padStart(3)}`;
+
+      buffer.append(
+        row([
+          ["drwxr-xr-x  ", "t-dim"],
+          [repoStr, "t-path", `#${p.repo}`],
+          ["  ", ""],
+          [langStr, "md-code"],
+          ["  ", ""],
+          [starStr, "md-num"],
+        ])
+      );
+      buffer.append(
+        row([
+          ["  ↳ ", "t-dim"],
+          [p.category || "Project", "t-dim"],
+          ...(p.description ? [[" · ", "t-dim"], [p.description.slice(0, 52) + "…", "t-dim"]] : []),
+        ])
+      );
+    }
+
+    buffer.append(
+      row([
+        ["hint: ", "t-key"],
+        ["click any project or type ", "t-dim"],
+        ["cd <project>", "md-code"],
+        [" to inspect", "t-dim"],
+      ])
+    );
+  }
+
+  function changeDir(target) {
+    if (!target || target === "~" || target === "..") {
+      options.onSelectSection?.("about");
+      return;
+    }
+    const clean = target.replace(/\/$/, "").toLowerCase();
+    if (clean === "projects" || clean === "~/projects") {
+      listProjects();
+      return;
+    }
+    const found = (options.projects || []).find(
+      (p) => p.repo.toLowerCase() === clean || p.repo.toLowerCase().includes(clean)
+    );
+    if (found) {
+      options.onSelectProject?.(found.repo);
+    } else {
+      buffer.append(row([[`cd: no such file or directory: ${target}`, "t-dim"]]));
+    }
+  }
+
+  function catFile(target) {
+    if (!target) {
+      buffer.append(row([["cat: missing file operand", "t-dim"]]));
+      return;
+    }
+    const clean = target.replace(/\.md$/i, "").replace(/\/$/, "").toLowerCase();
+    const found = (options.projects || []).find(
+      (p) => p.repo.toLowerCase() === clean || p.repo.toLowerCase().includes(clean)
+    );
+    if (found) {
+      options.onSelectProject?.(found.repo);
+      return;
+    }
+    buffer.append(row([[`cat: ${target}: No such file or directory`, "t-dim"]]));
+  }
+
+  function showHelp() {
+    const lines = [
+      "Pseudo Terminal Commands:",
+      "  ls                    list all projects",
+      "  cd <project>          navigate to a project",
+      "  open <project>        open project in editor",
+      "  cat <project>.md      view project details",
+      "  whoami                view about bio and links",
+      "  stack                 view technology stack",
+      "  themes                open theme switcher",
+      "  clear                 clear terminal screen",
+      "  pwd                   print working directory",
+      "  exit                  return to portfolio home",
+    ];
+    for (const l of lines) {
+      buffer.append(row([[l, "t-dim"]]));
+    }
+  }
+
+  function executeCommand(cmdLine, cwd, branch) {
+    const trimmed = cmdLine.trim();
+    if (!trimmed) {
+      attachPrompt(cwd, branch);
+      return;
+    }
+    const [rawCmd, ...args] = trimmed.split(/\s+/);
+    const cmd = rawCmd.toLowerCase();
+    const arg = args.join(" ").trim();
+
+    if (cmd === "ls" || cmd === "dir") {
+      listProjects();
+      attachPrompt("~/Projects", "main");
+    } else if (cmd === "cd" || cmd === "open") {
+      changeDir(arg);
+      attachPrompt(cwd, branch);
+    } else if (cmd === "cat") {
+      catFile(arg);
+      attachPrompt(cwd, branch);
+    } else if (cmd === "whoami") {
+      options.onSelectSection?.("about");
+    } else if (cmd === "stack") {
+      options.onSelectSection?.("stack");
+    } else if (cmd === "themes" || cmd === "theme") {
+      options.onSelectSection?.("theme");
+    } else if (cmd === "pwd") {
+      buffer.append(row([[cwd || "~/Projects", "t-path"]]));
+      attachPrompt(cwd, branch);
+    } else if (cmd === "clear") {
+      buffer.replaceChildren();
+      attachPrompt(cwd, branch);
+    } else if (cmd === "help") {
+      showHelp();
+      attachPrompt(cwd, branch);
+    } else if (cmd === "exit" || cmd === "q") {
+      if (typeof window !== "undefined") window.location.href = "/";
+    } else {
+      buffer.append(row([[`fish: Unknown command '${rawCmd}'. Type 'ls' to list projects or 'help' for commands.`, "t-dim"]]));
+      attachPrompt(cwd, branch);
+    }
+    buffer.scrollTop = buffer.scrollHeight;
+  }
+
+  function runCommand(commandText) {
+    if (activePrompt) {
+      activePrompt.cmdInput.textContent = commandText;
+      activePrompt.cursor.remove();
+      const prevCwd = activePrompt.cwd;
+      const prevBranch = activePrompt.branch;
+      activePrompt = null;
+      executeCommand(commandText, prevCwd, prevBranch);
+    } else {
+      buffer.append(row(prompt(currentCwd || "~/Projects", currentBranch || "main"), "t-prompt-row"));
+      buffer.append(row([["› ", "t-caret"], [commandText, "t-cmd"]]));
+      executeCommand(commandText, currentCwd || "~/Projects", currentBranch || "main");
+    }
+  }
+
+  function handleKey(event) {
+    if (!activePrompt) return false;
+
+    if (event.ctrlKey && event.key.toLowerCase() === "c") {
+      event.preventDefault();
+      activePrompt.cmdInput.textContent = activePrompt.text + "^C";
+      activePrompt.cursor.remove();
+      const prevCwd = activePrompt.cwd;
+      const prevBranch = activePrompt.branch;
+      activePrompt = null;
+      attachPrompt(prevCwd, prevBranch);
+      return true;
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === "l") {
+      event.preventDefault();
+      buffer.replaceChildren();
+      const prevCwd = activePrompt.cwd;
+      const prevBranch = activePrompt.branch;
+      activePrompt = null;
+      attachPrompt(prevCwd, prevBranch);
+      return true;
+    }
+
+    if (event.key === "Tab") {
+      event.preventDefault();
+      if (tabMatches.length === 0) {
+        tabPrefix = activePrompt.text;
+        tabMatches = getCompletions(tabPrefix);
+        tabIndex = -1;
+      }
+      if (tabMatches.length === 0) return true;
+      tabIndex = (tabIndex + 1) % tabMatches.length;
+      activePrompt.text = tabMatches[tabIndex];
+      activePrompt.cmdInput.textContent = activePrompt.text;
+      clearGhost();
+      // Show cycling hint for next match
+      if (tabMatches.length > 1) {
+        const nextIdx = (tabIndex + 1) % tabMatches.length;
+        showGhost(tabMatches[nextIdx]);
+      }
+      buffer.scrollTop = buffer.scrollHeight;
+      return true;
+    }
+
+    if (event.key === "Enter") {
+      event.preventDefault();
+      resetTab();
+      const cmdText = activePrompt.text;
+      const prevCwd = activePrompt.cwd;
+      const prevBranch = activePrompt.branch;
+      activePrompt.cursor.remove();
+      activePrompt = null;
+      if (cmdText.trim()) {
+        history.push(cmdText.trim());
+        historyIndex = history.length;
+      }
+      executeCommand(cmdText, prevCwd, prevBranch);
+      return true;
+    }
+
+    if (event.key === "Backspace") {
+      event.preventDefault();
+      resetTab();
+      if (activePrompt.text.length > 0) {
+        activePrompt.text = activePrompt.text.slice(0, -1);
+        activePrompt.cmdInput.textContent = activePrompt.text;
+        options.watch?.pressKey("Backspace");
+        // Show inline hint for current partial
+        const hints = getCompletions(activePrompt.text);
+        if (hints.length > 0 && activePrompt.text.length > 0) showGhost(hints[0]);
+        else clearGhost();
+      } else {
+        clearGhost();
+      }
+      return true;
+    }
+
+    if (event.key === "ArrowRight") {
+      if (activePrompt.ghost?.textContent) {
+        event.preventDefault();
+        activePrompt.text += activePrompt.ghost.textContent;
+        activePrompt.cmdInput.textContent = activePrompt.text;
+        clearGhost();
+        buffer.scrollTop = buffer.scrollHeight;
+        return true;
+      }
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      resetTab();
+      if (history.length > 0) {
+        if (historyIndex > 0) historyIndex--;
+        activePrompt.text = history[historyIndex] || "";
+        activePrompt.cmdInput.textContent = activePrompt.text;
+      }
+      return true;
+    }
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      resetTab();
+      if (historyIndex < history.length - 1) {
+        historyIndex++;
+        activePrompt.text = history[historyIndex] || "";
+        activePrompt.cmdInput.textContent = activePrompt.text;
+      } else {
+        historyIndex = history.length;
+        activePrompt.text = "";
+        activePrompt.cmdInput.textContent = "";
+      }
+      return true;
+    }
+
+    if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+      event.preventDefault();
+      resetTab();
+      activePrompt.text += event.key;
+      activePrompt.cmdInput.textContent = activePrompt.text;
+      options.watch?.pressChar(event.key);
+      const rect = activePrompt.cmdInput.getBoundingClientRect();
+      if (rect.width) options.watch?.focus(rect.right + 3, rect.top + rect.height / 2);
+      // Show inline hint
+      const hints = getCompletions(activePrompt.text);
+      if (hints.length > 0) showGhost(hints[0]);
+      else clearGhost();
+      buffer.scrollTop = buffer.scrollHeight;
+      return true;
+    }
+
+    return false;
+  }
+
+  const handleBufferClick = (event) => {
+    const link = event.target?.closest?.("[data-repo]");
+    if (link) {
+      event.preventDefault();
+      const repo = link.dataset.repo;
+      if (repo && options.onSelectProject) {
+        options.onSelectProject(repo);
+      }
+    }
+  };
+  buffer.addEventListener("click", handleBufferClick);
+
   return {
     show(spec) {
       const mine = ++token;
+      activePrompt = null;
+      currentCwd = spec.cwd;
+      currentBranch = spec.branch;
       stopViewer();
       unmount();
       hero?.destroy();
@@ -621,8 +1011,15 @@ export function createTerminal(buffer, options) {
       play(spec, mine);
       return hero;
     },
+    handleKey,
+    runCommand,
+    isPromptActive: () => Boolean(activePrompt),
+    hasInput: () => Boolean(activePrompt && activePrompt.text.length > 0),
+    focusPrompt() {
+      if (activePrompt) buffer.scrollTop = buffer.scrollHeight;
+    },
     zoom() {
-      return viewer?.visible ? zoom(viewer) : false;
+      return viewer ? zoom(viewer) : false;
     },
     step(delta) {
       return viewer?.at >= 0 ? go(viewer.at + delta, true) : false;
@@ -635,6 +1032,8 @@ export function createTerminal(buffer, options) {
     },
     destroy() {
       token++;
+      activePrompt = null;
+      buffer.removeEventListener("click", handleBufferClick);
       onTyping?.(false);
       stopViewer();
       unmount();

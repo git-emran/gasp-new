@@ -200,6 +200,14 @@ function DevWorkspace({ onReturnToIntro }) {
         typingTerm = on;
         paintTyping();
       },
+      projects: content.projects,
+      onSelectProject(repo) {
+        const entry = findEntry(repo);
+        if (entry) goTo(entry);
+      },
+      onSelectSection(sec) {
+        sectionSelectRef.current?.(sec);
+      },
     });
 
     function clearSoon(ms = 2400) {
@@ -492,6 +500,14 @@ function DevWorkspace({ onReturnToIntro }) {
 
     tabline.addEventListener("click", () => (editor.classList.contains("is-tree-open") ? closeDrawer() : openDrawer()));
 
+    const paneNode = $(".pane");
+    paneNode?.addEventListener("pointerdown", (e) => {
+      if (!e.target.closest("a, button, video")) {
+        buffer.focus({ preventScroll: true });
+        terminal.focusPrompt?.();
+      }
+    });
+
     function findEntry(name) {
       const wanted = key(name.replace(/\/README\.md$/i, "").replace(/^~\/Projects\/?/, ""));
       if (!wanted || ["readmemd", "about", "whoami", "home"].includes(wanted)) return entries.find((e) => e.kind === "about");
@@ -527,6 +543,12 @@ function DevWorkspace({ onReturnToIntro }) {
       if (!name) return say("");
       if (/^q(a|all)?!?$/.test(name) || name === "wq" || name === "x") {
         location.href = "/";
+        return;
+      }
+      if (name === "ls" || name === "projects" || name === "proj") {
+        say("");
+        terminal.runCommand("ls");
+        buffer.focus({ preventScroll: true });
         return;
       }
       if (name === "colorscheme" || name === "colo" || name === "theme") {
@@ -591,26 +613,33 @@ function DevWorkspace({ onReturnToIntro }) {
 
     const onKeyDown = (event) => {
       if (!event.repeat) watch?.pressKey(event.code, event.shiftKey);
-      if (event.ctrlKey || event.metaKey || event.altKey || !booted) return;
+      if (!booted) return;
+      if (event.metaKey || event.altKey) return;
+      if (event.ctrlKey && !(event.key.toLowerCase() === "c" || event.key.toLowerCase() === "l")) return;
       if (command !== null) {
         commandKey(event);
         return;
       }
       const target = event.target instanceof Element ? event.target : null;
       if (target?.closest(".rack") || (target?.closest(".frame.is-xray") && ["Escape", "Enter", " "].includes(event.key))) return;
+
+      // When pseudo terminal has an active prompt, give terminal input top priority
+      if (terminal.handleKey(event)) {
+        return;
+      }
+
       if (event.key === ":") {
         event.preventDefault();
         startCommand();
         return;
       }
       const inBuffer = target && (target === buffer || buffer.contains(target));
-      if (event.key === "Tab" && !event.shiftKey) {
-        event.preventDefault();
-        if (inBuffer) wheel.focus();
-        else buffer.focus({ preventScroll: true });
-        return;
-      }
       if (inBuffer) {
+        if (event.key === "Tab" && !event.shiftKey) {
+          event.preventDefault();
+          wheel.focus();
+          return;
+        }
         const scroller = buffer.querySelector(".arc") || buffer;
         const lines = { j: 13, ArrowDown: 13, k: -13, ArrowUp: -13, d: scroller.clientHeight / 2, u: -scroller.clientHeight / 2 };
         if (event.key in lines) {
@@ -627,6 +656,22 @@ function DevWorkspace({ onReturnToIntro }) {
         return;
       }
       if (target?.closest("a, button:not(.wheel-item)") && event.key === "Enter") return;
+
+      if (
+        !target?.closest(".wheel") &&
+        (event.key.length === 1 || ["Tab", "Backspace", "Enter"].includes(event.key)) &&
+        !["j", "k", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
+      ) {
+        buffer.focus({ preventScroll: true });
+        if (terminal.handleKey(event)) {
+          return;
+        }
+      }
+      if (event.key === "Tab" && !event.shiftKey) {
+        event.preventDefault();
+        buffer.focus({ preventScroll: true });
+        return;
+      }
       if (event.key === "j" || event.key === "ArrowDown") {
         event.preventDefault();
         wheel.step(1);
@@ -752,21 +797,46 @@ function DevWorkspace({ onReturnToIntro }) {
       booted = true;
       open(initialEntry);
       wheel.commitNow();
+      buffer.focus({ preventScroll: true });
     });
 
     const handleLinkClick = (e) => {
       const anchor = e.target?.closest?.("a");
-      if (anchor && anchor.href && !anchor.href.startsWith("javascript:")) {
+      if (
+        anchor &&
+        anchor.href &&
+        !anchor.href.startsWith("javascript:") &&
+        !anchor.getAttribute("href")?.startsWith("#")
+      ) {
         anchor.target = "_blank";
         anchor.rel = "noopener noreferrer";
       }
     };
+    const handleImgClick = (e) => {
+      const img = e.target?.closest?.("img");
+      if (!img) return;
+      if (img.closest(".lb") || img.closest(".wheel")) return;
+      const frame = img.closest(".frame");
+      if (frame) {
+        e.preventDefault();
+        if (terminal.zoom()) return;
+      }
+      const src = img.currentSrc || img.src || img.getAttribute("src");
+      if (!src) return;
+      e.preventDefault();
+      lightbox.open({
+        items: [{ src, alt: img.alt || "" }],
+        index: 0,
+      });
+    };
     const node = containerRef.current;
     node?.addEventListener("click", handleLinkClick, { capture: true });
+    node?.addEventListener("click", handleImgClick);
 
     return () => {
       destroyed = true;
       node?.removeEventListener("click", handleLinkClick, { capture: true });
+      node?.removeEventListener("click", handleImgClick);
       document.removeEventListener("keydown", onKeyDown);
       cleanup?.();
       watch?.destroy?.();
