@@ -725,6 +725,7 @@ function finishBoot() {
 }
 
 function renderWall() {
+  if (!visit) return;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const width = wallCanvas.clientWidth;
   const height = wallCanvas.clientHeight;
@@ -4138,25 +4139,6 @@ async function leave(href) {
   if (onEnter) onEnter(); else if (href) window.location.href = href;
 }
 
-themeKey?.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (picker) closePicker(true);
-  else openPicker();
-});
-
-enterLink?.addEventListener("click", (event) => {
-  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  event.preventDefault();
-  leave(enterLink.href);
-});
-
-onWidthResize(() => {
-  cancelAnimationFrame(frame);
-  frame = 0;
-  closeNow();
-  abortBlock();
-  renderWall();
-});
 
 function markSeen() {
   let timer = 0;
@@ -4166,7 +4148,6 @@ function markSeen() {
     timer = setTimeout(() => {
       if (document.hidden) return;
       document.removeEventListener("visibilitychange", arm);
-      navigator.sendBeacon?.("/api/seen");
     }, 1000);
   };
   document.addEventListener("visibilitychange", arm);
@@ -4369,7 +4350,7 @@ function loadFace() {
 
 
   const cancelResize = onWidthResize(() => {
-    if (destroyed) return;
+    if (destroyed || !visit) return;
     cancelAnimationFrame(frame);
     frame = 0;
     closeNow();
