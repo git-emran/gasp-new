@@ -159,13 +159,28 @@ body,
 
 .brand {
   position: absolute;
+  display: inline-flex;
+  align-items: center;
   left: calc(5 * var(--cell-w));
   top: calc(3 * var(--cell-h));
   gap: var(--cell-w);
   min-height: 0;
+  white-space: nowrap;
   color: var(--ink);
   font: 400 12px/13px "Plex Mono", ui-monospace, monospace;
   letter-spacing: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 140ms ease, opacity 140ms ease;
+}
+
+.brand span {
+  white-space: nowrap;
+}
+
+.brand:hover {
+  color: var(--accent, var(--ink));
+  text-decoration: underline;
 }
 
 .brand svg {

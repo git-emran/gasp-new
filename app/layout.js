@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import { HoverBackgroundProvider } from "./components/HoverBackgroundProvider";
 import ScrollToTopFab from "./components/ScrollToTopFab";
+import TerminalGlitchTransition from "./components/TerminalGlitchTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,6 +58,7 @@ export default function RootLayout({ children }) {
         <HoverBackgroundProvider>
           {children}
           <ScrollToTopFab />
+          <TerminalGlitchTransition />
         </HoverBackgroundProvider>
         <SpeedInsights />
         <Analytics />

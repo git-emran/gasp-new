@@ -19,12 +19,8 @@ export default function GlimpseIntro({ onEnter }) {
   return (
     <div ref={containerRef} className="glimpse-stage stage">
       <header className="frame-top">
-        <Link className="brand" href="/" data-tip="back to main portfolio" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 88 80" aria-hidden="true">
-            <path d="M0 12L12 0H16V32H29L38 23V43L33 48H16V80H0Z" />
-            <path d="M50 0H88V16H57L50 23V57L57 64H88L72 80H50L34 64V16Z" />
-          </svg>
-          <span>emran.dev</span>
+        <Link className="brand" href="/" data-tip="back to GUI mode" style={{ whiteSpace: "nowrap" }}>
+          <span style={{ whiteSpace: "nowrap" }}>Go Back</span>
         </Link>
         <nav className="switch is-solo" aria-label="Elsewhere">
           <a href="https://github.com/git-emran" target="_blank" rel="noopener noreferrer">

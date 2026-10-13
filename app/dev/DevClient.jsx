@@ -808,8 +808,20 @@ function DevWorkspace({ onReturnToIntro }) {
         !anchor.href.startsWith("javascript:") &&
         !anchor.getAttribute("href")?.startsWith("#")
       ) {
-        anchor.target = "_blank";
-        anchor.rel = "noopener noreferrer";
+        const hrefAttr = anchor.getAttribute("href") || "";
+        const isGuiLink =
+          hrefAttr === "/" ||
+          anchor.dataset?.guiLink === "true" ||
+          anchor.classList.contains("brand") ||
+          (anchor.origin === window.location.origin && anchor.pathname === "/");
+
+        if (!isGuiLink) {
+          anchor.target = "_blank";
+          anchor.rel = "noopener noreferrer";
+        } else {
+          anchor.removeAttribute("target");
+          anchor.removeAttribute("rel");
+        }
       }
     };
     const handleImgClick = (e) => {
@@ -861,7 +873,7 @@ function DevWorkspace({ onReturnToIntro }) {
     <div ref={containerRef} className="dev-root">
       <main className="stage">
         <header className="frame-top">
-          <Link className="brand" href="/" data-tip="back to main portfolio" target="_blank" rel="noopener noreferrer">
+          <Link className="brand" href="/" data-tip="back to GUI mode" data-gui-link="true">
             <svg viewBox="0 0 88 80" aria-hidden="true">
               <path d="M0 12L12 0H16V32H29L38 23V43L33 48H16V80H0Z" />
               <path d="M50 0H88V16H57L50 23V57L57 64H88L72 80H50L34 64V16Z" />
@@ -887,7 +899,7 @@ function DevWorkspace({ onReturnToIntro }) {
             >
               intro
             </button>
-            <Link href="/" data-tip="back to GUI mode" target="_blank" rel="noopener noreferrer" style={{ marginRight: 16 }}>
+            <Link href="/" data-tip="back to GUI mode" data-gui-link="true" style={{ marginRight: 16 }}>
               GUI mode
             </Link>
             <a href="https://github.com/git-emran" target="_blank" rel="noopener noreferrer">
