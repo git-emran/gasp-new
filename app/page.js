@@ -54,39 +54,10 @@ export default function Home() {
               <h1 className="font-serif font-extrabold md:text-8xl text-7xl mt-0 mb-6 text-black dark:text-white tracking-tight -mr-[calc(100%/11)] md:mr-0">
                 Emran Hossain
               </h1>
-              <div className="leading-relaxed">
-                I&apos;m a designer and Software Engineer who builds high-performance, polished digital products. Most recently, I designed and engineered solutions for{" "}
-                <HoverLink
-                  href="https://getgenie.ai"
-                  preset="ai"
-                  className="underline underline-offset-4 decoration-1 decoration-gray-400 hover:decoration-black dark:hover:decoration-white transition-colors"
-                >
-                  GetGenie
-                </HoverLink>{" "}
-                (AI content assistant), the{" "}
-                <HoverLink
-                  href="https://fujifilmbiotechnologies.fujifilm.com/"
-                  preset="biotech"
-                  className="underline underline-offset-4 decoration-1 decoration-gray-400 hover:decoration-black dark:hover:decoration-white transition-colors"
-                >
-                  FujiFilm Diosynth
-                </HoverLink>{" "}
-                biotech laboratory platform, and{" "}
-                <HoverLink
-                  href="https://apps.apple.com/us/app/insidemaps-capture/id1077854108"
-                  preset="spatial"
-                  className="underline underline-offset-4 decoration-1 decoration-gray-400 hover:decoration-black dark:hover:decoration-white transition-colors"
-                >
-                  InsideMaps
-                </HoverLink>{" "}
-                spatial capture. 
-              </div>
-              <div className="mt-4 leading-relaxed italic mb-16 opacity-50">
-                In lots of parts of my life, I&apos;m a generalist. I like helping teams move faster and be more ambitious together, imagining novel solutions, obsessing over interaction details, and shipping software that users love using.
-              </div>
+              <div className="leading-relaxed opacity-90">
+                I&apos;m a <strong className="font-serif">Designer</strong> and <strong className="font-serif">Software Engineer</strong>  who builds high-performance, polished digital products.</div>
             </div>
 
-            {/* Articles Stream */}
             {/* Project 1: GetGenie */}
             <article className="mb-12 my-12">
               <div className="mb-6 mt-6 leading-relaxed xl:mr-60 lg:mr-30 max-w-prose md:mr-20">

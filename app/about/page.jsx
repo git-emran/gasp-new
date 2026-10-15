@@ -81,9 +81,9 @@ export default function AboutPage() {
                 Designing at the seam of taste, systems architecture, and production code.
               </h1>
               <p className="text-xl sm:text-2xl text-neutral-800 dark:text-neutral-200 font-sans leading-relaxed tracking-tight max-w-3xl">
-                I build fast, intuitive digital products from pixel-perfect interfaces to backend systems that scale. Over seven years spanning B2B SaaS, AI/ML tools, and developer platforms, I&apos;ve learned a single truth:{" "}
+                I build fast, intuitive digital products from pixel-perfect interfaces to backend systems that scale. Over seven years spanning B2B SaaS, AI/ML tools, and developer platforms, I&apos;ve learned a single truth {" "}
                 <span className="italic font-semibold text-black dark:text-white">
-                  A Good Software depends on how Intuitive it is.
+                  "A Good Software depends on how Intuitive it is".
                 </span>
               </p>
             </header>
